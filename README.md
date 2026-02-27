@@ -1,9 +1,9 @@
 <div align="center">
-  <a href="https://github.com/Sensible-Analytics/wealthfolio-au">
+  <a href="https://github.com/Sensible-Analytics/folio">
     <img src="apps/frontend/public/logo.svg" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">Wealthfolio AU</h3>
+  <h3 align="center">Folio</h3>
 
   <p align="center">
     Wealthfolio + Australian Bank Statement Downloader
@@ -15,7 +15,7 @@
     ·
     <a href="https://wealthfolio.app">Official Website</a>
     ·
-    <a href="https://github.com/Sensible-Analytics/wealthfolio-au/issues">Report Issues</a>
+    <a href="https://github.com/Sensible-Analytics/folio/issues">Report Issues</a>
   </p>
 </div>
 
@@ -104,8 +104,8 @@ app: [wealthfolio.app](https://wealthfolio.app/).
 
 ```bash
 # Clone this fork
-git clone https://github.com/Sensible-Analytics/wealthfolio-au.git
-cd wealthfolio-au
+git clone https://github.com/Sensible-Analytics/folio.git
+cd folio
 
 # Install Node dependencies
 pnpm install
@@ -163,7 +163,7 @@ full web mode and Docker documentation.
 ### Folder Structure
 
 ```
-wealthfolio-au/
+folio/
 ├── apps/frontend/          # React + Vite frontend
 ├── apps/tauri/             # Tauri desktop app (Rust IPC commands)
 │   └── src/banks/          # Bank automation scripts (Bank Connect)
