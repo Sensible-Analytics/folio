@@ -51,7 +51,7 @@ jobs:
         run: pnpm test -- --reporter=verbose
 
       - name: Property tests
-        run: pnpm --filter frontend test -- --reporter=verbose src/lib/*.property.test.ts
+        run: pnpm --filter frontend test -- --reporter=verbose 'src/lib/*.property.test.ts'
 
       - name: Build frontend
         run: pnpm build
