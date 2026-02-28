@@ -1,0 +1,5 @@
+---
+source: crates/core/tests/portfolio_regression.rs
+expression: "format!(\"{}\", a.price())"
+---
+150.255

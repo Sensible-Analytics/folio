@@ -1,0 +1,5 @@
+---
+source: crates/core/tests/portfolio_regression.rs
+expression: "format!(\"{:.4}\", proceeds)"
+---
+995.0500

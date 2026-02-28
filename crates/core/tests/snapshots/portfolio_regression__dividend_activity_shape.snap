@@ -1,0 +1,31 @@
+---
+source: crates/core/tests/portfolio_regression.rs
+expression: a
+---
+{
+  "id": "regression-001",
+  "accountId": "acc-001",
+  "assetId": "MSFT",
+  "activityType": "DIVIDEND",
+  "activityTypeOverride": null,
+  "sourceType": null,
+  "subtype": null,
+  "status": "POSTED",
+  "activityDate": "[datetime]",
+  "quantity": null,
+  "unitPrice": null,
+  "amount": "42.50",
+  "fee": "0",
+  "currency": "USD",
+  "fxRate": null,
+  "notes": null,
+  "sourceSystem": null,
+  "sourceRecordId": null,
+  "sourceGroupId": null,
+  "idempotencyKey": null,
+  "importRunId": null,
+  "isUserModified": false,
+  "needsReview": false,
+  "createdAt": "[datetime]",
+  "updatedAt": "[datetime]"
+}

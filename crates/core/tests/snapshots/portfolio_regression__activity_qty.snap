@@ -1,0 +1,5 @@
+---
+source: crates/core/tests/portfolio_regression.rs
+expression: "format!(\"{}\", a.qty())"
+---
+10.5

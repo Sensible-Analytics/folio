@@ -1,0 +1,5 @@
+---
+source: crates/core/tests/portfolio_regression.rs
+expression: "format!(\"{:.4}\", net_cost)"
+---
+1512.4900

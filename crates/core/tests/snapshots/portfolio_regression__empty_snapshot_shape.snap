@@ -1,0 +1,19 @@
+---
+source: crates/core/tests/portfolio_regression.rs
+expression: snap
+---
+{
+  "id": "00000000-0000-0000-0000-000000000001",
+  "accountId": "acc-001",
+  "snapshotDate": "2025-01-01",
+  "currency": "USD",
+  "positions": {},
+  "cashBalances": {},
+  "costBasis": 4800.0,
+  "netContribution": 5000.0,
+  "netContributionBase": 0.0,
+  "cashTotalAccountCurrency": 0.0,
+  "cashTotalBaseCurrency": 0.0,
+  "calculatedAt": "[datetime]",
+  "source": "CALCULATED"
+}
