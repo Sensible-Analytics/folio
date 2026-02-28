@@ -1,6 +1,6 @@
 use log::{debug, info};
 use rust_decimal::Decimal;
-use serde::Serialize;
+use serde::{Deserialize, Serialize};
 use std::sync::Arc;
 use tauri::{AppHandle, Emitter, Manager, State, WebviewUrl, WebviewWindowBuilder};
 use uuid::Uuid;
@@ -34,6 +34,15 @@ pub struct BankProgressPayload {
 #[serde(rename_all = "camelCase")]
 struct BankWindowClosedPayload {
     bank_key: String,
+}
+
+#[derive(Debug, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct WebviewBounds {
+    pub x: f64,
+    pub y: f64,
+    pub width: f64,
+    pub height: f64,
 }
 
 // ─── Settings persistence (JSON file in app data dir) ───────────────────────
@@ -222,6 +231,92 @@ pub async fn close_bank_window(bank_key: String, app: AppHandle) -> Result<(), S
     let label = format!("bank-{}", bank_key.to_lowercase());
     if let Some(window) = app.get_webview_window(&label) {
         window.close().map_err(|e| e.to_string())?;
+    }
+    Ok(())
+}
+
+// NOTE: Tauri v2 add_child() requires the "unstable" feature flag which is not enabled in this
+// project. These panel commands use a separate window (same as open_bank_window) but with the
+// label prefix "bank-panel-" so the frontend can distinguish panel vs. standalone windows.
+
+#[tauri::command]
+pub async fn open_bank_panel(
+    bank_key: String,
+    bounds: WebviewBounds,
+    app: AppHandle,
+) -> Result<(), String> {
+    let parsed_key: BankKey = bank_key.parse().map_err(|e: String| e)?;
+    let label = format!("bank-panel-{}", bank_key.to_lowercase());
+    let login_url = parsed_key.login_url();
+    let post_login = parsed_key.post_login_pattern().to_string();
+    let bank_key_clone = bank_key.clone();
+    let app_for_nav = app.clone();
+
+    debug!("Opening bank panel for {} at {}", bank_key, login_url);
+
+    // Close existing panel for this bank if open
+    if let Some(existing) = app.get_webview_window(&label) {
+        let _ = existing.close();
+        std::thread::sleep(std::time::Duration::from_millis(100));
+    }
+
+    let session_dir = app
+        .path()
+        .app_data_dir()
+        .map(|p| p.join("bank-sessions").join(&bank_key))
+        .ok();
+
+    let url = WebviewUrl::External(tauri::Url::parse(login_url).map_err(|e| e.to_string())?);
+
+    let mut builder = WebviewWindowBuilder::new(&app, &label, url)
+        .title(format!("{} - Bank Connect", parsed_key.display_name()))
+        .inner_size(bounds.width, bounds.height)
+        .resizable(true)
+        .on_navigation(move |nav_url| {
+            let url_str = nav_url.as_str();
+            if url_str.contains(&post_login) {
+                info!("Bank login detected for {}: {}", bank_key_clone, url_str);
+                let _ = app_for_nav.emit(
+                    "bank://login-detected",
+                    BankLoginDetectedPayload {
+                        bank_key: bank_key_clone.clone(),
+                    },
+                );
+            }
+            true
+        });
+
+    if let Some(dir) = session_dir {
+        builder = builder.data_directory(dir);
+    }
+
+    builder.build().map_err(|e| e.to_string())?;
+
+    info!("Bank panel opened for {}", bank_key);
+    Ok(())
+}
+
+#[tauri::command]
+pub async fn close_bank_panel(bank_key: String, app: AppHandle) -> Result<(), String> {
+    let label = format!("bank-panel-{}", bank_key.to_lowercase());
+    if let Some(wv) = app.get_webview_window(&label) {
+        wv.close().map_err(|e| e.to_string())?;
+    }
+    Ok(())
+}
+
+#[tauri::command]
+pub async fn resize_bank_panel(
+    bank_key: String,
+    bounds: WebviewBounds,
+    app: AppHandle,
+) -> Result<(), String> {
+    let label = format!("bank-panel-{}", bank_key.to_lowercase());
+    if let Some(wv) = app.get_webview_window(&label) {
+        wv.set_size(tauri::LogicalSize::new(bounds.width, bounds.height))
+            .map_err(|e| e.to_string())?;
+        wv.set_position(tauri::LogicalPosition::new(bounds.x, bounds.y))
+            .map_err(|e| e.to_string())?;
     }
     Ok(())
 }
