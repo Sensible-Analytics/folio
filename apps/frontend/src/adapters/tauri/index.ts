@@ -196,6 +196,11 @@ export {
   listenBankProgress,
   listenBankDownloadComplete,
   listenBankWindowClosed,
+  openBankPanel,
+  closeBankPanel,
+  resizeBankPanel,
+  listenBankImportComplete,
+  listenBankNewAccountCreated,
 } from "./bank-connect";
 export type {
   BankConnectSettings,
@@ -204,6 +209,9 @@ export type {
   BankProgressPayload,
   BankDownloadCompletePayload,
   BankWindowClosedPayload,
+  WebviewBounds,
+  ImportCompletePayload,
+  NewAccountCreatedPayload,
 } from "./bank-connect";
 
 // Crypto Commands (sync crypto operations)

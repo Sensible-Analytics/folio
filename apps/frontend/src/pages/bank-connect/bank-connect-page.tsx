@@ -5,17 +5,20 @@ import { Button } from "@wealthfolio/ui/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@wealthfolio/ui/components/ui/card";
 import { ScrollArea } from "@wealthfolio/ui/components/ui/scroll-area";
 import { cn } from "@wealthfolio/ui/lib/utils";
-import { Building2, ChevronRight, LineChart, Loader2, Lock, LogIn, X } from "lucide-react";
+import { Building2, LineChart, Lock, LogIn, X } from "lucide-react";
 
 import {
-  closeBankWindow,
+  closeBankPanel,
   getBankConnectSettings,
   listBankDownloadRuns,
   listenBankDownloadComplete,
+  listenBankImportComplete,
   listenBankLoginDetected,
+  listenBankNewAccountCreated,
   listenBankProgress,
   listenBankWindowClosed,
-  openBankWindow,
+  openBankPanel,
+  resizeBankPanel,
   startBankDownload,
 } from "@/adapters";
 
@@ -26,7 +29,11 @@ import type {
   BankLoginDetectedPayload,
   BankProgressPayload,
   BankWindowClosedPayload,
+  ImportCompletePayload,
+  NewAccountCreatedPayload,
 } from "@/adapters";
+
+import { NewAccountsModal } from "./new-accounts-modal";
 
 // ============================================================================
 // Types
@@ -140,7 +147,6 @@ interface ConnectorCardProps {
   lastRun: BankDownloadRun | null;
   icon: React.ReactNode;
   onOpenLogin: () => void;
-  onStartDownload: () => void;
   onClose: () => void;
 }
 
@@ -150,7 +156,6 @@ function ConnectorCard({
   lastRun,
   icon,
   onOpenLogin,
-  onStartDownload,
   onClose,
 }: ConnectorCardProps) {
   if (connector.comingSoon) {
@@ -177,7 +182,6 @@ function ConnectorCard({
     );
   }
 
-  const canDownload = status === "logged-in";
   const isActive = status === "window-open" || status === "logged-in" || status === "downloading";
 
   return (
@@ -215,19 +219,6 @@ function ConnectorCard({
               Close
             </Button>
           )}
-          <Button
-            size="sm"
-            disabled={!canDownload}
-            onClick={onStartDownload}
-            variant={canDownload ? "default" : "secondary"}
-          >
-            {status === "downloading" ? (
-              <Loader2 className="mr-1 h-4 w-4 animate-spin" />
-            ) : (
-              <ChevronRight className="mr-1 h-4 w-4" />
-            )}
-            Start Download
-          </Button>
         </div>
       </CardContent>
     </Card>
@@ -243,8 +234,12 @@ export default function BankConnectPage() {
   const [lastRuns, setLastRuns] = useState<Record<string, BankDownloadRun | null>>({});
   const [logs, setLogs] = useState<LogEntry[]>([]);
   const [settings, setSettings] = useState<BankConnectSettings | null>(null);
+  const [newAccounts, setNewAccounts] = useState<NewAccountCreatedPayload[]>([]);
+  const [dismissedAccountIds, setDismissedAccountIds] = useState<Set<string>>(new Set());
   const logEndRef = useRef<HTMLDivElement>(null);
   const logIdCounter = useRef(0);
+  const panelRef = useRef<HTMLDivElement>(null);
+  const activeBankRef = useRef<string | null>(null);
 
   const addLog = useCallback((bankKey: string, level: LogEntry["level"], message: string) => {
     const entry: LogEntry = {
@@ -270,8 +265,13 @@ export default function BankConnectPage() {
     const unlisteners: (() => Promise<void>)[] = [];
 
     listenBankLoginDetected((event: { payload: BankLoginDetectedPayload }) => {
-      setStatuses((prev) => ({ ...prev, [event.payload.bankKey]: "logged-in" }));
-      addLog(event.payload.bankKey, "success", `Login detected for ${event.payload.bankKey}`);
+      const key = event.payload.bankKey;
+      setStatuses((prev) => ({ ...prev, [key]: "logged-in" }));
+      addLog(key, "success", "Login detected — starting automation...");
+      // Auto-start download
+      startBankDownload(key).catch((err) =>
+        addLog(key, "error", `Automation failed: ${String(err)}`),
+      );
     }).then((ul) => unlisteners.push(ul));
 
     listenBankProgress((event: { payload: BankProgressPayload }) => {
@@ -305,6 +305,23 @@ export default function BankConnectPage() {
       addLog(event.payload.bankKey, "info", `${event.payload.bankKey} window closed`);
     }).then((ul) => unlisteners.push(ul));
 
+    listenBankImportComplete((event: { payload: ImportCompletePayload }) => {
+      const { bankKey, newCount, skippedCount } = event.payload;
+      setStatuses((prev) => ({ ...prev, [bankKey]: "complete" }));
+      addLog(bankKey, "success", `Import complete: ${newCount} new, ${skippedCount} skipped`);
+      listBankDownloadRuns()
+        .then((runs) => setLastRuns(latestRunsByBank(runs)))
+        .catch(console.error);
+    }).then((ul) => unlisteners.push(ul));
+
+    listenBankNewAccountCreated((event: { payload: NewAccountCreatedPayload }) => {
+      setNewAccounts((prev) => {
+        // Avoid duplicates
+        if (prev.some((a) => a.accountId === event.payload.accountId)) return prev;
+        return [...prev, event.payload];
+      });
+    }).then((ul) => unlisteners.push(ul));
+
     return () => {
       unlisteners.forEach((ul) => ul());
     };
@@ -315,31 +332,42 @@ export default function BankConnectPage() {
     logEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [logs]);
 
+  // ResizeObserver to keep panel window in sync
+  useEffect(() => {
+    if (!panelRef.current) return;
+    const observer = new ResizeObserver(() => {
+      if (!activeBankRef.current || !panelRef.current) return;
+      const r = panelRef.current.getBoundingClientRect();
+      resizeBankPanel(activeBankRef.current, {
+        x: r.left,
+        y: r.top,
+        width: r.width,
+        height: r.height,
+      }).catch(console.error);
+    });
+    observer.observe(panelRef.current);
+    return () => observer.disconnect();
+  }, []);
+
   const handleOpenLogin = async (key: string) => {
+    if (!panelRef.current) return;
+    const r = panelRef.current.getBoundingClientRect();
+    activeBankRef.current = key;
     try {
-      await openBankWindow(key);
+      await openBankPanel(key, { x: r.left, y: r.top, width: r.width, height: r.height });
       setStatuses((prev) => ({ ...prev, [key]: "window-open" }));
-      addLog(key, "info", `Opening ${key} login window...`);
+      addLog(key, "info", `Opening ${key} — please log in...`);
     } catch (err) {
-      addLog(key, "error", `Failed to open ${key} window: ${String(err)}`);
+      addLog(key, "error", `Failed to open panel: ${String(err)}`);
     }
   };
 
   const handleClose = async (key: string) => {
     try {
-      await closeBankWindow(key);
+      await closeBankPanel(key);
+      activeBankRef.current = null;
     } catch (err) {
-      addLog(key, "error", `Failed to close ${key} window: ${String(err)}`);
-    }
-  };
-
-  const handleStartDownload = async (key: string) => {
-    try {
-      setStatuses((prev) => ({ ...prev, [key]: "downloading" }));
-      await startBankDownload(key);
-    } catch (err) {
-      setStatuses((prev) => ({ ...prev, [key]: "error" }));
-      addLog(key, "error", `Download failed for ${key}: ${String(err)}`);
+      addLog(key, "error", `Failed to close ${key} panel: ${String(err)}`);
     }
   };
 
@@ -349,7 +377,6 @@ export default function BankConnectPage() {
     lastRun: lastRuns[connector.key] ?? null,
     icon,
     onOpenLogin: () => handleOpenLogin(connector.key),
-    onStartDownload: () => handleStartDownload(connector.key),
     onClose: () => handleClose(connector.key),
   });
 
@@ -404,37 +431,52 @@ export default function BankConnectPage() {
           </div>
         </ScrollArea>
 
-        {/* Right: Log Panel */}
-        <div className="flex flex-1 flex-col overflow-hidden rounded-lg border">
-          <div className="bg-muted/30 flex items-center justify-between border-b px-3 py-2">
-            <span className="text-sm font-medium">Activity Log</span>
-            <Button variant="ghost" size="sm" onClick={() => setLogs([])} className="h-7 text-xs">
-              Clear
-            </Button>
-          </div>
-          <ScrollArea className="flex-1 p-3">
-            {logs.length === 0 ? (
-              <p className="text-muted-foreground py-8 text-center text-xs">
-                Log messages will appear here...
+        {/* Right: panel area + log */}
+        <div className="flex flex-1 flex-col gap-2 overflow-hidden">
+          {/* Bank panel placeholder */}
+          <div
+            ref={panelRef}
+            className="bg-muted/20 flex flex-[3] items-center justify-center rounded-lg border"
+          >
+            {!activeBankRef.current && (
+              <p className="text-muted-foreground text-sm">
+                Select a bank and log in — the bank site will open in a separate window
               </p>
-            ) : (
-              <div className="space-y-1 font-mono text-xs">
-                {logs.map((entry) => (
-                  <div key={entry.id} className="flex gap-2">
-                    <span className="text-muted-foreground shrink-0">
-                      {new Date(entry.timestamp).toLocaleTimeString()}
-                    </span>
-                    <span className="text-muted-foreground w-14 shrink-0">[{entry.bankKey}]</span>
-                    <span className={cn("w-14 shrink-0", levelColor(entry.level))}>
-                      [{entry.level}]
-                    </span>
-                    <span>{entry.message}</span>
-                  </div>
-                ))}
-                <div ref={logEndRef} />
-              </div>
             )}
-          </ScrollArea>
+          </div>
+
+          {/* Log Panel */}
+          <div className="flex flex-[2] flex-col overflow-hidden rounded-lg border">
+            <div className="bg-muted/30 flex items-center justify-between border-b px-3 py-2">
+              <span className="text-sm font-medium">Activity Log</span>
+              <Button variant="ghost" size="sm" onClick={() => setLogs([])} className="h-7 text-xs">
+                Clear
+              </Button>
+            </div>
+            <ScrollArea className="flex-1 p-3">
+              {logs.length === 0 ? (
+                <p className="text-muted-foreground py-8 text-center text-xs">
+                  Log messages will appear here...
+                </p>
+              ) : (
+                <div className="space-y-1 font-mono text-xs">
+                  {logs.map((entry) => (
+                    <div key={entry.id} className="flex gap-2">
+                      <span className="text-muted-foreground shrink-0">
+                        {new Date(entry.timestamp).toLocaleTimeString()}
+                      </span>
+                      <span className="text-muted-foreground w-14 shrink-0">[{entry.bankKey}]</span>
+                      <span className={cn("w-14 shrink-0", levelColor(entry.level))}>
+                        [{entry.level}]
+                      </span>
+                      <span>{entry.message}</span>
+                    </div>
+                  ))}
+                  <div ref={logEndRef} />
+                </div>
+              )}
+            </ScrollArea>
+          </div>
         </div>
       </div>
 
@@ -446,6 +488,13 @@ export default function BankConnectPage() {
           {settings.yearsBack} years back
         </div>
       )}
+
+      <NewAccountsModal
+        accounts={newAccounts.filter((a) => !dismissedAccountIds.has(a.accountId))}
+        onDismiss={() => {
+          setDismissedAccountIds(new Set(newAccounts.map((a) => a.accountId)));
+        }}
+      />
     </div>
   );
 }
