@@ -250,7 +250,7 @@ pub async fn start_bank_download(
         .map_err(|e| format!("Failed to create download run: {}", e))?;
 
     // Get the automation script
-    let script = crate::banks::get_automation_script(&bank_key, settings.years_back)
+    let script = crate::banks::get_automation_script(&bank_key, settings.years_back, &run_id)
         .ok_or_else(|| format!("No automation script for bank: {}", bank_key))?;
 
     // Inject script into bank window
