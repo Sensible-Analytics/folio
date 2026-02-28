@@ -5,7 +5,7 @@ import { Button } from "@wealthfolio/ui/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@wealthfolio/ui/components/ui/card";
 import { ScrollArea } from "@wealthfolio/ui/components/ui/scroll-area";
 import { cn } from "@wealthfolio/ui/lib/utils";
-import { Building2, ChevronRight, Loader2, LogIn, X } from "lucide-react";
+import { Building2, ChevronRight, LineChart, Loader2, Lock, LogIn, X } from "lucide-react";
 
 import {
   closeBankWindow,
@@ -40,18 +40,20 @@ interface LogEntry {
   bankKey: string;
 }
 
-type BankStatus = "idle" | "window-open" | "logged-in" | "downloading" | "complete" | "error";
+type ConnectorStatus = "idle" | "window-open" | "logged-in" | "downloading" | "complete" | "error";
 
-interface BankInfo {
+interface ConnectorInfo {
   key: string;
   displayName: string;
+  badge?: string; // e.g. "Beta"
+  comingSoon?: boolean;
 }
 
 // ============================================================================
 // Constants
 // ============================================================================
 
-const BANKS: BankInfo[] = [
+const BANKS: ConnectorInfo[] = [
   { key: "ING", displayName: "ING" },
   { key: "CBA", displayName: "CommBank" },
   { key: "ANZ", displayName: "ANZ" },
@@ -59,11 +61,19 @@ const BANKS: BankInfo[] = [
   { key: "BEYOND", displayName: "Beyond Bank" },
 ];
 
+const BROKERS: ConnectorInfo[] = [
+  { key: "IBKR", displayName: "Interactive Brokers", badge: "Beta" },
+  { key: "COMMSEC", displayName: "CommSec", comingSoon: true },
+  { key: "SHARESIES", displayName: "Sharesies", comingSoon: true },
+  { key: "SELFWEALTH", displayName: "SelfWealth", comingSoon: true },
+  { key: "STAKE", displayName: "Stake", comingSoon: true },
+];
+
 // ============================================================================
 // Helpers
 // ============================================================================
 
-function statusLabel(status: BankStatus): string {
+function statusLabel(status: ConnectorStatus): string {
   switch (status) {
     case "idle":
       return "Idle";
@@ -80,16 +90,16 @@ function statusLabel(status: BankStatus): string {
   }
 }
 
-function statusVariant(status: BankStatus): "default" | "secondary" | "destructive" | "outline" {
+function statusVariant(
+  status: ConnectorStatus,
+): "default" | "secondary" | "destructive" | "outline" {
   switch (status) {
     case "idle":
       return "outline";
     case "window-open":
       return "secondary";
     case "logged-in":
-      return "default";
     case "downloading":
-      return "default";
     case "complete":
       return "default";
     case "error":
@@ -121,19 +131,52 @@ function latestRunsByBank(runs: BankDownloadRun[]): Record<string, BankDownloadR
 }
 
 // ============================================================================
-// BankCard Component
+// ConnectorCard Component
 // ============================================================================
 
-interface BankCardProps {
-  bank: BankInfo;
-  status: BankStatus;
+interface ConnectorCardProps {
+  connector: ConnectorInfo;
+  status: ConnectorStatus;
   lastRun: BankDownloadRun | null;
+  icon: React.ReactNode;
   onOpenLogin: () => void;
   onStartDownload: () => void;
   onClose: () => void;
 }
 
-function BankCard({ bank, status, lastRun, onOpenLogin, onStartDownload, onClose }: BankCardProps) {
+function ConnectorCard({
+  connector,
+  status,
+  lastRun,
+  icon,
+  onOpenLogin,
+  onStartDownload,
+  onClose,
+}: ConnectorCardProps) {
+  if (connector.comingSoon) {
+    return (
+      <Card className="opacity-60">
+        <CardHeader className="pb-2">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              {icon}
+              <CardTitle className="text-base">{connector.displayName}</CardTitle>
+            </div>
+            <Badge variant="outline" className="text-muted-foreground gap-1">
+              <Lock className="h-3 w-3" />
+              Coming Soon
+            </Badge>
+          </div>
+        </CardHeader>
+        <CardContent>
+          <p className="text-muted-foreground text-xs">
+            Available as a plugin in a future release.
+          </p>
+        </CardContent>
+      </Card>
+    );
+  }
+
   const canDownload = status === "logged-in";
   const isActive = status === "window-open" || status === "logged-in" || status === "downloading";
 
@@ -142,8 +185,13 @@ function BankCard({ bank, status, lastRun, onOpenLogin, onStartDownload, onClose
       <CardHeader className="pb-2">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Building2 className="text-muted-foreground h-5 w-5" />
-            <CardTitle className="text-base">{bank.displayName}</CardTitle>
+            {icon}
+            <CardTitle className="text-base">{connector.displayName}</CardTitle>
+            {connector.badge && (
+              <Badge variant="secondary" className="text-xs">
+                {connector.badge}
+              </Badge>
+            )}
           </div>
           <Badge variant={statusVariant(status)}>{statusLabel(status)}</Badge>
         </div>
@@ -191,7 +239,7 @@ function BankCard({ bank, status, lastRun, onOpenLogin, onStartDownload, onClose
 // ============================================================================
 
 export default function BankConnectPage() {
-  const [bankStatuses, setBankStatuses] = useState<Record<string, BankStatus>>({});
+  const [statuses, setStatuses] = useState<Record<string, ConnectorStatus>>({});
   const [lastRuns, setLastRuns] = useState<Record<string, BankDownloadRun | null>>({});
   const [logs, setLogs] = useState<LogEntry[]>([]);
   const [settings, setSettings] = useState<BankConnectSettings | null>(null);
@@ -212,7 +260,6 @@ export default function BankConnectPage() {
   // Load initial data
   useEffect(() => {
     getBankConnectSettings().then(setSettings).catch(console.error);
-
     listBankDownloadRuns()
       .then((runs) => setLastRuns(latestRunsByBank(runs)))
       .catch(console.error);
@@ -223,7 +270,7 @@ export default function BankConnectPage() {
     const unlisteners: (() => Promise<void>)[] = [];
 
     listenBankLoginDetected((event: { payload: BankLoginDetectedPayload }) => {
-      setBankStatuses((prev) => ({ ...prev, [event.payload.bankKey]: "logged-in" }));
+      setStatuses((prev) => ({ ...prev, [event.payload.bankKey]: "logged-in" }));
       addLog(event.payload.bankKey, "success", `Login detected for ${event.payload.bankKey}`);
     }).then((ul) => unlisteners.push(ul));
 
@@ -236,20 +283,19 @@ export default function BankConnectPage() {
     }).then((ul) => unlisteners.push(ul));
 
     listenBankDownloadComplete((event: { payload: BankDownloadCompletePayload }) => {
-      setBankStatuses((prev) => ({ ...prev, [event.payload.bankKey]: "complete" }));
+      setStatuses((prev) => ({ ...prev, [event.payload.bankKey]: "complete" }));
       addLog(
         event.payload.bankKey,
         "success",
         `Download complete: ${event.payload.downloaded} files`,
       );
-      // Refresh runs
       listBankDownloadRuns()
         .then((runs) => setLastRuns(latestRunsByBank(runs)))
         .catch(console.error);
     }).then((ul) => unlisteners.push(ul));
 
     listenBankWindowClosed((event: { payload: BankWindowClosedPayload }) => {
-      setBankStatuses((prev) => {
+      setStatuses((prev) => {
         const current = prev[event.payload.bankKey];
         if (current === "window-open" || current === "logged-in") {
           return { ...prev, [event.payload.bankKey]: "idle" };
@@ -269,60 +315,96 @@ export default function BankConnectPage() {
     logEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [logs]);
 
-  const handleOpenLogin = async (bankKey: string) => {
+  const handleOpenLogin = async (key: string) => {
     try {
-      await openBankWindow(bankKey);
-      setBankStatuses((prev) => ({ ...prev, [bankKey]: "window-open" }));
-      addLog(bankKey, "info", `Opening ${bankKey} login window...`);
+      await openBankWindow(key);
+      setStatuses((prev) => ({ ...prev, [key]: "window-open" }));
+      addLog(key, "info", `Opening ${key} login window...`);
     } catch (err) {
-      addLog(bankKey, "error", `Failed to open ${bankKey} window: ${String(err)}`);
+      addLog(key, "error", `Failed to open ${key} window: ${String(err)}`);
     }
   };
 
-  const handleClose = async (bankKey: string) => {
+  const handleClose = async (key: string) => {
     try {
-      await closeBankWindow(bankKey);
+      await closeBankWindow(key);
     } catch (err) {
-      addLog(bankKey, "error", `Failed to close ${bankKey} window: ${String(err)}`);
+      addLog(key, "error", `Failed to close ${key} window: ${String(err)}`);
     }
   };
 
-  const handleStartDownload = async (bankKey: string) => {
+  const handleStartDownload = async (key: string) => {
     try {
-      setBankStatuses((prev) => ({ ...prev, [bankKey]: "downloading" }));
-      await startBankDownload(bankKey);
+      setStatuses((prev) => ({ ...prev, [key]: "downloading" }));
+      await startBankDownload(key);
     } catch (err) {
-      setBankStatuses((prev) => ({ ...prev, [bankKey]: "error" }));
-      addLog(bankKey, "error", `Download failed for ${bankKey}: ${String(err)}`);
+      setStatuses((prev) => ({ ...prev, [key]: "error" }));
+      addLog(key, "error", `Download failed for ${key}: ${String(err)}`);
     }
   };
+
+  const connectorCardProps = (connector: ConnectorInfo, icon: React.ReactNode) => ({
+    connector,
+    status: statuses[connector.key] ?? "idle",
+    lastRun: lastRuns[connector.key] ?? null,
+    icon,
+    onOpenLogin: () => handleOpenLogin(connector.key),
+    onStartDownload: () => handleStartDownload(connector.key),
+    onClose: () => handleClose(connector.key),
+  });
 
   return (
     <div className="flex h-full flex-col gap-4 p-6">
       <div>
-        <h1 className="text-2xl font-bold">Bank Connect</h1>
+        <h1 className="text-2xl font-bold">Connect</h1>
         <p className="text-muted-foreground text-sm">
-          Download Australian bank statements directly into Wealthfolio
+          Download statements from Australian banks and brokers directly into Wealthfolio
         </p>
       </div>
 
       <div className="flex min-h-0 flex-1 gap-4">
-        {/* Bank Cards */}
-        <div className="flex w-72 shrink-0 flex-col gap-3 overflow-y-auto">
-          {BANKS.map((bank) => (
-            <BankCard
-              key={bank.key}
-              bank={bank}
-              status={bankStatuses[bank.key] ?? "idle"}
-              lastRun={lastRuns[bank.key] ?? null}
-              onOpenLogin={() => handleOpenLogin(bank.key)}
-              onStartDownload={() => handleStartDownload(bank.key)}
-              onClose={() => handleClose(bank.key)}
-            />
-          ))}
-        </div>
+        {/* Left: connector cards */}
+        <ScrollArea className="w-80 shrink-0">
+          <div className="flex flex-col gap-4 pr-2">
+            {/* Banks */}
+            <div>
+              <p className="text-muted-foreground mb-2 text-xs font-semibold uppercase tracking-wide">
+                Banks
+              </p>
+              <div className="flex flex-col gap-2">
+                {BANKS.map((bank) => (
+                  <ConnectorCard
+                    key={bank.key}
+                    {...connectorCardProps(
+                      bank,
+                      <Building2 className="text-muted-foreground h-5 w-5" />,
+                    )}
+                  />
+                ))}
+              </div>
+            </div>
 
-        {/* Log Panel */}
+            {/* Brokers */}
+            <div>
+              <p className="text-muted-foreground mb-2 text-xs font-semibold uppercase tracking-wide">
+                Brokers
+              </p>
+              <div className="flex flex-col gap-2">
+                {BROKERS.map((broker) => (
+                  <ConnectorCard
+                    key={broker.key}
+                    {...connectorCardProps(
+                      broker,
+                      <LineChart className="text-muted-foreground h-5 w-5" />,
+                    )}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+        </ScrollArea>
+
+        {/* Right: Log Panel */}
         <div className="flex flex-1 flex-col overflow-hidden rounded-lg border">
           <div className="bg-muted/30 flex items-center justify-between border-b px-3 py-2">
             <span className="text-sm font-medium">Activity Log</span>
@@ -342,8 +424,8 @@ export default function BankConnectPage() {
                     <span className="text-muted-foreground shrink-0">
                       {new Date(entry.timestamp).toLocaleTimeString()}
                     </span>
-                    <span className="text-muted-foreground w-12 shrink-0">[{entry.bankKey}]</span>
-                    <span className={cn("w-12 shrink-0", levelColor(entry.level))}>
+                    <span className="text-muted-foreground w-14 shrink-0">[{entry.bankKey}]</span>
+                    <span className={cn("w-14 shrink-0", levelColor(entry.level))}>
                       [{entry.level}]
                     </span>
                     <span>{entry.message}</span>

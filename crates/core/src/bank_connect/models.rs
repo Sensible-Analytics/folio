@@ -1,13 +1,17 @@
 use serde::{Deserialize, Serialize};
 
+/// All connectors (banks + brokers) share this key type.
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Hash)]
 #[serde(rename_all = "SCREAMING_SNAKE_CASE")]
 pub enum BankKey {
+    // ── Australian banks ────────────────────────────────────────
     Ing,
     Cba,
     Anz,
     Bom,
     Beyond,
+    // ── Brokers / portfolio connectors ──────────────────────────
+    Ibkr,
 }
 
 impl BankKey {
@@ -18,26 +22,29 @@ impl BankKey {
             BankKey::Anz => "ANZ",
             BankKey::Bom => "BOM",
             BankKey::Beyond => "BEYOND",
+            BankKey::Ibkr => "IBKR",
         }
     }
 
     pub fn login_url(&self) -> &'static str {
         match self {
             BankKey::Ing => "https://www.ing.com.au/securebanking/",
-            BankKey::Cba => "https://www.netbank.com.au/netbank/banksession/login",
-            BankKey::Anz => "https://www.anz.com.au/IBAU/BANKAWAYTRAN",
+            BankKey::Cba => "https://www.netbank.com.au/",
+            BankKey::Anz => "https://www.anz.com.au/IBAU/Bank/",
             BankKey::Bom => "https://ibanking.bankofmelbourne.com.au/ibank/loginPage.action",
-            BankKey::Beyond => "https://ibank.beyondbank.com.au/fb/",
+            BankKey::Beyond => "https://online.beyondbank.com.au/web/banking",
+            BankKey::Ibkr => "https://www.ibkr.com.au/sso/Login?RL=1&locale=en_AU",
         }
     }
 
     pub fn post_login_pattern(&self) -> &'static str {
         match self {
-            BankKey::Ing => "/securebanking/index.html",
-            BankKey::Cba => "/netbank/dashboard",
-            BankKey::Anz => "/IBAU/BANKAWAY",
-            BankKey::Bom => "/ibank/portalPage.action",
-            BankKey::Beyond => "/fb/ib/prf/",
+            BankKey::Ing => "securebanking",
+            BankKey::Cba => "netbank.com.au/netbank",
+            BankKey::Anz => "anz.com.au/IBAU/Bank",
+            BankKey::Bom => "ibanking.bankofmelbourne.com.au/ibank",
+            BankKey::Beyond => "online.beyondbank.com.au/web/banking#/",
+            BankKey::Ibkr => "portal.ibkr.com",
         }
     }
 
@@ -48,6 +55,14 @@ impl BankKey {
             BankKey::Anz => "ANZ",
             BankKey::Bom => "Bank of Melbourne",
             BankKey::Beyond => "Beyond Bank",
+            BankKey::Ibkr => "Interactive Brokers",
+        }
+    }
+
+    pub fn connector_type(&self) -> &'static str {
+        match self {
+            BankKey::Ibkr => "broker",
+            _ => "bank",
         }
     }
 }
@@ -67,7 +82,8 @@ impl std::str::FromStr for BankKey {
             "ANZ" => Ok(BankKey::Anz),
             "BOM" => Ok(BankKey::Bom),
             "BEYOND" => Ok(BankKey::Beyond),
-            _ => Err(format!("Unknown bank key: {}", s)),
+            "IBKR" => Ok(BankKey::Ibkr),
+            _ => Err(format!("Unknown connector key: {}", s)),
         }
     }
 }
@@ -103,6 +119,11 @@ pub struct BankConnectSettings {
     pub years_back: u32,
     pub enabled_banks: Vec<String>,
     pub overwrite_existing: bool,
+    pub download_timeout_secs: u32,
+    pub session_timeout_secs: u32,
+    pub retry_attempts: u32,
+    pub auto_close_login_window: bool,
+    pub log_level: String,
 }
 
 impl Default for BankConnectSettings {
@@ -116,8 +137,14 @@ impl Default for BankConnectSettings {
                 "ANZ".to_string(),
                 "BOM".to_string(),
                 "BEYOND".to_string(),
+                "IBKR".to_string(),
             ],
             overwrite_existing: false,
+            download_timeout_secs: 30,
+            session_timeout_secs: 120,
+            retry_attempts: 3,
+            auto_close_login_window: true,
+            log_level: "info".to_string(),
         }
     }
 }

@@ -17,6 +17,11 @@ export interface BankConnectSettings {
   yearsBack: number;
   enabledBanks: string[];
   overwriteExisting: boolean;
+  downloadTimeoutSecs: number;
+  sessionTimeoutSecs: number;
+  retryAttempts: number;
+  autoCloseLoginWindow: boolean;
+  logLevel: string;
 }
 
 export interface BankDownloadRun {
