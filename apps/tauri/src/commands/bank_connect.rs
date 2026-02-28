@@ -5,8 +5,9 @@ use tauri::{AppHandle, Emitter, Manager, State, WebviewUrl, WebviewWindowBuilder
 use uuid::Uuid;
 
 use crate::context::ServiceContext;
+use wealthfolio_core::accounts::{NewAccount, TrackingMode};
 use wealthfolio_core::bank_connect::{
-    BankConnectSettings, BankDownloadRun, BankKey, NewBankDownloadRun,
+    BankConnectSettings, BankDownloadRun, BankKey, NewBankDownloadRun, ScrapedAccount,
 };
 
 // ─── Event Payloads ─────────────────────────────────────────────────────────
@@ -58,6 +59,64 @@ fn save_settings_to_file(app: &AppHandle, settings: &BankConnectSettings) -> Res
     let json = serde_json::to_string_pretty(settings).map_err(|e| e.to_string())?;
     std::fs::write(&path, json).map_err(|e| e.to_string())?;
     Ok(())
+}
+
+// ─── Helpers ─────────────────────────────────────────────────────────────────
+
+/// Map a bank-scraped account type string to the canonical Wealthfolio account type.
+fn map_account_type(raw: &str) -> String {
+    match raw.to_uppercase().as_str() {
+        "SAVINGS" => "SAVINGS".to_string(),
+        "INVESTMENT" => "TRADING".to_string(),
+        _ => "CHECKING".to_string(),
+    }
+}
+
+/// Find an existing account by provider_account_id, or create a new one.
+/// provider_account_id format: "{BANK_KEY}:{account_number_stripped}"
+async fn find_or_create_bank_account(
+    ctx: &ServiceContext,
+    scraped: &ScrapedAccount,
+) -> Result<String, String> {
+    let account_number = scraped.account_number.replace(' ', "");
+    let provider_id = format!("{}:{}", scraped.bank_key, account_number);
+
+    // Check if account already exists
+    let accounts = ctx
+        .account_service()
+        .get_all_accounts()
+        .map_err(|e| e.to_string())?;
+
+    if let Some(existing) = accounts
+        .iter()
+        .find(|a| a.provider_account_id.as_deref() == Some(&provider_id))
+    {
+        return Ok(existing.id.clone());
+    }
+
+    // Create new account
+    let new_account = NewAccount {
+        id: Some(Uuid::new_v4().to_string()),
+        name: format!("{} - {}", scraped.bank_key, scraped.account_name),
+        account_type: map_account_type(&scraped.account_type),
+        group: None,
+        currency: scraped.currency.clone(),
+        is_default: false,
+        is_active: true,
+        platform_id: None,
+        account_number: Some(account_number),
+        meta: None,
+        provider: Some("BANK_CONNECT".to_string()),
+        provider_account_id: Some(provider_id),
+        is_archived: false,
+        tracking_mode: TrackingMode::Transactions,
+    };
+
+    ctx.account_service()
+        .create_account(new_account)
+        .await
+        .map(|a| a.id)
+        .map_err(|e| e.to_string())
 }
 
 // ─── Commands ────────────────────────────────────────────────────────────────
@@ -214,4 +273,46 @@ pub async fn start_bank_download(
 
     info!("Bank download started for run {}", run_id);
     Ok(run_id)
+}
+
+#[cfg(test)]
+mod bank_connect_tests {
+    use wealthfolio_core::bank_connect::models::ScrapedAccount;
+
+    fn sample_scraped_account() -> ScrapedAccount {
+        ScrapedAccount {
+            bank_key: "ING".into(),
+            account_name: "Orange Everyday".into(),
+            account_number: "12345678".into(),
+            bsb: Some("923-100".into()),
+            currency: "AUD".into(),
+            account_type: "TRANSACTION".into(),
+            current_balance: Some(1234.56),
+        }
+    }
+
+    #[test]
+    fn provider_id_format() {
+        let scraped = sample_scraped_account();
+        let account_number = scraped.account_number.replace(' ', "");
+        let provider_id = format!("{}:{}", scraped.bank_key, account_number);
+        assert_eq!(provider_id, "ING:12345678");
+    }
+
+    #[test]
+    fn provider_id_strips_spaces() {
+        let mut scraped = sample_scraped_account();
+        scraped.account_number = "1234 5678".into();
+        let account_number = scraped.account_number.replace(' ', "");
+        let provider_id = format!("{}:{}", scraped.bank_key, account_number);
+        assert_eq!(provider_id, "ING:12345678");
+    }
+
+    #[test]
+    fn map_account_type_defaults_to_checking() {
+        assert_eq!(super::map_account_type("TRANSACTION"), "CHECKING");
+        assert_eq!(super::map_account_type("SAVINGS"), "SAVINGS");
+        assert_eq!(super::map_account_type("INVESTMENT"), "TRADING");
+        assert_eq!(super::map_account_type("unknown"), "CHECKING");
+    }
 }
