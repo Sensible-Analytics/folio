@@ -5,8 +5,8 @@
 
 use std::sync::{Arc, RwLock};
 
-use wealthfolio_ai::{AiEnvironment, ChatRepositoryTrait};
-use wealthfolio_core::{
+use sensible_folio_ai::{AiEnvironment, ChatRepositoryTrait};
+use sensible_folio_core::{
     accounts::AccountServiceTrait, activities::ActivityServiceTrait,
     allocation::AllocationServiceTrait, goals::GoalServiceTrait, holdings::HoldingsServiceTrait,
     income::IncomeServiceTrait, performance::PerformanceServiceTrait, quotes::QuoteServiceTrait,

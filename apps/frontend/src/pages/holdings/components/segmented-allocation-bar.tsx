@@ -1,15 +1,15 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@wealthfolio/ui/components/ui/card";
-import { EmptyPlaceholder } from "@wealthfolio/ui/components/ui/empty-placeholder";
-import { Icons } from "@wealthfolio/ui/components/ui/icons";
-import { Skeleton } from "@wealthfolio/ui/components/ui/skeleton";
+import { Card, CardContent, CardHeader, CardTitle } from "@sensible-folio/ui/components/ui/card";
+import { EmptyPlaceholder } from "@sensible-folio/ui/components/ui/empty-placeholder";
+import { Icons } from "@sensible-folio/ui/components/ui/icons";
+import { Skeleton } from "@sensible-folio/ui/components/ui/skeleton";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@wealthfolio/ui/components/ui/tooltip";
+} from "@sensible-folio/ui/components/ui/tooltip";
 import { TaxonomyAllocation } from "@/lib/types";
-import { formatPercent, PrivacyAmount } from "@wealthfolio/ui";
+import { formatPercent, PrivacyAmount } from "@sensible-folio/ui";
 import { useMemo } from "react";
 
 interface SegmentedAllocationBarProps {

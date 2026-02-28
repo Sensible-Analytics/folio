@@ -1,8 +1,8 @@
-import { Button } from "@wealthfolio/ui/components/ui/button";
-import { Card, CardContent } from "@wealthfolio/ui/components/ui/card";
-import { Icons } from "@wealthfolio/ui/components/ui/icons";
-import { Label } from "@wealthfolio/ui/components/ui/label";
-import { RadioGroup, RadioGroupItem } from "@wealthfolio/ui/components/ui/radio-group";
+import { Button } from "@sensible-folio/ui/components/ui/button";
+import { Card, CardContent } from "@sensible-folio/ui/components/ui/card";
+import { Icons } from "@sensible-folio/ui/components/ui/icons";
+import { Label } from "@sensible-folio/ui/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@sensible-folio/ui/components/ui/radio-group";
 import { ExportDataType, ExportedFileFormat } from "@/lib/types";
 import { useState } from "react";
 import { useExportData } from "./use-export-data";

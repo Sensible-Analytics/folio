@@ -1,18 +1,18 @@
 import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { Badge, Card, FacetedSearchInput } from "@wealthfolio/ui";
+import { Badge, Card, FacetedSearchInput } from "@sensible-folio/ui";
 
 import { TickerAvatar } from "@/components/ticker-avatar";
-import { Button } from "@wealthfolio/ui/components/ui/button";
+import { Button } from "@sensible-folio/ui/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@wealthfolio/ui/components/ui/dropdown-menu";
-import { Icons } from "@wealthfolio/ui/components/ui/icons";
+} from "@sensible-folio/ui/components/ui/dropdown-menu";
+import { Icons } from "@sensible-folio/ui/components/ui/icons";
 import {
   Sheet,
   SheetClose,
@@ -20,13 +20,13 @@ import {
   SheetFooter,
   SheetHeader,
   SheetTitle,
-} from "@wealthfolio/ui/components/ui/sheet";
-import { Skeleton } from "@wealthfolio/ui/components/ui/skeleton";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@wealthfolio/ui/components/ui/tooltip";
+} from "@sensible-folio/ui/components/ui/sheet";
+import { Skeleton } from "@sensible-folio/ui/components/ui/skeleton";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@sensible-folio/ui/components/ui/tooltip";
 import { ASSET_KIND_DISPLAY_NAMES, LatestQuoteSnapshot } from "@/lib/types";
 import { cn, formatAmount, formatDate } from "@/lib/utils";
 import { useSettingsContext } from "@/lib/settings-provider";
-import { ScrollArea, Separator } from "@wealthfolio/ui";
+import { ScrollArea, Separator } from "@sensible-folio/ui";
 import { isStaleQuote, ParsedAsset } from "./asset-utils";
 
 interface AssetsTableMobileProps {

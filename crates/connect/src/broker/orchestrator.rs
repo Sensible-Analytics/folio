@@ -14,7 +14,7 @@ use super::models::{
 use super::progress::{SyncProgressPayload, SyncProgressReporter, SyncStatus};
 use super::traits::{BrokerApiClient, BrokerSyncServiceTrait};
 use crate::broker_ingest::{ImportRunMode, ImportRunStatus, ImportRunSummary};
-use wealthfolio_core::accounts::TrackingMode;
+use sensible_folio_core::accounts::TrackingMode;
 
 /// Configuration for sync operations.
 #[derive(Debug, Clone)]

@@ -1,10 +1,10 @@
 import { useBalancePrivacy } from "@/hooks/use-balance-privacy";
 import type { AlternativeAssetHolding } from "@/lib/types";
 import { ALTERNATIVE_ASSET_KIND_DISPLAY_NAMES } from "@/lib/types";
-import { AmountDisplay, GainPercent, Separator } from "@wealthfolio/ui";
-import { Card } from "@wealthfolio/ui/components/ui/card";
-import { Icons } from "@wealthfolio/ui/components/ui/icons";
-import { Skeleton } from "@wealthfolio/ui/components/ui/skeleton";
+import { AmountDisplay, GainPercent, Separator } from "@sensible-folio/ui";
+import { Card } from "@sensible-folio/ui/components/ui/card";
+import { Icons } from "@sensible-folio/ui/components/ui/icons";
+import { Skeleton } from "@sensible-folio/ui/components/ui/skeleton";
 
 interface AlternativeHoldingsListMobileProps {
   holdings: AlternativeAssetHolding[];

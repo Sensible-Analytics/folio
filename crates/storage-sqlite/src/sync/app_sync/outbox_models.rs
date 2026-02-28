@@ -15,10 +15,10 @@ use crate::sync::{
     should_sync_outbox_for_platform, should_sync_outbox_for_snapshot_source,
 };
 use crate::taxonomies::AssetTaxonomyAssignmentDB;
+use sensible_folio_core::portfolio::snapshot::SnapshotSource;
+use sensible_folio_core::sync::SyncEntity;
+use sensible_folio_core::sync::SyncOperation;
 use uuid::Uuid;
-use wealthfolio_core::portfolio::snapshot::SnapshotSource;
-use wealthfolio_core::sync::SyncEntity;
-use wealthfolio_core::sync::SyncOperation;
 
 impl SyncOutboxModel for AccountDB {
     const ENTITY: SyncEntity = SyncEntity::Account;

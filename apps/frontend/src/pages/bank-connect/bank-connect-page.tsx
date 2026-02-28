@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
-import { Badge } from "@wealthfolio/ui/components/ui/badge";
-import { Button } from "@wealthfolio/ui/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@wealthfolio/ui/components/ui/card";
-import { ScrollArea } from "@wealthfolio/ui/components/ui/scroll-area";
-import { cn } from "@wealthfolio/ui/lib/utils";
+import { Badge } from "@sensible-folio/ui/components/ui/badge";
+import { Button } from "@sensible-folio/ui/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@sensible-folio/ui/components/ui/card";
+import { ScrollArea } from "@sensible-folio/ui/components/ui/scroll-area";
+import { cn } from "@sensible-folio/ui/lib/utils";
 import { Building2, LineChart, Lock, LogIn, X } from "lucide-react";
 
 import {

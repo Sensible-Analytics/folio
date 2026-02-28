@@ -8,11 +8,11 @@ use std::sync::Arc;
 use std::time::Duration;
 
 use log::{debug, error, info, warn};
+use sensible_folio_core::constants::PORTFOLIO_TOTAL_ACCOUNT_ID;
+use sensible_folio_core::events::DomainEvent;
+use sensible_folio_core::health::HealthServiceTrait;
 use tauri::{AppHandle, Emitter};
 use tokio::sync::mpsc;
-use wealthfolio_core::constants::PORTFOLIO_TOTAL_ACCOUNT_ID;
-use wealthfolio_core::events::DomainEvent;
-use wealthfolio_core::health::HealthServiceTrait;
 
 #[cfg(feature = "connect-sync")]
 use super::planner::plan_broker_sync;
@@ -201,7 +201,7 @@ async fn run_portfolio_job(
             Some(sync_mode) => market_data_service.sync(sync_mode, asset_ids).await,
             None => {
                 warn!("MarketSyncMode requires sync but returned None for SyncMode");
-                Ok(wealthfolio_core::quotes::SyncResult::default())
+                Ok(sensible_folio_core::quotes::SyncResult::default())
             }
         };
 

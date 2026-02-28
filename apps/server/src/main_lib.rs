@@ -6,15 +6,13 @@ use crate::{
     ai_environment::ServerAiEnvironment, auth::AuthManager, config::Config,
     domain_events::WebDomainEventSink, events::EventBus, secrets::build_secret_store,
 };
-use tracing_subscriber::prelude::*;
-use tracing_subscriber::{fmt, EnvFilter};
-use wealthfolio_ai::{AiProviderService, AiProviderServiceTrait, ChatConfig, ChatService};
-use wealthfolio_connect::{
+use sensible_folio_ai::{AiProviderService, AiProviderServiceTrait, ChatConfig, ChatService};
+use sensible_folio_connect::{
     BrokerSyncService, BrokerSyncServiceTrait, CoreImportRunRepositoryAdapter,
     ImportRunRepositoryTrait,
 };
-use wealthfolio_core::addons::{AddonService, AddonServiceTrait};
-use wealthfolio_core::{
+use sensible_folio_core::addons::{AddonService, AddonServiceTrait};
+use sensible_folio_core::{
     accounts::AccountService,
     activities::{ActivityService as CoreActivityService, ActivityServiceTrait},
     assets::{
@@ -42,8 +40,8 @@ use wealthfolio_core::{
     settings::{SettingsRepositoryTrait, SettingsService, SettingsServiceTrait},
     taxonomies::{TaxonomyService, TaxonomyServiceTrait},
 };
-use wealthfolio_device_sync::{engine::DeviceSyncRuntimeState, DeviceEnrollService};
-use wealthfolio_storage_sqlite::{
+use sensible_folio_device_sync::{engine::DeviceSyncRuntimeState, DeviceEnrollService};
+use sensible_folio_storage_sqlite::{
     accounts::AccountRepository,
     activities::ActivityRepository,
     ai_chat::AiChatRepository,
@@ -59,6 +57,8 @@ use wealthfolio_storage_sqlite::{
     sync::{AppSyncRepository, BrokerSyncStateRepository, ImportRunRepository, PlatformRepository},
     taxonomies::TaxonomyRepository,
 };
+use tracing_subscriber::prelude::*;
+use tracing_subscriber::{fmt, EnvFilter};
 
 /// In-memory cache for the current access token to avoid hitting the auth provider on every request.
 pub struct CachedAccessToken {
@@ -82,7 +82,7 @@ pub struct AppState {
     pub snapshot_service: Arc<dyn SnapshotServiceTrait + Send + Sync>,
     pub snapshot_repository: Arc<SnapshotRepository>,
     pub performance_service:
-        Arc<dyn wealthfolio_core::portfolio::performance::PerformanceServiceTrait + Send + Sync>,
+        Arc<dyn sensible_folio_core::portfolio::performance::PerformanceServiceTrait + Send + Sync>,
     pub income_service: Arc<dyn IncomeServiceTrait + Send + Sync>,
     pub goal_service: Arc<dyn GoalServiceTrait + Send + Sync>,
     pub limits_service: Arc<dyn ContributionLimitServiceTrait + Send + Sync>,
@@ -264,7 +264,7 @@ pub async fn build_state(config: &Config) -> anyhow::Result<Arc<AppState>> {
     );
 
     let performance_service = Arc::new(
-        wealthfolio_core::portfolio::performance::PerformanceService::new(
+        sensible_folio_core::portfolio::performance::PerformanceService::new(
             valuation_service.clone(),
             quote_service.clone(),
         ),

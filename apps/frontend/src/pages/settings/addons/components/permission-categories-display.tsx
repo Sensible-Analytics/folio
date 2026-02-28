@@ -1,7 +1,7 @@
 import type { FunctionPermission, Permission } from "@/adapters";
-import { Badge } from "@wealthfolio/ui/components/ui/badge";
+import { Badge } from "@sensible-folio/ui/components/ui/badge";
 import { getFunctionDisplayName } from "@/pages/settings/addons/components/addon-function-names";
-import { getPermissionCategory } from "@wealthfolio/addon-sdk";
+import { getPermissionCategory } from "@sensible-folio/addon-sdk";
 
 interface PermissionForDisplay {
   category: string;

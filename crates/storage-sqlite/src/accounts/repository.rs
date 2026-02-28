@@ -10,8 +10,8 @@ use crate::schema::accounts;
 use crate::schema::accounts::dsl::*;
 
 use super::model::AccountDB;
-use wealthfolio_core::accounts::{Account, AccountRepositoryTrait, AccountUpdate, NewAccount};
-use wealthfolio_core::errors::Result;
+use sensible_folio_core::accounts::{Account, AccountRepositoryTrait, AccountUpdate, NewAccount};
+use sensible_folio_core::errors::Result;
 
 /// Repository for managing account data in the database
 pub struct AccountRepository {

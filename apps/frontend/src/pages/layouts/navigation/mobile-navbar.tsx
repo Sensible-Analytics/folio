@@ -12,7 +12,7 @@ import {
   SheetContent,
   SheetHeader,
   SheetTitle,
-} from "@wealthfolio/ui";
+} from "@sensible-folio/ui";
 import { motion } from "motion/react";
 import React, { useCallback, useId, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";

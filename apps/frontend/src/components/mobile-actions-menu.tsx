@@ -1,4 +1,4 @@
-import { Button } from "@wealthfolio/ui/components/ui/button";
+import { Button } from "@sensible-folio/ui/components/ui/button";
 import {
   Sheet,
   SheetContent,
@@ -6,8 +6,8 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@wealthfolio/ui/components/ui/sheet";
-import { Icons } from "@wealthfolio/ui";
+} from "@sensible-folio/ui/components/ui/sheet";
+import { Icons } from "@sensible-folio/ui";
 
 export interface MobileAction {
   icon: keyof typeof Icons;

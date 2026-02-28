@@ -4,7 +4,7 @@ use chrono::NaiveDateTime;
 use diesel::prelude::*;
 use serde::{Deserialize, Serialize};
 
-use wealthfolio_core::limits::{ContributionLimit, NewContributionLimit};
+use sensible_folio_core::limits::{ContributionLimit, NewContributionLimit};
 
 /// Database model for contribution limits
 #[derive(Queryable, Insertable, Identifiable, Serialize, Deserialize, Debug, Clone)]

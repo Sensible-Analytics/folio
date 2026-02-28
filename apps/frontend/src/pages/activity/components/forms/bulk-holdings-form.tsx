@@ -1,7 +1,7 @@
 import { AccountSelector } from "@/components/account-selector";
 import { TickerAvatar } from "@/components/ticker-avatar";
 import TickerSearchInput from "@/components/ticker-search";
-import { Icons } from "@wealthfolio/ui/components/ui/icons";
+import { Icons } from "@sensible-folio/ui/components/ui/icons";
 import { Account, SymbolSearchResult } from "@/lib/types";
 import { QuoteMode } from "@/lib/constants";
 import { cn } from "@/lib/utils";
@@ -17,7 +17,7 @@ import {
   FormMessage,
   MoneyInput,
   QuantityInput,
-} from "@wealthfolio/ui";
+} from "@sensible-folio/ui";
 import { memo, useCallback, useMemo, useState } from "react";
 import { useFieldArray, useFormContext, useWatch } from "react-hook-form";
 import { z } from "zod";

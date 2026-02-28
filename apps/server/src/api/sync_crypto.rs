@@ -10,7 +10,7 @@ use serde::{Deserialize, Serialize};
 
 use crate::error::{ApiError, ApiResult};
 use crate::main_lib::AppState;
-use wealthfolio_device_sync::crypto::{self, EphemeralKeyPair};
+use sensible_folio_device_sync::crypto::{self, EphemeralKeyPair};
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Request/Response Types

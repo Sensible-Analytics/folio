@@ -97,7 +97,7 @@ jobs:
           CONNECT_API_URL: http://test.local
 
       - name: Build server
-        run: cargo build -p wealthfolio-server --release
+        run: cargo build -p sensible-folio-server --release
 
   # ─── Gate ───────────────────────────────────────────────────────────────────
   build-status:

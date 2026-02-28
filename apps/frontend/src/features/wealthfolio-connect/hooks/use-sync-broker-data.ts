@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { syncBrokerData } from "../services/broker-service";
-import { toast } from "@wealthfolio/ui/components/ui/use-toast";
+import { toast } from "@sensible-folio/ui/components/ui/use-toast";
 
 /**
  * Hook to trigger broker data sync.

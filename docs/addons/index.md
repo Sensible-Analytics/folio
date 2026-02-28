@@ -1,6 +1,6 @@
-# Wealthfolio Addons Documentation Index
+# Sensible Folio Addons Documentation Index
 
-> This page lists all documentation files in this directory for Wealthfolio
+> This page lists all documentation files in this directory for Sensible Folio
 > addon development. Use the links below to navigate to the relevant guide or
 > reference.
 

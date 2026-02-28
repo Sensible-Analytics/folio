@@ -1,16 +1,16 @@
-use std::sync::{Arc, RwLock};
-use wealthfolio_ai::{AiProviderServiceTrait, ChatService};
-use wealthfolio_connect::BrokerSyncServiceTrait;
-use wealthfolio_core::{
+use sensible_folio_ai::{AiProviderServiceTrait, ChatService};
+use sensible_folio_connect::BrokerSyncServiceTrait;
+use sensible_folio_core::{
     self, accounts, activities,
     assets::{self, AlternativeAssetServiceTrait},
     events::DomainEventSink,
     fx, goals, health, limits, portfolio, quotes, settings, taxonomies,
 };
-use wealthfolio_device_sync::{engine::DeviceSyncRuntimeState, DeviceEnrollService};
-use wealthfolio_storage_sqlite::{
+use sensible_folio_device_sync::{engine::DeviceSyncRuntimeState, DeviceEnrollService};
+use sensible_folio_storage_sqlite::{
     portfolio::snapshot::SnapshotRepository, sync::AppSyncRepository,
 };
+use std::sync::{Arc, RwLock};
 
 use super::TauriAiEnvironment;
 use crate::services::ConnectService;
@@ -55,7 +55,7 @@ pub struct ServiceContext {
     pub device_sync_runtime: Arc<DeviceSyncRuntimeState>,
     pub health_service: Arc<health::HealthService>,
     pub bank_connect_repository:
-        Arc<wealthfolio_storage_sqlite::bank_connect::BankConnectRepository>,
+        Arc<sensible_folio_storage_sqlite::bank_connect::BankConnectRepository>,
 }
 
 impl ServiceContext {
@@ -173,7 +173,7 @@ impl ServiceContext {
 
     pub fn bank_connect_repository(
         &self,
-    ) -> Arc<wealthfolio_storage_sqlite::bank_connect::BankConnectRepository> {
+    ) -> Arc<sensible_folio_storage_sqlite::bank_connect::BankConnectRepository> {
         Arc::clone(&self.bank_connect_repository)
     }
 }

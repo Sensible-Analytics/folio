@@ -203,7 +203,7 @@ jobs:
           BUILD_TARGET: web
 
       - name: Build server
-        run: cargo build -p wealthfolio-server
+        run: cargo build -p sensible-folio-server
 
       - name: Install Playwright browsers
         run: pnpm exec playwright install --with-deps chromium
@@ -250,6 +250,6 @@ jobs:
           echo '<!DOCTYPE html><html><head></head><body></body></html>' > dist/index.html
 
       - name: Migration round-trip tests
-        run: cargo test --test migration_integrity --package wealthfolio-storage-sqlite
+        run: cargo test --test migration_integrity --package sensible-folio-storage-sqlite
         env:
           CONNECT_API_URL: http://test.local

@@ -1,4 +1,4 @@
-import { Button, Icons, GainAmount } from "@wealthfolio/ui";
+import { Button, Icons, GainAmount } from "@sensible-folio/ui";
 import type { CalendarMonth, CalendarDay } from "../types";
 import {
   format,

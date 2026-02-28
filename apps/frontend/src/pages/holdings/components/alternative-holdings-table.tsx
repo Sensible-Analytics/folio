@@ -1,12 +1,12 @@
-import { DataTable } from "@wealthfolio/ui/components/ui/data-table";
-import { DataTableColumnHeader } from "@wealthfolio/ui/components/ui/data-table/data-table-column-header";
+import { DataTable } from "@sensible-folio/ui/components/ui/data-table";
+import { DataTableColumnHeader } from "@sensible-folio/ui/components/ui/data-table/data-table-column-header";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@wealthfolio/ui/components/ui/dropdown-menu";
+} from "@sensible-folio/ui/components/ui/dropdown-menu";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -16,10 +16,10 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@wealthfolio/ui/components/ui/alert-dialog";
-import { Icons } from "@wealthfolio/ui/components/ui/icons";
-import { Skeleton } from "@wealthfolio/ui/components/ui/skeleton";
-import { EmptyPlaceholder, GainPercent, AmountDisplay } from "@wealthfolio/ui";
+} from "@sensible-folio/ui/components/ui/alert-dialog";
+import { Icons } from "@sensible-folio/ui/components/ui/icons";
+import { Skeleton } from "@sensible-folio/ui/components/ui/skeleton";
+import { EmptyPlaceholder, GainPercent, AmountDisplay } from "@sensible-folio/ui";
 import type { ColumnDef } from "@tanstack/react-table";
 import { useMemo, useState } from "react";
 import { useBalancePrivacy } from "@/hooks/use-balance-privacy";

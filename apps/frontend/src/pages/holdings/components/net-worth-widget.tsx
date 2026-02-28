@@ -1,18 +1,18 @@
-import { Card } from "@wealthfolio/ui/components/ui/card";
+import { Card } from "@sensible-folio/ui/components/ui/card";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@wealthfolio/ui/components/ui/collapsible";
-import { Icons } from "@wealthfolio/ui/components/ui/icons";
-import { Skeleton } from "@wealthfolio/ui/components/ui/skeleton";
+} from "@sensible-folio/ui/components/ui/collapsible";
+import { Icons } from "@sensible-folio/ui/components/ui/icons";
+import { Skeleton } from "@sensible-folio/ui/components/ui/skeleton";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@wealthfolio/ui/components/ui/tooltip";
-import { PrivacyAmount } from "@wealthfolio/ui";
+} from "@sensible-folio/ui/components/ui/tooltip";
+import { PrivacyAmount } from "@sensible-folio/ui";
 import { useNetWorth } from "@/hooks/use-alternative-assets";
 import { useSettingsContext } from "@/lib/settings-provider";
 import { cn } from "@/lib/utils";

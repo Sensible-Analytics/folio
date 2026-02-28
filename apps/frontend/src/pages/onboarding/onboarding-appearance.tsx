@@ -1,7 +1,7 @@
 import { useSettingsContext } from "@/lib/settings-provider";
 import { cn } from "@/lib/utils";
-import { Icons } from "@wealthfolio/ui";
-import { Card, CardContent } from "@wealthfolio/ui/components/ui/card";
+import { Icons } from "@sensible-folio/ui";
+import { Card, CardContent } from "@sensible-folio/ui/components/ui/card";
 import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 
 export interface OnboardingAppearanceHandle {

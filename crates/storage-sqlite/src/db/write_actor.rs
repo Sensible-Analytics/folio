@@ -3,10 +3,10 @@ use crate::errors::StorageError;
 use crate::sync::app_sync::ProjectedChange;
 use crate::sync::{flush_projected_outbox, OutboxWriteRequest, SyncOutboxModel};
 use diesel::SqliteConnection;
+use sensible_folio_core::errors::Result;
+use sensible_folio_core::sync::SyncOperation;
 use std::any::Any;
 use tokio::sync::{mpsc, oneshot};
-use wealthfolio_core::errors::Result;
-use wealthfolio_core::sync::SyncOperation;
 
 // Type alias for the job to be executed by the writer actor.
 // It takes a mutable reference to a SqliteConnection and returns a Result.

@@ -6,9 +6,9 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@wealthfolio/ui/components/ui/alert-dialog";
-import { Button } from "@wealthfolio/ui/components/ui/button";
-import { Icons } from "@wealthfolio/ui/components/ui/icons";
+} from "@sensible-folio/ui/components/ui/alert-dialog";
+import { Button } from "@sensible-folio/ui/components/ui/button";
+import { Icons } from "@sensible-folio/ui/components/ui/icons";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Types

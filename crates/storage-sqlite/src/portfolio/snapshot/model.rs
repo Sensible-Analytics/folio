@@ -7,8 +7,8 @@ use rust_decimal::Decimal;
 use serde::{Deserialize, Serialize};
 use std::str::FromStr;
 
-use wealthfolio_core::constants::DECIMAL_PRECISION;
-use wealthfolio_core::portfolio::snapshot::{AccountStateSnapshot, SnapshotSource};
+use sensible_folio_core::constants::DECIMAL_PRECISION;
+use sensible_folio_core::portfolio::snapshot::{AccountStateSnapshot, SnapshotSource};
 
 /// Database model for account state snapshots
 #[derive(Debug, Clone, Queryable, QueryableByName, Insertable, Serialize, Deserialize)]

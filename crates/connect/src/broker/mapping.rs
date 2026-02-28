@@ -12,9 +12,11 @@ use rust_decimal::prelude::FromPrimitive;
 use rust_decimal::Decimal;
 
 use super::models::AccountUniversalActivity;
-use wealthfolio_core::activities::{self, NewActivity, SymbolInput};
-use wealthfolio_core::assets::parse_symbol_with_exchange_suffix;
-use wealthfolio_core::fx::currency::{get_normalization_rule, normalize_amount, resolve_currency};
+use sensible_folio_core::activities::{self, NewActivity, SymbolInput};
+use sensible_folio_core::assets::parse_symbol_with_exchange_suffix;
+use sensible_folio_core::fx::currency::{
+    get_normalization_rule, normalize_amount, resolve_currency,
+};
 
 /// Minimum confidence score to consider a mapping reliable
 const CONFIDENCE_THRESHOLD: f64 = 0.7;
@@ -425,9 +427,9 @@ pub fn map_broker_activity(
 
     // Determine status
     let status = if needs_review_flag {
-        wealthfolio_core::activities::ActivityStatus::Draft
+        sensible_folio_core::activities::ActivityStatus::Draft
     } else {
-        wealthfolio_core::activities::ActivityStatus::Posted
+        sensible_folio_core::activities::ActivityStatus::Posted
     };
 
     Some(NewActivity {

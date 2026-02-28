@@ -2,8 +2,8 @@
 // Shows the Short Authentication String for verification
 // ======================================================
 
-import { Button } from "@wealthfolio/ui/components/ui/button";
-import { Icons } from "@wealthfolio/ui";
+import { Button } from "@sensible-folio/ui/components/ui/button";
+import { Icons } from "@sensible-folio/ui";
 import type { PairingRole } from "../../types";
 
 interface SASVerificationProps {

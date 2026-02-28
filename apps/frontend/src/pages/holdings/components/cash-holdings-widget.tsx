@@ -1,10 +1,10 @@
-import { Card } from "@wealthfolio/ui/components/ui/card";
-import { Skeleton } from "@wealthfolio/ui/components/ui/skeleton";
+import { Card } from "@sensible-folio/ui/components/ui/card";
+import { Skeleton } from "@sensible-folio/ui/components/ui/skeleton";
 import { useBalancePrivacy } from "@/hooks/use-balance-privacy";
 import { useSettingsContext } from "@/lib/settings-provider";
 import { Holding } from "@/lib/types";
 import { cn } from "@/lib/utils";
-import { AmountDisplay } from "@wealthfolio/ui";
+import { AmountDisplay } from "@sensible-folio/ui";
 import { useMemo } from "react";
 
 interface CashHoldingsWidgetProps {

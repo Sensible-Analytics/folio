@@ -7,29 +7,29 @@ use chrono::Utc;
 use uuid::Uuid;
 
 use crate::main_lib::AppState;
-use wealthfolio_core::events::DomainEvent;
-use wealthfolio_core::sync::APP_SYNC_TABLES;
-use wealthfolio_device_sync::engine::{
+use sensible_folio_core::events::DomainEvent;
+use sensible_folio_core::sync::APP_SYNC_TABLES;
+use sensible_folio_device_sync::engine::{
     self, CredentialStore, OutboxStore, ReadyReconcileStore, ReplayEvent, ReplayStore,
     SyncIdentity, SyncTransport, TransportError,
 };
-use wealthfolio_device_sync::{
+use sensible_folio_device_sync::{
     DeviceSyncClient, ReconcileReadyStateResponse, SyncPullResponse, SyncPushRequest,
     SyncPushResponse, SyncState,
 };
 
-fn transport_err_from_sync(e: wealthfolio_device_sync::DeviceSyncError) -> TransportError {
+fn transport_err_from_sync(e: sensible_folio_device_sync::DeviceSyncError) -> TransportError {
     TransportError {
         message: e.to_string(),
         retry_class: e.retry_class(),
         error_code: e.error_code().map(|s| s.to_string()),
         details: match &e {
-            wealthfolio_device_sync::DeviceSyncError::Api { details, .. } => details.clone(),
+            sensible_folio_device_sync::DeviceSyncError::Api { details, .. } => details.clone(),
             _ => None,
         },
     }
 }
-use wealthfolio_storage_sqlite::sync::{SqliteSyncEngineDbPorts, SyncTableRowCount};
+use sensible_folio_storage_sqlite::sync::{SqliteSyncEngineDbPorts, SyncTableRowCount};
 
 const SYNC_IDENTITY_KEY: &str = "sync_identity";
 
@@ -132,7 +132,7 @@ fn get_sync_identity_from_store(state: &AppState) -> Option<SyncIdentity> {
         .get_secret(SYNC_IDENTITY_KEY)
         .ok()
         .flatten()?;
-    let identity: wealthfolio_device_sync::SyncIdentity = serde_json::from_str(&raw).ok()?;
+    let identity: sensible_folio_device_sync::SyncIdentity = serde_json::from_str(&raw).ok()?;
     Some(SyncIdentity {
         device_id: identity.device_id,
         root_key: identity.root_key,
@@ -167,9 +167,9 @@ fn encrypt_sync_payload(
         .as_ref()
         .ok_or_else(|| "Sync root key is not configured".to_string())?;
     let key_version = payload_key_version.max(1) as u32;
-    let dek = wealthfolio_device_sync::crypto::derive_dek(root_key, key_version)
+    let dek = sensible_folio_device_sync::crypto::derive_dek(root_key, key_version)
         .map_err(|e| format!("Failed to derive event DEK: {}", e))?;
-    wealthfolio_device_sync::crypto::encrypt(&dek, plaintext_payload)
+    sensible_folio_device_sync::crypto::encrypt(&dek, plaintext_payload)
         .map_err(|e| format!("Failed to encrypt sync payload: {}", e))
 }
 
@@ -183,9 +183,9 @@ fn decrypt_sync_payload(
         .as_ref()
         .ok_or_else(|| "Sync root key is not configured".to_string())?;
     let key_version = payload_key_version.max(1) as u32;
-    let dek = wealthfolio_device_sync::crypto::derive_dek(root_key, key_version)
+    let dek = sensible_folio_device_sync::crypto::derive_dek(root_key, key_version)
         .map_err(|e| format!("Failed to derive event DEK: {}", e))?;
-    wealthfolio_device_sync::crypto::decrypt(&dek, encrypted_payload)
+    sensible_folio_device_sync::crypto::decrypt(&dek, encrypted_payload)
         .map_err(|e| format!("Failed to decrypt sync payload: {}", e))
 }
 
@@ -194,7 +194,7 @@ fn is_sqlite_image(bytes: &[u8]) -> bool {
 }
 
 fn sha256_checksum(bytes: &[u8]) -> String {
-    wealthfolio_device_sync::crypto::sha256_checksum(bytes)
+    sensible_folio_device_sync::crypto::sha256_checksum(bytes)
 }
 
 fn decode_snapshot_sqlite_payload(
@@ -214,9 +214,9 @@ fn decode_snapshot_sqlite_payload(
 
     let blob_text = String::from_utf8(blob)
         .map_err(|_| "Snapshot payload is not valid UTF-8 (expected encrypted ciphertext)")?;
-    let dek = wealthfolio_device_sync::crypto::derive_dek(root_key, key_version as u32)
+    let dek = sensible_folio_device_sync::crypto::derive_dek(root_key, key_version as u32)
         .map_err(|e| format!("Failed to derive snapshot DEK: {}", e))?;
-    let decrypted = wealthfolio_device_sync::crypto::decrypt(&dek, blob_text.trim())
+    let decrypted = sensible_folio_device_sync::crypto::decrypt(&dek, blob_text.trim())
         .map_err(|e| format!("Failed to decrypt snapshot payload: {}", e))?;
 
     let sqlite_bytes = BASE64_STANDARD
@@ -245,7 +245,7 @@ impl OutboxStore for ServerEnginePorts {
     async fn list_pending_outbox(
         &self,
         limit: i64,
-    ) -> Result<Vec<wealthfolio_core::sync::SyncOutboxEvent>, String> {
+    ) -> Result<Vec<sensible_folio_core::sync::SyncOutboxEvent>, String> {
         self.db.list_pending_outbox(limit).await
     }
 
@@ -337,7 +337,9 @@ impl ReplayStore for ServerEnginePorts {
         self.db.prune_applied_events_up_to_seq(seq).await
     }
 
-    async fn get_engine_status(&self) -> Result<wealthfolio_core::sync::SyncEngineStatus, String> {
+    async fn get_engine_status(
+        &self,
+    ) -> Result<sensible_folio_core::sync::SyncEngineStatus, String> {
         self.db.get_engine_status().await
     }
 
@@ -357,7 +359,7 @@ impl SyncTransport for ServerEnginePorts {
         &self,
         token: &str,
         device_id: &str,
-    ) -> Result<wealthfolio_device_sync::SyncCursorResponse, TransportError> {
+    ) -> Result<sensible_folio_device_sync::SyncCursorResponse, TransportError> {
         create_client()
             .get_events_cursor(token, device_id)
             .await
@@ -805,7 +807,7 @@ pub async fn generate_snapshot_now(
         .get_device(&token, &device_id)
         .await
         .map_err(|e| e.to_string())?;
-    if sync_state.trust_state != wealthfolio_device_sync::TrustState::Trusted {
+    if sync_state.trust_state != sensible_folio_device_sync::TrustState::Trusted {
         return Ok(SyncSnapshotUploadResult {
             status: "skipped".to_string(),
             snapshot_id: None,
@@ -855,7 +857,7 @@ pub async fn generate_snapshot_now(
     )?;
 
     let base_seq = state.app_sync_repository.get_cursor().ok();
-    let upload_headers = wealthfolio_device_sync::SnapshotUploadHeaders {
+    let upload_headers = sensible_folio_device_sync::SnapshotUploadHeaders {
         event_id: Some(Uuid::now_v7().to_string()),
         schema_version: 1,
         covers_tables: APP_SYNC_TABLES.iter().map(|v| v.to_string()).collect(),

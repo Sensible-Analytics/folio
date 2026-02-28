@@ -1,7 +1,7 @@
 import { reloadAllAddons } from "@/addons/addons-core";
 import { updateAddon } from "@/adapters";
-import { Badge } from "@wealthfolio/ui/components/ui/badge";
-import { Button } from "@wealthfolio/ui/components/ui/button";
+import { Badge } from "@sensible-folio/ui/components/ui/badge";
+import { Button } from "@sensible-folio/ui/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -9,12 +9,12 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@wealthfolio/ui/components/ui/dialog";
-import { Icons } from "@wealthfolio/ui/components/ui/icons";
-import { ScrollArea } from "@wealthfolio/ui/components/ui/scroll-area";
-import { Separator } from "@wealthfolio/ui/components/ui/separator";
-import { useToast } from "@wealthfolio/ui/components/ui/use-toast";
-import type { AddonUpdateInfo } from "@wealthfolio/addon-sdk";
+} from "@sensible-folio/ui/components/ui/dialog";
+import { Icons } from "@sensible-folio/ui/components/ui/icons";
+import { ScrollArea } from "@sensible-folio/ui/components/ui/scroll-area";
+import { Separator } from "@sensible-folio/ui/components/ui/separator";
+import { useToast } from "@sensible-folio/ui/components/ui/use-toast";
+import type { AddonUpdateInfo } from "@sensible-folio/addon-sdk";
 import { useState } from "react";
 
 interface AddonUpdateCardProps {

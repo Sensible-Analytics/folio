@@ -6,9 +6,9 @@ use tauri::{AppHandle, Emitter, Manager, State, WebviewUrl, WebviewWindowBuilder
 use uuid::Uuid;
 
 use crate::context::ServiceContext;
-use wealthfolio_core::accounts::{NewAccount, TrackingMode};
-use wealthfolio_core::activities::NewActivity;
-use wealthfolio_core::bank_connect::{
+use sensible_folio_core::accounts::{NewAccount, TrackingMode};
+use sensible_folio_core::activities::NewActivity;
+use sensible_folio_core::bank_connect::{
     make_idempotency_key, BankConnectSettings, BankDownloadRun, BankKey, NewBankDownloadRun,
     ScrapedAccount, ScrapedTransactionBatch,
 };
@@ -534,7 +534,7 @@ pub async fn bank_transactions(
 
 #[cfg(test)]
 mod bank_connect_tests {
-    use wealthfolio_core::bank_connect::models::ScrapedAccount;
+    use sensible_folio_core::bank_connect::models::ScrapedAccount;
 
     fn sample_scraped_account() -> ScrapedAccount {
         ScrapedAccount {

@@ -1,8 +1,8 @@
-import { Badge } from "@wealthfolio/ui/components/ui/badge";
-import { Button } from "@wealthfolio/ui/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@wealthfolio/ui/components/ui/card";
-import { Icons } from "@wealthfolio/ui/components/ui/icons";
-import { Skeleton } from "@wealthfolio/ui/components/ui/skeleton";
+import { Badge } from "@sensible-folio/ui/components/ui/badge";
+import { Button } from "@sensible-folio/ui/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@sensible-folio/ui/components/ui/card";
+import { Icons } from "@sensible-folio/ui/components/ui/icons";
+import { Skeleton } from "@sensible-folio/ui/components/ui/skeleton";
 import { format, formatDistanceToNow } from "date-fns";
 import { useMemo } from "react";
 import { Link } from "react-router-dom";

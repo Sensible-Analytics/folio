@@ -8,7 +8,7 @@ import {
   SheetFooter,
   SheetHeader,
   SheetTitle,
-} from "@wealthfolio/ui/components/ui/sheet";
+} from "@sensible-folio/ui/components/ui/sheet";
 import {
   Form,
   FormControl,
@@ -16,21 +16,21 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@wealthfolio/ui/components/ui/form";
-import { Button } from "@wealthfolio/ui/components/ui/button";
-import { Input } from "@wealthfolio/ui/components/ui/input";
-import { Textarea } from "@wealthfolio/ui/components/ui/textarea";
-import { Separator } from "@wealthfolio/ui/components/ui/separator";
-import { Badge } from "@wealthfolio/ui/components/ui/badge";
-import { Icons } from "@wealthfolio/ui/components/ui/icons";
+} from "@sensible-folio/ui/components/ui/form";
+import { Button } from "@sensible-folio/ui/components/ui/button";
+import { Input } from "@sensible-folio/ui/components/ui/input";
+import { Textarea } from "@sensible-folio/ui/components/ui/textarea";
+import { Separator } from "@sensible-folio/ui/components/ui/separator";
+import { Badge } from "@sensible-folio/ui/components/ui/badge";
+import { Icons } from "@sensible-folio/ui/components/ui/icons";
 import {
   MoneyInput,
   QuantityInput,
   DatePickerInput,
   ResponsiveSelect,
   type ResponsiveSelectOption,
-} from "@wealthfolio/ui";
-import { toast } from "@wealthfolio/ui/components/ui/use-toast";
+} from "@sensible-folio/ui";
+import { toast } from "@sensible-folio/ui/components/ui/use-toast";
 
 import {
   assetDetailsSchema,

@@ -1,5 +1,5 @@
-import { Separator } from "@wealthfolio/ui/components/ui/separator";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@wealthfolio/ui/components/ui/tabs";
+import { Separator } from "@sensible-folio/ui/components/ui/separator";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@sensible-folio/ui/components/ui/tabs";
 import { SettingsHeader } from "../settings-header";
 import { BackupRestoreForm } from "./backup-restore-form";
 import { ExportForm } from "./exports-form";

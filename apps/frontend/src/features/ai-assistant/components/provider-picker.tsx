@@ -5,8 +5,8 @@ import {
   SelectTrigger,
   SelectValue,
   Skeleton,
-} from "@wealthfolio/ui";
-import { Icons } from "@wealthfolio/ui/components/ui/icons";
+} from "@sensible-folio/ui";
+import { Icons } from "@sensible-folio/ui/components/ui/icons";
 import type { FC } from "react";
 
 import { ProviderIcon } from "./provider-icons";

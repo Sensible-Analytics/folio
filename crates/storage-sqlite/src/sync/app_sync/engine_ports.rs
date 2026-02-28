@@ -1,7 +1,7 @@
 use std::sync::Arc;
 
 use async_trait::async_trait;
-use wealthfolio_device_sync::engine::{OutboxStore, ReplayEvent, ReplayStore};
+use sensible_folio_device_sync::engine::{OutboxStore, ReplayEvent, ReplayStore};
 
 use super::repository::AppSyncRepository;
 
@@ -25,7 +25,7 @@ impl OutboxStore for SqliteSyncEngineDbPorts {
     async fn list_pending_outbox(
         &self,
         limit: i64,
-    ) -> Result<Vec<wealthfolio_core::sync::SyncOutboxEvent>, String> {
+    ) -> Result<Vec<sensible_folio_core::sync::SyncOutboxEvent>, String> {
         self.repository
             .list_pending_outbox(limit)
             .map_err(|e| e.to_string())
@@ -178,7 +178,9 @@ impl ReplayStore for SqliteSyncEngineDbPorts {
             .map_err(|e| e.to_string())
     }
 
-    async fn get_engine_status(&self) -> Result<wealthfolio_core::sync::SyncEngineStatus, String> {
+    async fn get_engine_status(
+        &self,
+    ) -> Result<sensible_folio_core::sync::SyncEngineStatus, String> {
         self.repository
             .get_engine_status()
             .map_err(|e| e.to_string())

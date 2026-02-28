@@ -11,20 +11,20 @@ import {
   getInitialIntervalData,
   usePersistentState,
   type TimePeriod,
-} from "@wealthfolio/ui";
+} from "@sensible-folio/ui";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@wealthfolio/ui/components/ui/collapsible";
-import { Icons } from "@wealthfolio/ui/components/ui/icons";
-import { Skeleton } from "@wealthfolio/ui/components/ui/skeleton";
+} from "@sensible-folio/ui/components/ui/collapsible";
+import { Icons } from "@sensible-folio/ui/components/ui/icons";
+import { Skeleton } from "@sensible-folio/ui/components/ui/skeleton";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@wealthfolio/ui/components/ui/tooltip";
+} from "@sensible-folio/ui/components/ui/tooltip";
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { NetWorthChart } from "./net-worth-chart";

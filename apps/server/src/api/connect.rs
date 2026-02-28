@@ -21,7 +21,7 @@ use crate::events::{
 };
 use crate::main_lib::AppState;
 use axum::http::StatusCode;
-use wealthfolio_connect::{
+use sensible_folio_connect::{
     broker::{
         BrokerApiClient, PlansResponse, SyncAccountsResponse, SyncActivitiesResponse,
         SyncConnectionsResponse, UserInfo,
@@ -29,8 +29,8 @@ use wealthfolio_connect::{
     fetch_subscription_plans_public, ConnectApiClient, SyncConfig, SyncOrchestrator,
     SyncProgressPayload, SyncProgressReporter, SyncResult,
 };
-use wealthfolio_core::accounts::TrackingMode;
-use wealthfolio_device_sync::{EnableSyncResult, SyncState, SyncStateResult};
+use sensible_folio_core::accounts::TrackingMode;
+use sensible_folio_device_sync::{EnableSyncResult, SyncState, SyncStateResult};
 
 // Storage keys (without prefix - the SecretStore adds "wealthfolio_" prefix)
 const CLOUD_REFRESH_TOKEN_KEY: &str = "sync_refresh_token";
@@ -822,7 +822,7 @@ async fn get_user_info(State(state): State<Arc<AppState>>) -> ApiResult<Json<Use
 
 async fn list_broker_connections(
     State(state): State<Arc<AppState>>,
-) -> ApiResult<Json<Vec<wealthfolio_connect::broker::BrokerConnection>>> {
+) -> ApiResult<Json<Vec<sensible_folio_connect::broker::BrokerConnection>>> {
     ensure_connect_sync_enabled()?;
     info!("[Connect] Listing broker connections from cloud...");
 
@@ -839,7 +839,7 @@ async fn list_broker_connections(
 
 async fn list_broker_accounts(
     State(state): State<Arc<AppState>>,
-) -> ApiResult<Json<Vec<wealthfolio_connect::broker::BrokerAccount>>> {
+) -> ApiResult<Json<Vec<sensible_folio_connect::broker::BrokerAccount>>> {
     ensure_connect_sync_enabled()?;
     info!("[Connect] Listing broker accounts from cloud...");
 
@@ -870,7 +870,7 @@ pub struct GetImportRunsQuery {
 /// Get all synced accounts (accounts with provider_account_id set)
 async fn get_synced_accounts(
     State(state): State<Arc<AppState>>,
-) -> ApiResult<Json<Vec<wealthfolio_core::accounts::Account>>> {
+) -> ApiResult<Json<Vec<sensible_folio_core::accounts::Account>>> {
     if !crate::features::connect_sync_enabled() {
         return Ok(Json(vec![]));
     }
@@ -889,7 +889,7 @@ async fn get_synced_accounts(
 /// Get all platforms from local database
 async fn get_platforms(
     State(state): State<Arc<AppState>>,
-) -> ApiResult<Json<Vec<wealthfolio_connect::Platform>>> {
+) -> ApiResult<Json<Vec<sensible_folio_connect::Platform>>> {
     if !crate::features::connect_sync_enabled() {
         return Ok(Json(vec![]));
     }
@@ -908,7 +908,7 @@ async fn get_platforms(
 /// Get all broker sync states from local database
 async fn get_broker_sync_states(
     State(state): State<Arc<AppState>>,
-) -> ApiResult<Json<Vec<wealthfolio_connect::BrokerSyncState>>> {
+) -> ApiResult<Json<Vec<sensible_folio_connect::BrokerSyncState>>> {
     if !crate::features::connect_sync_enabled() {
         return Ok(Json(vec![]));
     }
@@ -927,7 +927,7 @@ async fn get_broker_sync_states(
 async fn get_import_runs(
     State(state): State<Arc<AppState>>,
     Query(query): Query<GetImportRunsQuery>,
-) -> ApiResult<Json<Vec<wealthfolio_connect::ImportRun>>> {
+) -> ApiResult<Json<Vec<sensible_folio_connect::ImportRun>>> {
     if !crate::features::connect_sync_enabled() {
         return Ok(Json(vec![]));
     }

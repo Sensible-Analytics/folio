@@ -3,7 +3,7 @@
 use async_trait::async_trait;
 use log::{info, warn};
 
-use wealthfolio_core::errors::Result;
+use sensible_folio_core::errors::Result;
 
 use crate::prompt_template::{
     ChatRunConfig, DetailLevel, PromptTemplate, PromptTemplateCatalog,
@@ -102,8 +102,8 @@ impl PromptTemplateServiceTrait for PromptTemplateService {
             .or_else(|| self.get_template(&config.template_id))
             .or_else(|| self.get_default_template())
             .ok_or_else(|| {
-                wealthfolio_core::errors::Error::Validation(
-                    wealthfolio_core::errors::ValidationError::InvalidInput(format!(
+                sensible_folio_core::errors::Error::Validation(
+                    sensible_folio_core::errors::ValidationError::InvalidInput(format!(
                         "Template not found: {}@{}",
                         config.template_id, config.template_version
                     )),

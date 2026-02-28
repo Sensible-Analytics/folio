@@ -17,7 +17,7 @@ use futures::StreamExt;
 use serde::{Deserialize, Serialize};
 
 use crate::main_lib::AppState;
-use wealthfolio_ai::{
+use sensible_folio_ai::{
     AiError, AiStreamEvent, ChatMessage, ChatThread, ListThreadsRequest, SendMessageRequest,
     ThreadPage,
 };

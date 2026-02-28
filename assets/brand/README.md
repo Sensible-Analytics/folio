@@ -1,6 +1,6 @@
 # Brand Assets (Trademarks)
 
-This directory contains Wealthfolio brand assets (names, logos, wordmarks,
+This directory contains Sensible Folio brand assets (names, logos, wordmarks,
 icons).
 
 These assets are **not** licensed under the project's software license
@@ -12,15 +12,16 @@ permitted by [TRADEMARKS.md](../../TRADEMARKS.md).
 Forks and modified distributions must:
 
 - Remove or replace these brand assets
-- Use a different name (not "Wealthfolio" or confusingly similar)
-- Not use "Wealthfolio" branding in a way that implies the fork is the official
-  project
+- Use a different name (not "Sensible Folio" or confusingly similar)
+- Not use "Sensible Folio" branding in a way that implies the fork is the
+  official project
 
-You may say: "Forked from Wealthfolio (https://wealthfolio.app/)" or "Based on
-Wealthfolio", prominently, with a disclaimer.
+You may say: "Forked from Sensible Folio
+(https://github.com/Sensible-Analytics/folio)" or "Based on Sensible Folio",
+prominently, with a disclaimer.
 
 ## Contact
 
-For trademark permission requests: hello@wealthfolio.app
+For trademark permission requests: hello@sensible-folio.app
 
 See: [TRADEMARKS.md](../../TRADEMARKS.md)

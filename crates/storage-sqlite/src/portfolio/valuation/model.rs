@@ -6,8 +6,8 @@ use rust_decimal::Decimal;
 use serde::{Deserialize, Serialize};
 use std::str::FromStr;
 
-use wealthfolio_core::constants::DECIMAL_PRECISION;
-use wealthfolio_core::portfolio::valuation::DailyAccountValuation;
+use sensible_folio_core::constants::DECIMAL_PRECISION;
+use sensible_folio_core::portfolio::valuation::DailyAccountValuation;
 
 /// Database model for daily account valuations
 #[derive(

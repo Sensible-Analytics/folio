@@ -2,20 +2,20 @@ import { openUrlInBrowser } from "@/adapters";
 import { getSubscriptionPlans } from "../services/broker-service";
 import { useWealthfolioConnect } from "../providers/wealthfolio-connect-provider";
 import type { BillingPeriod, SubscriptionPlan } from "../types";
-import { Badge } from "@wealthfolio/ui/components/ui/badge";
-import { Button } from "@wealthfolio/ui/components/ui/button";
+import { Badge } from "@sensible-folio/ui/components/ui/badge";
+import { Button } from "@sensible-folio/ui/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@wealthfolio/ui/components/ui/card";
-import { Popover, PopoverContent, PopoverTrigger } from "@wealthfolio/ui/components/ui/popover";
-import { toast } from "@wealthfolio/ui/components/ui/use-toast";
-import { Icons } from "@wealthfolio/ui/components/ui/icons";
-import { Skeleton } from "@wealthfolio/ui/components/ui/skeleton";
-import { ToggleGroup, ToggleGroupItem } from "@wealthfolio/ui/components/ui/toggle-group";
+} from "@sensible-folio/ui/components/ui/card";
+import { Popover, PopoverContent, PopoverTrigger } from "@sensible-folio/ui/components/ui/popover";
+import { toast } from "@sensible-folio/ui/components/ui/use-toast";
+import { Icons } from "@sensible-folio/ui/components/ui/icons";
+import { Skeleton } from "@sensible-folio/ui/components/ui/skeleton";
+import { ToggleGroup, ToggleGroupItem } from "@sensible-folio/ui/components/ui/toggle-group";
 import { WEALTHFOLIO_CONNECT_PORTAL_URL } from "@/lib/constants";
 import { QueryKeys } from "@/lib/query-keys";
 import { useQuery } from "@tanstack/react-query";

@@ -64,7 +64,7 @@ vi.mock("../fields", () => ({
 }));
 
 // Mock UI components
-vi.mock("@wealthfolio/ui/components/ui/button", () => ({
+vi.mock("@sensible-folio/ui/components/ui/button", () => ({
   Button: ({
     children,
     type,
@@ -89,14 +89,14 @@ vi.mock("@wealthfolio/ui/components/ui/button", () => ({
   ),
 }));
 
-vi.mock("@wealthfolio/ui/components/ui/card", () => ({
+vi.mock("@sensible-folio/ui/components/ui/card", () => ({
   Card: ({ children }: { children: React.ReactNode }) => <div data-testid="card">{children}</div>,
   CardContent: ({ children }: { children: React.ReactNode }) => (
     <div data-testid="card-content">{children}</div>
   ),
 }));
 
-vi.mock("@wealthfolio/ui/components/ui/icons", () => ({
+vi.mock("@sensible-folio/ui/components/ui/icons", () => ({
   Icons: {
     Spinner: () => <span data-testid="spinner">Loading...</span>,
     Check: () => <span data-testid="check-icon">Check</span>,
@@ -105,7 +105,7 @@ vi.mock("@wealthfolio/ui/components/ui/icons", () => ({
 }));
 
 // Mock AnimatedToggleGroup
-vi.mock("@wealthfolio/ui/components/ui/animated-toggle-group", () => ({
+vi.mock("@sensible-folio/ui/components/ui/animated-toggle-group", () => ({
   AnimatedToggleGroup: ({
     items,
     value,
@@ -131,7 +131,7 @@ vi.mock("@wealthfolio/ui/components/ui/animated-toggle-group", () => ({
 }));
 
 // Mock Checkbox
-vi.mock("@wealthfolio/ui/components/ui/checkbox", () => ({
+vi.mock("@sensible-folio/ui/components/ui/checkbox", () => ({
   Checkbox: ({
     id,
     checked,
@@ -152,7 +152,7 @@ vi.mock("@wealthfolio/ui/components/ui/checkbox", () => ({
 }));
 
 // Mock RadioGroup
-vi.mock("@wealthfolio/ui/components/ui/radio-group", () => ({
+vi.mock("@sensible-folio/ui/components/ui/radio-group", () => ({
   RadioGroup: ({
     value,
     children,
@@ -173,7 +173,7 @@ vi.mock("@wealthfolio/ui/components/ui/radio-group", () => ({
 }));
 
 // Mock Label
-vi.mock("@wealthfolio/ui/components/ui/label", () => ({
+vi.mock("@sensible-folio/ui/components/ui/label", () => ({
   Label: ({
     htmlFor,
     children,

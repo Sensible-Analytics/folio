@@ -21,9 +21,7 @@ use axum::{
 };
 use chrono::NaiveDate;
 use rust_decimal::Decimal;
-use serde::{Deserialize, Serialize};
-use serde_json::Value;
-use wealthfolio_core::{
+use sensible_folio_core::{
     assets::{
         AssetKind, CreateAlternativeAssetRequest as CoreCreateRequest,
         LinkLiabilityRequest as CoreLinkRequest,
@@ -32,6 +30,8 @@ use wealthfolio_core::{
     },
     quotes::MarketSyncMode,
 };
+use serde::{Deserialize, Serialize};
+use serde_json::Value;
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Request/Response DTOs (string-based for API serialization)

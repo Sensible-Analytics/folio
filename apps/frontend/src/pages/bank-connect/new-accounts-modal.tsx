@@ -1,5 +1,5 @@
 import { Building2 } from "lucide-react";
-import { Button } from "@wealthfolio/ui/components/ui/button";
+import { Button } from "@sensible-folio/ui/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -7,7 +7,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@wealthfolio/ui/components/ui/dialog";
+} from "@sensible-folio/ui/components/ui/dialog";
 
 import type { NewAccountCreatedPayload } from "@/adapters";
 

@@ -21,7 +21,7 @@ use super::capabilities::{ProviderCapabilities, RateLimit};
 ///
 /// ```ignore
 /// use async_trait::async_trait;
-/// use wealthfolio_market_data::provider::{MarketDataProvider, ProviderCapabilities, RateLimit};
+/// use sensible_folio_market_data::provider::{MarketDataProvider, ProviderCapabilities, RateLimit};
 ///
 /// struct MyProvider {
 ///     api_key: String,

@@ -1,11 +1,11 @@
 use futures::future::join_all;
 use log::{error, info, warn};
+use sensible_folio_core::constants::PORTFOLIO_TOTAL_ACCOUNT_ID;
+use sensible_folio_core::health::HealthServiceTrait;
+use sensible_folio_core::quotes::MarketSyncMode;
 use std::sync::Arc;
 use std::time::Instant;
 use tauri::{async_runtime::spawn, AppHandle, Emitter, Listener, Manager};
-use wealthfolio_core::constants::PORTFOLIO_TOTAL_ACCOUNT_ID;
-use wealthfolio_core::health::HealthServiceTrait;
-use wealthfolio_core::quotes::MarketSyncMode;
 
 use crate::context::ServiceContext;
 use crate::events::{
@@ -69,7 +69,7 @@ fn handle_portfolio_request(handle: AppHandle, payload_str: &str, force_recalc: 
                                 warn!(
                                     "MarketSyncMode requires sync but returned None for SyncMode"
                                 );
-                                Ok(wealthfolio_core::quotes::SyncResult::default())
+                                Ok(sensible_folio_core::quotes::SyncResult::default())
                             }
                         };
 

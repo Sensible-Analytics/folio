@@ -1,6 +1,6 @@
 # Testing Strategy
 
-Lessons and patterns from implementing Wealthfolio's multi-layer test suite.
+Lessons and patterns from implementing Sensible Folio's multi-layer test suite.
 Inspired by: Rust std, s2n-tls (AWS), Firecracker VMM, axum, tokio, Hypothesis,
 PropEr.
 
@@ -80,7 +80,8 @@ state between migration tests.
 
 The existing `scripts/prep-e2e.mjs` + `scripts/run-e2e.mjs` pattern:
 
-1. `prep-e2e.mjs` creates a timestamped `wealthfolio-test-*.db` with seed data
+1. `prep-e2e.mjs` creates a timestamped `sensible-folio-test-*.db` with seed
+   data
 2. `run-e2e.mjs` starts the Axum server pointing at that DB, then runs
    Playwright
 

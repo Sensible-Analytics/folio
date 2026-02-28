@@ -1,7 +1,7 @@
 import { logger } from "@/adapters";
-import { Button } from "@wealthfolio/ui/components/ui/button";
-import { Form } from "@wealthfolio/ui/components/ui/form";
-import { Icons } from "@wealthfolio/ui/components/ui/icons";
+import { Button } from "@sensible-folio/ui/components/ui/button";
+import { Form } from "@sensible-folio/ui/components/ui/form";
+import { Icons } from "@sensible-folio/ui/components/ui/icons";
 import {
   Sheet,
   SheetContent,
@@ -9,7 +9,7 @@ import {
   SheetFooter,
   SheetHeader,
   SheetTitle,
-} from "@wealthfolio/ui/components/ui/sheet";
+} from "@sensible-folio/ui/components/ui/sheet";
 import { QuoteMode } from "@/lib/constants";
 import { isSymbolRequired } from "@/lib/activity-utils";
 import type { ActivityDetails } from "@/lib/types";

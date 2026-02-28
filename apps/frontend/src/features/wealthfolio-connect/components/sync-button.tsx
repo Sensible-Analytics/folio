@@ -1,6 +1,6 @@
-import { Button } from "@wealthfolio/ui/components/ui/button";
-import { Icons } from "@wealthfolio/ui/components/ui/icons";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@wealthfolio/ui/components/ui/tooltip";
+import { Button } from "@sensible-folio/ui/components/ui/button";
+import { Icons } from "@sensible-folio/ui/components/ui/icons";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@sensible-folio/ui/components/ui/tooltip";
 import { formatDistanceToNow } from "date-fns";
 import { useWealthfolioConnect } from "../providers/wealthfolio-connect-provider";
 import { useAggregatedSyncStatus, useSyncBrokerData } from "../hooks";

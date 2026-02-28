@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 
-import { Separator } from "@wealthfolio/ui";
+import { Separator } from "@sensible-folio/ui";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -10,7 +10,7 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@wealthfolio/ui/components/ui/alert-dialog";
+} from "@sensible-folio/ui/components/ui/alert-dialog";
 import { RefreshQuotesConfirmDialog } from "./refresh-quotes-confirm-dialog";
 
 import { useIsMobileViewport } from "@/hooks/use-platform";

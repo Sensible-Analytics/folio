@@ -1,9 +1,9 @@
 use crate::context::ServiceContext;
 use crate::secret_store::KeyringSecretStore;
 use log::{error, info};
+use sensible_folio_core::secrets::SecretStore;
 use std::sync::Arc;
 use tauri::State;
-use wealthfolio_core::secrets::SecretStore;
 
 // Storage keys (without prefix - the SecretStore adds "wealthfolio_" prefix)
 const SYNC_ACCESS_TOKEN_KEY: &str = "sync_access_token";

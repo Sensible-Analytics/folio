@@ -1,11 +1,11 @@
 [package]
-name = "wealthfolio-ai"
+name = "sensible-folio-ai"
 version.workspace = true
 edition.workspace = true
-description = "AI assistant with LLM orchestration using rig-core for Wealthfolio"
+description = "AI assistant with LLM orchestration using rig-core for Sensible Folio"
 authors = ["Aziz Fadil"]
 license = "AGPL-3.0"
-repository = "https://github.com/afadil/wealthfolio"
+repository = "https://github.com/Sensible-Analytics/folio"
 
 [features]
 default = []
@@ -40,7 +40,7 @@ tokio-stream = "0.1"
 rust_decimal = { workspace = true }
 
 # Sibling crates
-wealthfolio-core = { path = "../core" }
+sensible-folio-core = { path = "../core" }
 
 [dev-dependencies]
 tempfile = "3"

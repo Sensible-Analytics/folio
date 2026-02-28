@@ -10,9 +10,9 @@ use uuid::Uuid;
 
 use crate::context::ServiceContext;
 use crate::events::{emit_portfolio_trigger_recalculate, PortfolioRequestPayload};
-use wealthfolio_core::quotes::MarketSyncMode;
-use wealthfolio_core::sync::APP_SYNC_TABLES;
-use wealthfolio_device_sync::SyncState;
+use sensible_folio_core::quotes::MarketSyncMode;
+use sensible_folio_core::sync::APP_SYNC_TABLES;
+use sensible_folio_device_sync::SyncState;
 
 use super::{
     create_client, encrypt_sync_payload, get_access_token, get_sync_identity_from_store,
@@ -73,9 +73,9 @@ fn decode_snapshot_sqlite_payload(
     let blob_text = String::from_utf8(blob)
         .map_err(|_| "Snapshot payload is not valid UTF-8 (expected encrypted ciphertext)")?;
 
-    let dek = wealthfolio_device_sync::crypto::derive_dek(root_key, key_version as u32)
+    let dek = sensible_folio_device_sync::crypto::derive_dek(root_key, key_version as u32)
         .map_err(|e| format!("Failed to derive snapshot DEK: {}", e))?;
-    let decrypted = wealthfolio_device_sync::crypto::decrypt(&dek, blob_text.trim())
+    let decrypted = sensible_folio_device_sync::crypto::decrypt(&dek, blob_text.trim())
         .map_err(|e| format!("Failed to decrypt snapshot payload: {}", e))?;
 
     let sqlite_bytes = BASE64_STANDARD
@@ -321,7 +321,7 @@ pub async fn generate_snapshot_now_internal(
         "[DeviceSync] Snapshot upload eligibility: device_id={} trust_state={:?}",
         device_id, sync_state.trust_state
     );
-    if sync_state.trust_state != wealthfolio_device_sync::TrustState::Trusted {
+    if sync_state.trust_state != sensible_folio_device_sync::TrustState::Trusted {
         return Ok(SyncSnapshotUploadResult {
             status: "skipped".to_string(),
             snapshot_id: None,
@@ -377,7 +377,7 @@ pub async fn generate_snapshot_now_internal(
     )?;
 
     let base_seq = context.app_sync_repository().get_cursor().ok();
-    let upload_headers = wealthfolio_device_sync::SnapshotUploadHeaders {
+    let upload_headers = sensible_folio_device_sync::SnapshotUploadHeaders {
         event_id: Some(Uuid::now_v7().to_string()),
         schema_version: 1,
         covers_tables: APP_SYNC_TABLES.iter().map(|v| v.to_string()).collect(),

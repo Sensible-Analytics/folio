@@ -1,6 +1,6 @@
 import { AccountSelector } from "@/components/account-selector";
 import TickerSearchInput from "@/components/ticker-search";
-import { Button } from "@wealthfolio/ui/components/ui/button";
+import { Button } from "@sensible-folio/ui/components/ui/button";
 import { IMPORT_REQUIRED_FIELDS } from "@/lib/constants";
 import {
   Account,
@@ -22,7 +22,7 @@ import {
   SelectSeparator,
   SelectTrigger,
   SelectValue,
-} from "@wealthfolio/ui";
+} from "@sensible-folio/ui";
 import { useState } from "react";
 import { findMappedActivityType } from "../utils/activity-type-mapping";
 

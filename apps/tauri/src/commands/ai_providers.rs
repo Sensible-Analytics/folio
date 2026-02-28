@@ -1,10 +1,10 @@
 use std::sync::Arc;
 
-use tauri::State;
-use wealthfolio_ai::{
+use sensible_folio_ai::{
     AiProvidersResponse, ListModelsResponse, ProviderApiError, SetDefaultProviderRequest,
     UpdateProviderSettingsRequest,
 };
+use tauri::State;
 
 use crate::context::ServiceContext;
 

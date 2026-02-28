@@ -14,7 +14,7 @@ use crate::broker::{
     BrokerAccount, BrokerBrokerage, BrokerConnection, BrokerConnectionBrokerage,
     BrokerHoldingsResponse, PaginatedUniversalActivity, PlansResponse, UserInfo, UserTeam,
 };
-use wealthfolio_core::errors::{Error, Result};
+use sensible_folio_core::errors::{Error, Result};
 
 use super::broker::BrokerApiClient;
 

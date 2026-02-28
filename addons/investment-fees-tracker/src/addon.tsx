@@ -1,6 +1,6 @@
 import { QueryClientProvider, type QueryClient } from "@tanstack/react-query";
-import type { AddonContext, AddonEnableFunction } from "@wealthfolio/addon-sdk";
-import { Icons } from "@wealthfolio/ui";
+import type { AddonContext, AddonEnableFunction } from "@sensible-folio/addon-sdk";
+import { Icons } from "@sensible-folio/ui";
 import React from "react";
 import FeesPage from "./pages/fees-page";
 

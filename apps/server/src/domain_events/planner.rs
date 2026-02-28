@@ -5,7 +5,7 @@
 
 use std::collections::HashSet;
 
-use wealthfolio_core::{accounts::TrackingMode, events::DomainEvent, quotes::MarketSyncMode};
+use sensible_folio_core::{accounts::TrackingMode, events::DomainEvent, quotes::MarketSyncMode};
 
 use crate::api::shared::PortfolioJobConfig;
 
@@ -217,7 +217,7 @@ mod tests {
     fn test_plan_portfolio_job_accounts_changed_no_fake_fx_ids() {
         let events = vec![DomainEvent::AccountsChanged {
             account_ids: vec!["acc1".to_string()],
-            currency_changes: vec![wealthfolio_core::events::CurrencyChange {
+            currency_changes: vec![sensible_folio_core::events::CurrencyChange {
                 account_id: "acc1".to_string(),
                 old_currency: None,
                 new_currency: "EUR".to_string(),

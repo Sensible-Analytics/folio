@@ -12,12 +12,18 @@ import { QueryKeys } from "@/lib/query-keys";
 import { useSettingsContext } from "@/lib/settings-provider";
 import { AssetKind, Holding, Quote } from "@/lib/types";
 import { useQuery } from "@tanstack/react-query";
-import { AnimatedToggleGroup, Page, PageContent, PageHeader, SwipableView } from "@wealthfolio/ui";
-import { Badge } from "@wealthfolio/ui/components/ui/badge";
-import { Button } from "@wealthfolio/ui/components/ui/button";
-import { Icons } from "@wealthfolio/ui/components/ui/icons";
-import { Skeleton } from "@wealthfolio/ui/components/ui/skeleton";
-import { Tabs, TabsContent } from "@wealthfolio/ui/components/ui/tabs";
+import {
+  AnimatedToggleGroup,
+  Page,
+  PageContent,
+  PageHeader,
+  SwipableView,
+} from "@sensible-folio/ui";
+import { Badge } from "@sensible-folio/ui/components/ui/badge";
+import { Button } from "@sensible-folio/ui/components/ui/button";
+import { Icons } from "@sensible-folio/ui/components/ui/icons";
+import { Skeleton } from "@sensible-folio/ui/components/ui/skeleton";
+import { Tabs, TabsContent } from "@sensible-folio/ui/components/ui/tabs";
 import { useCallback, useMemo, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { AlternativeAssetContent, useAlternativeAssetActions } from "./alternative-asset-content";

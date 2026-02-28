@@ -1,10 +1,10 @@
 import { useState, useMemo } from "react";
-import { Icons, ScrollArea, Card, Button, Tabs, TabsList, TabsTrigger } from "@wealthfolio/ui";
+import { Icons, ScrollArea, Card, Button, Tabs, TabsList, TabsTrigger } from "@sensible-folio/ui";
 import {
   TreeView,
   buildCategoryTree,
   type TreeNode,
-} from "@wealthfolio/ui/components/ui/tree-view";
+} from "@sensible-folio/ui/components/ui/tree-view";
 import { useTaxonomies, useTaxonomy, useExportTaxonomy } from "@/hooks/use-taxonomies";
 import { SettingsHeader } from "../settings-header";
 import { CategoryForm } from "./components/category-form";

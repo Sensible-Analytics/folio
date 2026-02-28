@@ -1,17 +1,18 @@
-# @wealthfolio/ui
+# @sensible-folio/ui
 
-Wealthfolio's shared UI component library built on top of shadcn/ui and Tailwind
-CSS.
+Sensible Folio's shared UI component library built on top of shadcn/ui and
+Tailwind CSS.
 
 ## Overview
 
-The `@wealthfolio/ui` package provides a complete design system for Wealthfolio
-addons, ensuring consistent styling and user experience across all extensions.
+The `@sensible-folio/ui` package provides a complete design system for Sensible
+Folio addons, ensuring consistent styling and user experience across all
+extensions.
 
 ## Features
 
 - 🎨 **Complete shadcn/ui components** - All essential UI primitives
-- 💰 **Wealthfolio-specific components** - Financial data display components
+- 💰 **Sensible Folio-specific components** - Financial data display components
 - 🎭 **Consistent theming** - Dark/light mode support with CSS variables
 - 📦 **Tree-shakeable** - Import only what you need
 - 🔧 **TypeScript ready** - Full type safety
@@ -21,7 +22,7 @@ addons, ensuring consistent styling and user experience across all extensions.
 For addons:
 
 ```bash
-npm install @wealthfolio/ui
+npm install @sensible-folio/ui
 ```
 
 ## Package Structure
@@ -31,7 +32,7 @@ packages/ui/
 ├── src/
 │   ├── components/
 │   │   ├── ui/           # All shadcn/ui components
-│   │   ├── icons.tsx     # Wealthfolio icons
+│   │   ├── icons.tsx     # Sensible Folio icons
 │   │   ├── amount-display.tsx
 │   │   └── ...           # Financial components
 │   ├── lib/
@@ -47,7 +48,7 @@ packages/ui/
 ### Basic Components
 
 ```tsx
-import { Button, Card, CardContent } from "@wealthfolio/ui";
+import { Button, Card, CardContent } from "@sensible-folio/ui";
 
 function MyComponent() {
   return (
@@ -63,7 +64,7 @@ function MyComponent() {
 ### Financial Components
 
 ```tsx
-import { AmountDisplay, GainAmount, GainPercent } from "@wealthfolio/ui";
+import { AmountDisplay, GainAmount, GainPercent } from "@sensible-folio/ui";
 
 function FinancialData() {
   return (
@@ -80,10 +81,10 @@ function FinancialData() {
 
 ```tsx
 // Import components
-import { Button, Card, CardContent, AmountDisplay } from "@wealthfolio/ui";
+import { Button, Card, CardContent, AmountDisplay } from "@sensible-folio/ui";
 
 // Import styles (once in your main file)
-import "@wealthfolio/ui/styles";
+import "@sensible-folio/ui/styles";
 
 function MyAddon() {
   return (
@@ -110,20 +111,20 @@ function MyAddon() {
 Import the CSS file in your addon:
 
 ```tsx
-import "@wealthfolio/ui/styles";
+import "@sensible-folio/ui/styles";
 ```
 
 Or in your CSS:
 
 ```css
-@import "@wealthfolio/ui/styles";
+@import "@sensible-folio/ui/styles";
 ```
 
 ## Components
 
 ### Core UI (shadcn/ui)
 
-All standard shadcn/ui components with Wealthfolio's Flexoki theme applied:
+All standard shadcn/ui components with Sensible Folio's Flexoki theme applied:
 
 - `Button` - Various button styles and sizes
 - `Card` - Container component with header/content/footer
@@ -157,7 +158,7 @@ The Flexoki theme is defined in `packages/ui/src/styles.css`. Updates here
 automatically apply to:
 
 - Main application
-- All addons using `@wealthfolio/ui`
+- All addons using `@sensible-folio/ui`
 
 ## Development
 
@@ -203,7 +204,7 @@ When updating shared components:
 
 1. `cd packages/ui`
 2. `npx shadcn-ui@latest add [component]`
-3. Customize if needed for Wealthfolio
+3. Customize if needed for Sensible Folio
 4. Export in `src/index.ts`
 5. Build and test with addons
 
@@ -218,7 +219,7 @@ When updating shared components:
 
 ### For Addon Developers
 
-1. Always import from `@wealthfolio/ui` instead of creating custom components
+1. Always import from `@sensible-folio/ui` instead of creating custom components
 2. Import styles once in your main addon file
 3. Use provided utility functions for consistent styling
 4. Leverage financial components for data display
@@ -239,5 +240,5 @@ npx shadcn@latest add accordion alert-dialog alert avatar badge button calendar 
 npm run build
 ```
 
-This strategy ensures consistent UI/UX across the entire Wealthfolio ecosystem
-while maintaining developer efficiency and user experience.
+This strategy ensures consistent UI/UX across the entire Sensible Folio
+ecosystem while maintaining developer efficiency and user experience.

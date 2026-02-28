@@ -1,8 +1,8 @@
-import { Alert, AlertDescription } from "@wealthfolio/ui/components/ui/alert";
-import { Button } from "@wealthfolio/ui/components/ui/button";
-import { Card, CardContent } from "@wealthfolio/ui/components/ui/card";
-import { Icons } from "@wealthfolio/ui/components/ui/icons";
-import { Input } from "@wealthfolio/ui/components/ui/input";
+import { Alert, AlertDescription } from "@sensible-folio/ui/components/ui/alert";
+import { Button } from "@sensible-folio/ui/components/ui/button";
+import { Card, CardContent } from "@sensible-folio/ui/components/ui/card";
+import { Icons } from "@sensible-folio/ui/components/ui/icons";
+import { Input } from "@sensible-folio/ui/components/ui/input";
 import { AnimatePresence, motion } from "motion/react";
 import React, { useRef, useState } from "react";
 

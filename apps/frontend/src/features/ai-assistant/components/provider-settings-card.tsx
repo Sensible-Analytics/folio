@@ -1,17 +1,17 @@
 import { useState, useMemo, useEffect, useRef } from "react";
-import { Badge } from "@wealthfolio/ui/components/ui/badge";
-import { Button } from "@wealthfolio/ui/components/ui/button";
-import { Icons } from "@wealthfolio/ui/components/ui/icons";
-import { Input } from "@wealthfolio/ui/components/ui/input";
-import { Label } from "@wealthfolio/ui/components/ui/label";
-import { Switch } from "@wealthfolio/ui/components/ui/switch";
-import { Checkbox } from "@wealthfolio/ui/components/ui/checkbox";
+import { Badge } from "@sensible-folio/ui/components/ui/badge";
+import { Button } from "@sensible-folio/ui/components/ui/button";
+import { Icons } from "@sensible-folio/ui/components/ui/icons";
+import { Input } from "@sensible-folio/ui/components/ui/input";
+import { Label } from "@sensible-folio/ui/components/ui/label";
+import { Switch } from "@sensible-folio/ui/components/ui/switch";
+import { Checkbox } from "@sensible-folio/ui/components/ui/checkbox";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@wealthfolio/ui/components/ui/collapsible";
-import { Popover, PopoverContent, PopoverTrigger } from "@wealthfolio/ui/components/ui/popover";
+} from "@sensible-folio/ui/components/ui/collapsible";
+import { Popover, PopoverContent, PopoverTrigger } from "@sensible-folio/ui/components/ui/popover";
 import {
   Command,
   CommandEmpty,
@@ -19,7 +19,7 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "@wealthfolio/ui/components/ui/command";
+} from "@sensible-folio/ui/components/ui/command";
 import { cn } from "@/lib/utils";
 import type { MergedProvider, MergedModel, FetchedModel, ModelCapabilityOverrides } from "../types";
 import { ProviderIcon } from "./provider-icons";

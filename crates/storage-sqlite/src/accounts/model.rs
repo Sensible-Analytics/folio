@@ -4,7 +4,7 @@ use chrono::NaiveDateTime;
 use diesel::prelude::*;
 use serde::{Deserialize, Serialize};
 
-use wealthfolio_core::accounts::{Account, AccountUpdate, NewAccount, TrackingMode};
+use sensible_folio_core::accounts::{Account, AccountUpdate, NewAccount, TrackingMode};
 
 /// Database model for accounts
 #[derive(

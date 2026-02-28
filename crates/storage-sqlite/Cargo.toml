@@ -1,8 +1,8 @@
 [package]
-name = "wealthfolio-storage-sqlite"
+name = "sensible-folio-storage-sqlite"
 version.workspace = true
 edition.workspace = true
-description = "SQLite storage implementation for Wealthfolio"
+description = "SQLite storage implementation for Sensible Folio"
 authors = ["Aziz Fadil"]
 license = "AGPL-3.0"
 
@@ -11,10 +11,10 @@ default = []
 
 [dependencies]
 # Internal crates
-wealthfolio-core = { workspace = true }
-wealthfolio-ai = { workspace = true }
-wealthfolio-connect = { workspace = true }
-wealthfolio-device-sync = { workspace = true }
+sensible-folio-core = { workspace = true }
+sensible-folio-ai = { workspace = true }
+sensible-folio-connect = { workspace = true }
+sensible-folio-device-sync = { workspace = true }
 
 # Workspace dependencies
 tokio = { workspace = true }

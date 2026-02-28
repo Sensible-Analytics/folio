@@ -1,5 +1,5 @@
-import { Icons } from "@wealthfolio/ui/components/ui/icons";
-import { cn } from "@wealthfolio/ui/lib/utils";
+import { Icons } from "@sensible-folio/ui/components/ui/icons";
+import { cn } from "@sensible-folio/ui/lib/utils";
 import type { AggregatedSyncStatus } from "../types";
 
 interface SyncStatusIconProps {

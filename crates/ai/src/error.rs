@@ -1,7 +1,7 @@
 //! AI assistant error types.
 
+use sensible_folio_core::Error as CoreError;
 use thiserror::Error;
-use wealthfolio_core::Error as CoreError;
 
 /// AI assistant errors.
 #[derive(Debug, Error)]

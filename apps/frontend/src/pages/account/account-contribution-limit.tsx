@@ -1,11 +1,11 @@
 import { calculateDepositsForLimit, getContributionLimit } from "@/adapters";
-import { Card, CardContent, CardHeader } from "@wealthfolio/ui/components/ui/card";
-import { Progress } from "@wealthfolio/ui/components/ui/progress";
-import { Skeleton } from "@wealthfolio/ui/components/ui/skeleton";
+import { Card, CardContent, CardHeader } from "@sensible-folio/ui/components/ui/card";
+import { Progress } from "@sensible-folio/ui/components/ui/progress";
+import { Skeleton } from "@sensible-folio/ui/components/ui/skeleton";
 import { QueryKeys } from "@/lib/query-keys";
 import { ContributionLimit, DepositsCalculation } from "@/lib/types";
 import { useQuery } from "@tanstack/react-query";
-import { Icons, PrivacyAmount } from "@wealthfolio/ui";
+import { Icons, PrivacyAmount } from "@sensible-folio/ui";
 import { Link } from "react-router-dom";
 
 interface AccountContributionLimitProps {

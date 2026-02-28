@@ -13,7 +13,7 @@ use diesel::r2d2::{ConnectionManager, Pool, PooledConnection};
 use diesel::sqlite::SqliteConnection;
 use diesel_migrations::{embed_migrations, EmbeddedMigrations, MigrationHarness};
 
-use wealthfolio_core::errors::{DatabaseError, Error, Result};
+use sensible_folio_core::errors::{DatabaseError, Error, Result};
 
 use crate::errors::StorageError;
 

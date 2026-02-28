@@ -1,24 +1,24 @@
 import { isDesktop } from "@/adapters";
 import { getPreferredProvider, savePreferredProvider } from "@/lib/cookie-utils";
-import { Alert, AlertDescription } from "@wealthfolio/ui/components/ui/alert";
-import { Button } from "@wealthfolio/ui/components/ui/button";
+import { Alert, AlertDescription } from "@sensible-folio/ui/components/ui/alert";
+import { Button } from "@sensible-folio/ui/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@wealthfolio/ui/components/ui/card";
+} from "@sensible-folio/ui/components/ui/card";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@wealthfolio/ui/components/ui/collapsible";
-import { Icons } from "@wealthfolio/ui/components/ui/icons";
-import { Input } from "@wealthfolio/ui/components/ui/input";
-import { InputOTP, InputOTPGroup, InputOTPSlot } from "@wealthfolio/ui/components/ui/input-otp";
-import { Label } from "@wealthfolio/ui/components/ui/label";
-import { Separator } from "@wealthfolio/ui/components/ui/separator";
+} from "@sensible-folio/ui/components/ui/collapsible";
+import { Icons } from "@sensible-folio/ui/components/ui/icons";
+import { Input } from "@sensible-folio/ui/components/ui/input";
+import { InputOTP, InputOTPGroup, InputOTPSlot } from "@sensible-folio/ui/components/ui/input-otp";
+import { Label } from "@sensible-folio/ui/components/ui/label";
+import { Separator } from "@sensible-folio/ui/components/ui/separator";
 import { useEffect, useState } from "react";
 import { useWealthfolioConnect } from "../providers/wealthfolio-connect-provider";
 import { ProviderButton } from "./provider-button";

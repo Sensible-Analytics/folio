@@ -1,8 +1,8 @@
 use chrono::Utc;
 use log::{debug, info, warn};
+use sensible_folio_core::sync::{SyncEntity, SyncOperation};
 use std::sync::Arc;
 use uuid::Uuid;
-use wealthfolio_core::sync::{SyncEntity, SyncOperation};
 
 use crate::{ApiRetryClass, SyncPushEventRequest, SyncPushRequest, SyncState};
 
@@ -1036,9 +1036,9 @@ where
 mod tests {
     use super::*;
     use async_trait::async_trait;
+    use sensible_folio_core::sync::SyncEngineStatus;
     use std::sync::Arc;
     use tokio::sync::Mutex;
-    use wealthfolio_core::sync::SyncEngineStatus;
 
     #[derive(Clone)]
     struct TestPorts {
@@ -1070,7 +1070,7 @@ mod tests {
         async fn list_pending_outbox(
             &self,
             _limit: i64,
-        ) -> Result<Vec<wealthfolio_core::sync::SyncOutboxEvent>, String> {
+        ) -> Result<Vec<sensible_folio_core::sync::SyncOutboxEvent>, String> {
             Ok(Vec::new())
         }
 

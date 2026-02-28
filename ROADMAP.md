@@ -1,4 +1,4 @@
-# Wealthfolio Roadmap
+# Sensible Folio Roadmap
 
 ## Vision
 
@@ -18,8 +18,8 @@ easy-to-use tool to track their investments and goals.
 1. **Your Privacy**: Your money info stays on your computer. You retain complete
    control over your financial information.
 2. **Easy to Use**: Anyone can track their investments with our simple design.
-3. **No Lock-in**: Free or pay once to support. Wealthfolio Connect as optional
-   paid subscription to sync broker data and devices.
+3. **No Lock-in**: Free or pay once to support. Sensible Folio Connect as
+   optional paid subscription to sync broker data and devices.
 4. **Extensible**: Through the addons system and catalog, users can easily
    enhance functionality.
 5. **Beautiful and Focused**: We believe in crafting an app that's visually
@@ -50,10 +50,11 @@ easy-to-use tool to track their investments and goals.
 - [x] Self-hosted web app with Docker support
 - [x] REST API server (Axum)
 - [x] Mobile app (iOS/Android via Tauri)
-- [ ] Wealthfolio Connect: Device sync with end-to-end encryption (E2EE)
-- [ ] Wealthfolio Connect: broker data sync service
+- [ ] Sensible Folio Connect: Device sync with end-to-end encryption (E2EE)
+- [ ] Sensible Folio Connect: broker data sync service
 
-**Wealthfolio Connect** is an optional paid subscription to sustain development:
+**Sensible Folio Connect** is an optional paid subscription to sustain
+development:
 
 - Automatic transaction sync from supported brokers
 - Secure device-to-device sync with E2EE
@@ -85,7 +86,7 @@ easy-to-use tool to track their investments and goals.
 
 ---
 
-We're building Wealthfolio to be a great alternative to online investment
+We're building Sensible Folio to be a great alternative to online investment
 trackers. Our plan might change based on what users tell us they want, but we'll
 always focus on keeping your data private and helping you manage your money
 better.

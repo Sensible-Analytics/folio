@@ -2,15 +2,15 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
-import { Button } from "@wealthfolio/ui/components/ui/button";
+import { Button } from "@sensible-folio/ui/components/ui/button";
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormMessage,
-} from "@wealthfolio/ui/components/ui/form";
-import { CurrencyInput } from "@wealthfolio/ui";
+} from "@sensible-folio/ui/components/ui/form";
+import { CurrencyInput } from "@sensible-folio/ui";
 import { useSettingsContext } from "@/lib/settings-provider";
 import {
   Card,
@@ -18,7 +18,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@wealthfolio/ui/components/ui/card";
+} from "@sensible-folio/ui/components/ui/card";
 
 const baseCurrencyFormSchema = z.object({
   baseCurrency: z.string({ required_error: "Please select a base currency." }),

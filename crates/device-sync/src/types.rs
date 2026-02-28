@@ -4,7 +4,7 @@ use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 
 // Re-export the canonical SyncEntity from core to avoid duplication.
-pub use wealthfolio_core::sync::SyncEntity;
+pub use sensible_folio_core::sync::SyncEntity;
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Common Response Types

@@ -146,7 +146,7 @@ pub struct NewAssetTaxonomyAssignmentDB {
 }
 
 // Conversion to domain models
-impl From<TaxonomyDB> for wealthfolio_core::taxonomies::Taxonomy {
+impl From<TaxonomyDB> for sensible_folio_core::taxonomies::Taxonomy {
     fn from(db: TaxonomyDB) -> Self {
         Self {
             id: db.id,
@@ -162,7 +162,7 @@ impl From<TaxonomyDB> for wealthfolio_core::taxonomies::Taxonomy {
     }
 }
 
-impl From<CategoryDB> for wealthfolio_core::taxonomies::Category {
+impl From<CategoryDB> for sensible_folio_core::taxonomies::Category {
     fn from(db: CategoryDB) -> Self {
         Self {
             id: db.id,
@@ -179,7 +179,7 @@ impl From<CategoryDB> for wealthfolio_core::taxonomies::Category {
     }
 }
 
-impl From<AssetTaxonomyAssignmentDB> for wealthfolio_core::taxonomies::AssetTaxonomyAssignment {
+impl From<AssetTaxonomyAssignmentDB> for sensible_folio_core::taxonomies::AssetTaxonomyAssignment {
     fn from(db: AssetTaxonomyAssignmentDB) -> Self {
         Self {
             id: db.id,
@@ -195,8 +195,8 @@ impl From<AssetTaxonomyAssignmentDB> for wealthfolio_core::taxonomies::AssetTaxo
 }
 
 // Conversion from domain models
-impl From<wealthfolio_core::taxonomies::NewTaxonomy> for NewTaxonomyDB {
-    fn from(domain: wealthfolio_core::taxonomies::NewTaxonomy) -> Self {
+impl From<sensible_folio_core::taxonomies::NewTaxonomy> for NewTaxonomyDB {
+    fn from(domain: sensible_folio_core::taxonomies::NewTaxonomy) -> Self {
         let now = chrono::Utc::now().to_rfc3339();
         Self {
             id: domain.id,
@@ -212,8 +212,8 @@ impl From<wealthfolio_core::taxonomies::NewTaxonomy> for NewTaxonomyDB {
     }
 }
 
-impl From<wealthfolio_core::taxonomies::NewCategory> for NewCategoryDB {
-    fn from(domain: wealthfolio_core::taxonomies::NewCategory) -> Self {
+impl From<sensible_folio_core::taxonomies::NewCategory> for NewCategoryDB {
+    fn from(domain: sensible_folio_core::taxonomies::NewCategory) -> Self {
         let now = chrono::Utc::now().to_rfc3339();
         Self {
             id: domain.id,
@@ -230,10 +230,10 @@ impl From<wealthfolio_core::taxonomies::NewCategory> for NewCategoryDB {
     }
 }
 
-impl From<wealthfolio_core::taxonomies::NewAssetTaxonomyAssignment>
+impl From<sensible_folio_core::taxonomies::NewAssetTaxonomyAssignment>
     for NewAssetTaxonomyAssignmentDB
 {
-    fn from(domain: wealthfolio_core::taxonomies::NewAssetTaxonomyAssignment) -> Self {
+    fn from(domain: sensible_folio_core::taxonomies::NewAssetTaxonomyAssignment) -> Self {
         let now = chrono::Utc::now().to_rfc3339();
         Self {
             id: domain.id,

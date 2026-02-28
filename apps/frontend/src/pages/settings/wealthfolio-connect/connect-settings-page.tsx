@@ -1,7 +1,7 @@
 import { ConnectedView, LoginForm, useWealthfolioConnect } from "@/features/wealthfolio-connect";
-import { Card, CardDescription, CardHeader, CardTitle } from "@wealthfolio/ui";
-import { Icons } from "@wealthfolio/ui/components/ui/icons";
-import { Separator } from "@wealthfolio/ui/components/ui/separator";
+import { Card, CardDescription, CardHeader, CardTitle } from "@sensible-folio/ui";
+import { Icons } from "@sensible-folio/ui/components/ui/icons";
+import { Separator } from "@sensible-folio/ui/components/ui/separator";
 import { SettingsHeader } from "../settings-header";
 
 export default function ConnectSettingsPage() {

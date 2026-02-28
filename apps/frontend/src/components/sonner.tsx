@@ -1,6 +1,6 @@
 import { useIsMobileViewport } from "@/hooks";
 import { useSettingsContext } from "@/lib/settings-provider";
-import { Icons } from "@wealthfolio/ui";
+import { Icons } from "@sensible-folio/ui";
 
 import { Toaster as Sonner, type ToasterProps } from "sonner";
 

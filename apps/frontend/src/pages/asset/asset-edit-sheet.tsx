@@ -20,7 +20,7 @@ import {
   Alert,
   AlertDescription,
   CurrencyInput,
-} from "@wealthfolio/ui";
+} from "@sensible-folio/ui";
 import {
   Form,
   FormControl,
@@ -28,14 +28,14 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@wealthfolio/ui/components/ui/form";
-import { Input } from "@wealthfolio/ui/components/ui/input";
-import { Textarea } from "@wealthfolio/ui/components/ui/textarea";
-import { Button } from "@wealthfolio/ui/components/ui/button";
-import { Icons } from "@wealthfolio/ui/components/ui/icons";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@wealthfolio/ui/components/ui/tabs";
-import { Badge } from "@wealthfolio/ui/components/ui/badge";
-import { Skeleton } from "@wealthfolio/ui/components/ui/skeleton";
+} from "@sensible-folio/ui/components/ui/form";
+import { Input } from "@sensible-folio/ui/components/ui/input";
+import { Textarea } from "@sensible-folio/ui/components/ui/textarea";
+import { Button } from "@sensible-folio/ui/components/ui/button";
+import { Icons } from "@sensible-folio/ui/components/ui/icons";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@sensible-folio/ui/components/ui/tabs";
+import { Badge } from "@sensible-folio/ui/components/ui/badge";
+import { Skeleton } from "@sensible-folio/ui/components/ui/skeleton";
 import { TickerAvatar } from "@/components/ticker-avatar";
 import { SingleSelectTaxonomy } from "@/components/classification/single-select-taxonomy";
 import { MultiSelectTaxonomy } from "@/components/classification/multi-select-taxonomy";

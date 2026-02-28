@@ -1,21 +1,21 @@
 import { cn } from "@/lib/utils";
-import { formatAmount } from "@wealthfolio/ui";
+import { formatAmount } from "@sensible-folio/ui";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@wealthfolio/ui/components/ui/card";
+} from "@sensible-folio/ui/components/ui/card";
 import {
   ChartContainer,
   ChartLegend,
   ChartLegendContent,
   ChartTooltip,
   ChartTooltipContent,
-} from "@wealthfolio/ui/components/ui/chart";
-import { EmptyPlaceholder } from "@wealthfolio/ui/components/ui/empty-placeholder";
-import { Icons } from "@wealthfolio/ui/components/ui/icons";
+} from "@sensible-folio/ui/components/ui/chart";
+import { EmptyPlaceholder } from "@sensible-folio/ui/components/ui/empty-placeholder";
+import { Icons } from "@sensible-folio/ui/components/ui/icons";
 import { format, parseISO } from "date-fns";
 import React from "react";
 import { Bar, CartesianGrid, ComposedChart, Line, XAxis, YAxis } from "recharts";

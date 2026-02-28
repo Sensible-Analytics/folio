@@ -1,4 +1,4 @@
-import { AmountDisplay } from "@wealthfolio/ui";
+import { AmountDisplay } from "@sensible-folio/ui";
 import { useBalancePrivacy } from "@/hooks/use-balance-privacy";
 import { cn } from "@/lib/utils";
 

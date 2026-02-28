@@ -1,4 +1,4 @@
-import { Separator } from "@wealthfolio/ui/components/ui/separator";
+import { Separator } from "@sensible-folio/ui/components/ui/separator";
 import { SettingsHeader } from "../settings-header";
 import { AppearanceForm } from "./appearance-form";
 

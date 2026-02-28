@@ -40,8 +40,8 @@
 //! # Example
 //!
 //! ```ignore
-//! use wealthfolio_market_data::resolver::{ResolverChain, SymbolResolver};
-//! use wealthfolio_market_data::models::{InstrumentId, QuoteContext};
+//! use sensible_folio_market_data::resolver::{ResolverChain, SymbolResolver};
+//! use sensible_folio_market_data::models::{InstrumentId, QuoteContext};
 //!
 //! let chain = ResolverChain::new();
 //!

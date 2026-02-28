@@ -1,11 +1,11 @@
 use chrono;
+use sensible_folio_storage_sqlite::db;
 use serde::Serialize;
 use std::fs::File;
 use std::io::Read;
 use std::path::Path;
 use tauri::Manager;
 use tauri::{AppHandle, Emitter};
-use wealthfolio_storage_sqlite::db;
 
 use crate::context::ServiceContext;
 #[cfg(desktop)]

@@ -7,9 +7,9 @@ use crate::db::{get_connection, DbPool, WriteHandle};
 use crate::errors::StorageError;
 use crate::schema::app_settings::dsl::*;
 use crate::schema::{accounts, assets};
-use wealthfolio_core::assets::AssetKind;
-use wealthfolio_core::errors::Result;
-use wealthfolio_core::settings::{Settings, SettingsRepositoryTrait, SettingsUpdate};
+use sensible_folio_core::assets::AssetKind;
+use sensible_folio_core::errors::Result;
+use sensible_folio_core::settings::{Settings, SettingsRepositoryTrait, SettingsUpdate};
 
 pub struct SettingsRepository {
     pool: Arc<DbPool>,

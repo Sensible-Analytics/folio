@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { ExchangeRate } from "@/lib/types";
-import { Icons } from "@wealthfolio/ui/components/ui/icons";
-import { Input } from "@wealthfolio/ui/components/ui/input";
-import { Button } from "@wealthfolio/ui/components/ui/button";
-import { toast } from "@wealthfolio/ui/components/ui/use-toast";
+import { Icons } from "@sensible-folio/ui/components/ui/icons";
+import { Input } from "@sensible-folio/ui/components/ui/input";
+import { Button } from "@sensible-folio/ui/components/ui/button";
+import { toast } from "@sensible-folio/ui/components/ui/use-toast";
 
 interface RateCellProps {
   rate: ExchangeRate;

@@ -1,6 +1,6 @@
-# Contributing to Wealthfolio
+# Contributing to Sensible Folio
 
-Thank you for your interest in contributing to Wealthfolio! We welcome
+Thank you for your interest in contributing to Sensible Folio! We welcome
 contributions from the community.
 
 ## Contributor License Agreement (CLA)
@@ -15,7 +15,7 @@ By submitting a pull request, you confirm you have read and agree to
 ### Reporting Bugs
 
 1. Check if the bug has already been reported in
-   [Issues](https://github.com/afadil/wealthfolio/issues)
+   [Issues](https://github.com/Sensible-Analytics/folio/issues)
 2. If not, create a new issue with:
    - Clear, descriptive title
    - Steps to reproduce
@@ -59,8 +59,8 @@ something together!
 ## Questions?
 
 - Join our [Discord](https://discord.gg/WDMCY6aPWK)
-- Open a [Discussion](https://github.com/afadil/wealthfolio/discussions)
-- Email: hello@wealthfolio.app
+- Open a [Discussion](https://github.com/Sensible-Analytics/folio/discussions)
+- Email: hello@sensible-folio.app
 
 ## License
 
@@ -70,5 +70,5 @@ project's [AGPL-3.0 license](LICENSE), subject to the terms of our
 
 ---
 
-Wealthfolio is a trademark of Teymz Inc. See [TRADEMARKS.md](TRADEMARKS.md) for
-trademark policy.
+Sensible Folio is a trademark of Sensible Analytics. See
+[TRADEMARKS.md](TRADEMARKS.md) for trademark policy.

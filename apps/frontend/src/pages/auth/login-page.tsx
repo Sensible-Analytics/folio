@@ -9,7 +9,7 @@ import {
   CardHeader,
   CardTitle,
   Input,
-} from "@wealthfolio/ui";
+} from "@sensible-folio/ui";
 import { FormEvent, useState } from "react";
 
 export function LoginPage() {

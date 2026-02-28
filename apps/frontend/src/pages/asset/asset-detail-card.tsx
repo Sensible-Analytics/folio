@@ -1,10 +1,10 @@
 import React from "react";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@wealthfolio/ui/components/ui/card";
-import { Separator } from "@wealthfolio/ui/components/ui/separator";
-import { formatPercent } from "@wealthfolio/ui";
-import { AmountDisplay } from "@wealthfolio/ui";
-import { QuantityDisplay } from "@wealthfolio/ui";
+import { Card, CardContent, CardHeader, CardTitle } from "@sensible-folio/ui/components/ui/card";
+import { Separator } from "@sensible-folio/ui/components/ui/separator";
+import { formatPercent } from "@sensible-folio/ui";
+import { AmountDisplay } from "@sensible-folio/ui";
+import { QuantityDisplay } from "@sensible-folio/ui";
 import { useBalancePrivacy } from "@/hooks/use-balance-privacy";
 
 interface AssetDetail {

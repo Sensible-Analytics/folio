@@ -1,16 +1,16 @@
 import React, { useState, useMemo, useCallback } from "react";
-import { Button } from "@wealthfolio/ui/components/ui/button";
-import { Input } from "@wealthfolio/ui/components/ui/input";
-import { Icons } from "@wealthfolio/ui/components/ui/icons";
-import { Badge } from "@wealthfolio/ui/components/ui/badge";
-import { InputTags } from "@wealthfolio/ui/components/ui/tag-input";
+import { Button } from "@sensible-folio/ui/components/ui/button";
+import { Input } from "@sensible-folio/ui/components/ui/input";
+import { Icons } from "@sensible-folio/ui/components/ui/icons";
+import { Badge } from "@sensible-folio/ui/components/ui/badge";
+import { InputTags } from "@sensible-folio/ui/components/ui/tag-input";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@wealthfolio/ui/components/ui/dropdown-menu";
+} from "@sensible-folio/ui/components/ui/dropdown-menu";
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -19,7 +19,7 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@wealthfolio/ui/components/ui/alert-dialog";
+} from "@sensible-folio/ui/components/ui/alert-dialog";
 import {
   Dialog,
   DialogContent,
@@ -27,8 +27,8 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@wealthfolio/ui/components/ui/dialog";
-import { Label } from "@wealthfolio/ui/components/ui/label";
+} from "@sensible-folio/ui/components/ui/dialog";
+import { Label } from "@sensible-folio/ui/components/ui/label";
 import { cn } from "@/lib/utils";
 import type { ChatThread } from "../types";
 

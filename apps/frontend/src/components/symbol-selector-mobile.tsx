@@ -4,18 +4,18 @@ import { useSettingsContext } from "@/lib/settings-provider";
 import { SymbolSearchResult } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
-import { Button } from "@wealthfolio/ui/components/ui/button";
-import { Icons } from "@wealthfolio/ui/components/ui/icons";
-import { Input } from "@wealthfolio/ui/components/ui/input";
-import { ScrollArea } from "@wealthfolio/ui/components/ui/scroll-area";
+import { Button } from "@sensible-folio/ui/components/ui/button";
+import { Icons } from "@sensible-folio/ui/components/ui/icons";
+import { Input } from "@sensible-folio/ui/components/ui/input";
+import { ScrollArea } from "@sensible-folio/ui/components/ui/scroll-area";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@wealthfolio/ui/components/ui/select";
-import { Separator } from "@wealthfolio/ui/components/ui/separator";
+} from "@sensible-folio/ui/components/ui/select";
+import { Separator } from "@sensible-folio/ui/components/ui/separator";
 import {
   Sheet,
   SheetContent,
@@ -23,9 +23,9 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@wealthfolio/ui/components/ui/sheet";
-import { Skeleton } from "@wealthfolio/ui/components/ui/skeleton";
-import { CurrencyInput } from "@wealthfolio/ui/components/financial";
+} from "@sensible-folio/ui/components/ui/sheet";
+import { Skeleton } from "@sensible-folio/ui/components/ui/skeleton";
+import { CurrencyInput } from "@sensible-folio/ui/components/financial";
 import { forwardRef, useState } from "react";
 
 interface SymbolSelectorMobileProps {

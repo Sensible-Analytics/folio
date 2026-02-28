@@ -7,7 +7,7 @@ import {
   PopoverContent,
   PopoverTrigger,
   Switch,
-} from "@wealthfolio/ui";
+} from "@sensible-folio/ui";
 
 interface QuoteHistoryToolbarProps {
   selectedRowCount: number;

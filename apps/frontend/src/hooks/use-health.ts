@@ -11,7 +11,7 @@ import {
 } from "@/adapters";
 import { QueryKeys } from "@/lib/query-keys";
 import { useAuth } from "@/context/auth-context";
-import { toast } from "@wealthfolio/ui/components/ui/use-toast";
+import { toast } from "@sensible-folio/ui/components/ui/use-toast";
 
 /**
  * Hook for fetching health status.

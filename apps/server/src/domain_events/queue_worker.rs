@@ -8,9 +8,9 @@ use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::Arc;
 use std::time::Duration;
 
+use sensible_folio_connect::BrokerSyncServiceTrait;
+use sensible_folio_core::{assets::AssetServiceTrait, events::DomainEvent, secrets::SecretStore};
 use tokio::sync::mpsc;
-use wealthfolio_connect::BrokerSyncServiceTrait;
-use wealthfolio_core::{assets::AssetServiceTrait, events::DomainEvent, secrets::SecretStore};
 
 use super::planner::{plan_asset_enrichment, plan_broker_sync, plan_portfolio_job};
 use crate::events::EventBus;
@@ -23,18 +23,18 @@ pub struct QueueWorkerDeps {
     pub asset_service: Arc<dyn AssetServiceTrait + Send + Sync>,
     pub connect_sync_service: Arc<dyn BrokerSyncServiceTrait + Send + Sync>,
     pub event_bus: EventBus,
-    pub health_service: Arc<dyn wealthfolio_core::health::HealthServiceTrait + Send + Sync>,
+    pub health_service: Arc<dyn sensible_folio_core::health::HealthServiceTrait + Send + Sync>,
     // We need a way to enqueue portfolio jobs. Since AppState is not easily cloneable,
     // we pass what we need for enqueue_portfolio_job (which spawns its own async task).
     // The shared.rs enqueue_portfolio_job needs Arc<AppState>, so we'll need to pass
     // a callback or restructure slightly. For now, we'll store what we need.
     pub snapshot_service:
-        Arc<dyn wealthfolio_core::portfolio::snapshot::SnapshotServiceTrait + Send + Sync>,
-    pub quote_service: Arc<dyn wealthfolio_core::quotes::QuoteServiceTrait + Send + Sync>,
+        Arc<dyn sensible_folio_core::portfolio::snapshot::SnapshotServiceTrait + Send + Sync>,
+    pub quote_service: Arc<dyn sensible_folio_core::quotes::QuoteServiceTrait + Send + Sync>,
     pub valuation_service:
-        Arc<dyn wealthfolio_core::portfolio::valuation::ValuationServiceTrait + Send + Sync>,
-    pub account_service: Arc<wealthfolio_core::accounts::AccountService>,
-    pub fx_service: Arc<dyn wealthfolio_core::fx::FxServiceTrait + Send + Sync>,
+        Arc<dyn sensible_folio_core::portfolio::valuation::ValuationServiceTrait + Send + Sync>,
+    pub account_service: Arc<sensible_folio_core::accounts::AccountService>,
+    pub fx_service: Arc<dyn sensible_folio_core::fx::FxServiceTrait + Send + Sync>,
     /// Secret store for accessing credentials (e.g., refresh tokens for broker sync)
     pub secret_store: Arc<dyn SecretStore>,
 }
@@ -205,9 +205,9 @@ async fn run_portfolio_job(
         ServerEvent, MARKET_SYNC_COMPLETE, MARKET_SYNC_ERROR, MARKET_SYNC_START,
         PORTFOLIO_UPDATE_COMPLETE, PORTFOLIO_UPDATE_ERROR, PORTFOLIO_UPDATE_START,
     };
+    use sensible_folio_core::accounts::AccountServiceTrait;
+    use sensible_folio_core::constants::PORTFOLIO_TOTAL_ACCOUNT_ID;
     use serde_json::json;
-    use wealthfolio_core::accounts::AccountServiceTrait;
-    use wealthfolio_core::constants::PORTFOLIO_TOTAL_ACCOUNT_ID;
 
     let event_bus = deps.event_bus.clone();
 
@@ -222,7 +222,7 @@ async fn run_portfolio_job(
             Some(sync_mode) => deps.quote_service.sync(sync_mode, asset_ids).await,
             None => {
                 tracing::warn!("MarketSyncMode requires sync but returned None for SyncMode");
-                Ok(wealthfolio_core::quotes::SyncResult::default())
+                Ok(sensible_folio_core::quotes::SyncResult::default())
             }
         };
 
@@ -403,8 +403,8 @@ impl EventBusProgressReporter {
     }
 }
 
-impl wealthfolio_connect::SyncProgressReporter for EventBusProgressReporter {
-    fn report_progress(&self, payload: wealthfolio_connect::SyncProgressPayload) {
+impl sensible_folio_connect::SyncProgressReporter for EventBusProgressReporter {
+    fn report_progress(&self, payload: sensible_folio_connect::SyncProgressPayload) {
         use crate::events::ServerEvent;
         self.event_bus.publish(ServerEvent::with_payload(
             "sync-progress",
@@ -417,7 +417,7 @@ impl wealthfolio_connect::SyncProgressReporter for EventBusProgressReporter {
         self.event_bus.publish(ServerEvent::new(BROKER_SYNC_START));
     }
 
-    fn report_sync_complete(&self, result: &wealthfolio_connect::SyncResult) {
+    fn report_sync_complete(&self, result: &sensible_folio_connect::SyncResult) {
         use crate::events::{ServerEvent, BROKER_SYNC_COMPLETE, BROKER_SYNC_ERROR};
         if result.success {
             self.event_bus.publish(ServerEvent::with_payload(
@@ -509,8 +509,8 @@ async fn perform_broker_sync(
     connect_sync_service: Arc<dyn BrokerSyncServiceTrait + Send + Sync>,
     event_bus: EventBus,
     secret_store: Arc<dyn SecretStore>,
-) -> Result<wealthfolio_connect::SyncResult, String> {
-    use wealthfolio_connect::{ConnectApiClient, SyncConfig, SyncOrchestrator};
+) -> Result<sensible_folio_connect::SyncResult, String> {
+    use sensible_folio_connect::{ConnectApiClient, SyncConfig, SyncOrchestrator};
 
     if !crate::features::connect_sync_enabled() {
         return Err("Connect sync feature is disabled in this build.".to_string());

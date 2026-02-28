@@ -2,8 +2,8 @@
 
 use chrono::{DateTime, Utc};
 use diesel::prelude::*;
+use sensible_folio_connect::broker_ingest::{BrokerSyncState, SyncStatus};
 use serde::{Deserialize, Serialize};
-use wealthfolio_connect::broker_ingest::{BrokerSyncState, SyncStatus};
 
 /// Database model for broker sync state
 #[derive(

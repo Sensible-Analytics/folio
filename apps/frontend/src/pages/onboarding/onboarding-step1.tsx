@@ -1,5 +1,5 @@
-import { Card } from "@wealthfolio/ui/components/ui/card";
-import { Icons } from "@wealthfolio/ui/components/ui/icons";
+import { Card } from "@sensible-folio/ui/components/ui/card";
+import { Icons } from "@sensible-folio/ui/components/ui/icons";
 import React from "react";
 
 export const OnboardingStep1: React.FC = () => {

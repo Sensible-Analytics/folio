@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { useToast } from "@wealthfolio/ui/components/ui/use-toast";
+import { useToast } from "@sensible-folio/ui/components/ui/use-toast";
 import {
   isDesktop,
   logger as envLogger,
@@ -14,7 +14,7 @@ import {
 import type { InstalledAddon, Permission, ExtractedAddon } from "@/adapters";
 
 import { reloadAllAddons } from "@/addons/addons-core";
-import type { RiskLevel, AddonManifest } from "@wealthfolio/addon-sdk";
+import type { RiskLevel, AddonManifest } from "@sensible-folio/addon-sdk";
 import { QueryKeys } from "@/lib/query-keys";
 
 interface PermissionDialogState {

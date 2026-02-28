@@ -1,5 +1,5 @@
-import { Alert, AlertDescription, AlertTitle } from "@wealthfolio/ui/components/ui/alert";
-import { Icons, type Icon } from "@wealthfolio/ui/components/ui/icons";
+import { Alert, AlertDescription, AlertTitle } from "@sensible-folio/ui/components/ui/alert";
+import { Icons, type Icon } from "@sensible-folio/ui/components/ui/icons";
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "motion/react";
 import type React from "react";

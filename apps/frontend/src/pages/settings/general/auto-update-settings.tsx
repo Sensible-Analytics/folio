@@ -1,8 +1,8 @@
 import { updateSettings } from "@/adapters";
-import { Card, CardContent, CardHeader, CardTitle } from "@wealthfolio/ui/components/ui/card";
-import { Label } from "@wealthfolio/ui/components/ui/label";
-import { Switch } from "@wealthfolio/ui/components/ui/switch";
-import { toast } from "@wealthfolio/ui/components/ui/use-toast";
+import { Card, CardContent, CardHeader, CardTitle } from "@sensible-folio/ui/components/ui/card";
+import { Label } from "@sensible-folio/ui/components/ui/label";
+import { Switch } from "@sensible-folio/ui/components/ui/switch";
+import { toast } from "@sensible-folio/ui/components/ui/use-toast";
 import { QueryKeys } from "@/lib/query-keys";
 import { useSettingsContext } from "@/lib/settings-provider";
 import { useMutation, useQueryClient } from "@tanstack/react-query";

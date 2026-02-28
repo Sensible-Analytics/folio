@@ -1,7 +1,7 @@
 import { searchTicker } from "@/adapters";
-import { Button } from "@wealthfolio/ui/components/ui/button";
-import { Icons } from "@wealthfolio/ui/components/ui/icons";
-import { ScrollArea } from "@wealthfolio/ui/components/ui/scroll-area";
+import { Button } from "@sensible-folio/ui/components/ui/button";
+import { Icons } from "@sensible-folio/ui/components/ui/icons";
+import { ScrollArea } from "@sensible-folio/ui/components/ui/scroll-area";
 import {
   Sheet,
   SheetContent,
@@ -9,8 +9,8 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@wealthfolio/ui/components/ui/sheet";
-import { Skeleton } from "@wealthfolio/ui/components/ui/skeleton";
+} from "@sensible-folio/ui/components/ui/sheet";
+import { Skeleton } from "@sensible-folio/ui/components/ui/skeleton";
 import { SymbolSearchResult } from "@/lib/types";
 import { getExchangeDisplayName } from "@/lib/constants";
 

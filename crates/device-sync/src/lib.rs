@@ -6,7 +6,7 @@
 //! # Usage
 //!
 //! ```rust,ignore
-//! use wealthfolio_device_sync::{DeviceSyncClient, RegisterDeviceRequest, EnrollDeviceResponse};
+//! use sensible_folio_device_sync::{DeviceSyncClient, RegisterDeviceRequest, EnrollDeviceResponse};
 //!
 //! let client = DeviceSyncClient::new("https://api.wealthfolio.app");
 //! let result = client.enroll_device(

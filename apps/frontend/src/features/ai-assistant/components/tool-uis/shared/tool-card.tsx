@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
-import { Icons } from "@wealthfolio/ui/components/ui/icons";
-import { Card, CardContent, CardHeader, CardTitle } from "@wealthfolio/ui";
+import { Icons } from "@sensible-folio/ui/components/ui/icons";
+import { Card, CardContent, CardHeader, CardTitle } from "@sensible-folio/ui";
 
 export interface ToolCardProps {
   title: string;

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { type Goal } from "@wealthfolio/addon-sdk";
+import { type Goal } from "@sensible-folio/addon-sdk";
 import {
   Button,
   Command,
@@ -12,7 +12,7 @@ import {
   PopoverContent,
   PopoverTrigger,
   Icons,
-} from "@wealthfolio/ui";
+} from "@sensible-folio/ui";
 
 // Goal selector component with searchable dropdown using design system
 function GoalSelector({

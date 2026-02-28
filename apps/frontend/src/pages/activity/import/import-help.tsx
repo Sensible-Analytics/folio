@@ -1,8 +1,8 @@
-import { Icons } from "@wealthfolio/ui/components/ui/icons";
+import { Icons } from "@sensible-folio/ui/components/ui/icons";
 
-import { Button } from "@wealthfolio/ui/components/ui/button";
-import { Popover, PopoverContent, PopoverTrigger } from "@wealthfolio/ui/components/ui/popover";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@wealthfolio/ui/components/ui/tabs";
+import { Button } from "@sensible-folio/ui/components/ui/button";
+import { Popover, PopoverContent, PopoverTrigger } from "@sensible-folio/ui/components/ui/popover";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@sensible-folio/ui/components/ui/tabs";
 import { usePlatform } from "@/hooks/use-platform";
 import {
   ScrollArea,
@@ -11,7 +11,7 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@wealthfolio/ui";
+} from "@sensible-folio/ui";
 import { downloadSampleCsv, downloadSampleHoldingsCsv } from "./utils/sample-csv";
 
 // ─────────────────────────────────────────────────────────────────────────────

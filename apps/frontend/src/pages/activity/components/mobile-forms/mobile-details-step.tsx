@@ -1,5 +1,5 @@
-import { ScrollArea } from "@wealthfolio/ui/components/ui/scroll-area";
-import { Textarea } from "@wealthfolio/ui/components/ui/textarea";
+import { ScrollArea } from "@sensible-folio/ui/components/ui/scroll-area";
+import { Textarea } from "@sensible-folio/ui/components/ui/textarea";
 import { QuoteMode, type ActivityType } from "@/lib/constants";
 import { useSettingsContext } from "@/lib/settings-provider";
 import { AdvancedOptionsSection } from "../forms/fields/advanced-options-section";
@@ -20,7 +20,7 @@ import {
   SheetDescription,
   SheetHeader,
   SheetTitle,
-} from "@wealthfolio/ui";
+} from "@sensible-folio/ui";
 import { useEffect, useMemo, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { restrictionAllowsType } from "@/lib/activity-restrictions";

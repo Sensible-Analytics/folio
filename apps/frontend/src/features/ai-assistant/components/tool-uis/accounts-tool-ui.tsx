@@ -1,6 +1,6 @@
 import type { ToolCallMessagePartProps } from "@assistant-ui/react";
 import { makeAssistantToolUI } from "@assistant-ui/react";
-import { Badge, Card, CardContent, CardHeader, CardTitle, Skeleton } from "@wealthfolio/ui";
+import { Badge, Card, CardContent, CardHeader, CardTitle, Skeleton } from "@sensible-folio/ui";
 import { useMemo } from "react";
 import { useSettingsContext } from "@/lib/settings-provider";
 

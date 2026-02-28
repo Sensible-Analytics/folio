@@ -5,13 +5,13 @@
 
 use std::sync::Arc;
 
-use tokio::sync::mpsc;
-use wealthfolio_connect::BrokerSyncServiceTrait;
-use wealthfolio_core::{
+use sensible_folio_connect::BrokerSyncServiceTrait;
+use sensible_folio_core::{
     assets::AssetServiceTrait,
     events::{DomainEvent, DomainEventSink},
     secrets::SecretStore,
 };
+use tokio::sync::mpsc;
 
 use super::queue_worker::{event_queue_worker, QueueWorkerDeps};
 use crate::events::EventBus;
@@ -59,16 +59,16 @@ impl WebDomainEventSink {
         asset_service: Arc<dyn AssetServiceTrait + Send + Sync>,
         connect_sync_service: Arc<dyn BrokerSyncServiceTrait + Send + Sync>,
         event_bus: EventBus,
-        health_service: Arc<dyn wealthfolio_core::health::HealthServiceTrait + Send + Sync>,
+        health_service: Arc<dyn sensible_folio_core::health::HealthServiceTrait + Send + Sync>,
         snapshot_service: Arc<
-            dyn wealthfolio_core::portfolio::snapshot::SnapshotServiceTrait + Send + Sync,
+            dyn sensible_folio_core::portfolio::snapshot::SnapshotServiceTrait + Send + Sync,
         >,
-        quote_service: Arc<dyn wealthfolio_core::quotes::QuoteServiceTrait + Send + Sync>,
+        quote_service: Arc<dyn sensible_folio_core::quotes::QuoteServiceTrait + Send + Sync>,
         valuation_service: Arc<
-            dyn wealthfolio_core::portfolio::valuation::ValuationServiceTrait + Send + Sync,
+            dyn sensible_folio_core::portfolio::valuation::ValuationServiceTrait + Send + Sync,
         >,
-        account_service: Arc<wealthfolio_core::accounts::AccountService>,
-        fx_service: Arc<dyn wealthfolio_core::fx::FxServiceTrait + Send + Sync>,
+        account_service: Arc<sensible_folio_core::accounts::AccountService>,
+        fx_service: Arc<dyn sensible_folio_core::fx::FxServiceTrait + Send + Sync>,
         secret_store: Arc<dyn SecretStore>,
     ) {
         let rx = self

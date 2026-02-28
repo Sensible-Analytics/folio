@@ -88,7 +88,7 @@ mod kani_proofs {
     /// Prove: BankConnectSettings::years_back default is in a valid range.
     #[kani::proof]
     fn prove_default_years_back_bounded() {
-        use wealthfolio_core::bank_connect::models::BankConnectSettings;
+        use sensible_folio_core::bank_connect::models::BankConnectSettings;
         let settings = BankConnectSettings::default();
         kani::assert(
             settings.years_back >= 1 && settings.years_back <= 10,

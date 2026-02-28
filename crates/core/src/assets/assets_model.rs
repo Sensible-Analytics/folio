@@ -13,10 +13,10 @@ use super::asset_id::{parse_crypto_pair_symbol, parse_symbol_with_exchange_suffi
 use crate::errors::Result;
 use crate::errors::ValidationError;
 use crate::Error;
-use wealthfolio_market_data::mic_to_currency;
+use sensible_folio_market_data::mic_to_currency;
 
 // Re-export InstrumentId from market-data crate for convenience
-pub use wealthfolio_market_data::InstrumentId;
+pub use sensible_folio_market_data::InstrumentId;
 
 /// Asset behavior classification.
 ///
@@ -235,7 +235,7 @@ impl Asset {
         self.exchange_name = self
             .instrument_exchange_mic
             .as_ref()
-            .and_then(|mic| wealthfolio_market_data::mic_to_exchange_name(mic))
+            .and_then(|mic| sensible_folio_market_data::mic_to_exchange_name(mic))
             .map(String::from);
         self
     }

@@ -6,8 +6,8 @@ use std::sync::Arc;
 
 use crate::db::{get_connection, WriteHandle};
 use crate::errors::StorageError;
-use wealthfolio_core::bank_connect::{BankDownloadRun, NewBankDownloadRun};
-use wealthfolio_core::errors::Result;
+use sensible_folio_core::bank_connect::{BankDownloadRun, NewBankDownloadRun};
+use sensible_folio_core::errors::Result;
 
 #[derive(Queryable, Selectable, Insertable, AsChangeset, Clone, Debug)]
 #[diesel(table_name = crate::schema::bank_download_runs)]

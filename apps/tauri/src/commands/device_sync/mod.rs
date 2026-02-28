@@ -15,9 +15,9 @@ use tauri::{AppHandle, State};
 
 use crate::context::ServiceContext;
 use crate::secret_store::KeyringSecretStore;
-use wealthfolio_core::secrets::SecretStore;
-use wealthfolio_device_sync::engine as shared_sync_engine;
-use wealthfolio_device_sync::{
+use sensible_folio_core::secrets::SecretStore;
+use sensible_folio_device_sync::engine as shared_sync_engine;
+use sensible_folio_device_sync::{
     ClaimPairingRequest, ClaimPairingResponse, CommitInitializeKeysRequest,
     CommitInitializeKeysResponse, CommitRotateKeysRequest, CommitRotateKeysResponse,
     CompletePairingRequest, ConfirmPairingRequest, ConfirmPairingResponse, CreatePairingRequest,
@@ -25,7 +25,7 @@ use wealthfolio_device_sync::{
     GetPairingResponse, InitializeKeysResult, PairingMessagesResponse, RegisterDeviceRequest,
     ResetTeamSyncResponse, RotateKeysResponse, SuccessResponse, UpdateDeviceRequest,
 };
-use wealthfolio_storage_sqlite::sync::SyncTableRowCount;
+use sensible_folio_storage_sqlite::sync::SyncTableRowCount;
 
 // Re-export public items consumed by lib.rs
 pub use engine::{ensure_background_engine_started, ensure_background_engine_stopped};
@@ -237,7 +237,7 @@ struct TauriReadyReconcileRunner {
 
 #[async_trait]
 impl shared_sync_engine::ReadyReconcileStore for TauriReadyReconcileRunner {
-    async fn get_sync_state(&self) -> Result<wealthfolio_device_sync::SyncState, String> {
+    async fn get_sync_state(&self) -> Result<sensible_folio_device_sync::SyncState, String> {
         self.context
             .device_enroll_service()
             .get_sync_state()
@@ -291,7 +291,7 @@ fn is_sqlite_image(bytes: &[u8]) -> bool {
 }
 
 fn sha256_checksum(bytes: &[u8]) -> String {
-    wealthfolio_device_sync::crypto::sha256_checksum(bytes)
+    sensible_folio_device_sync::crypto::sha256_checksum(bytes)
 }
 
 fn encrypt_sync_payload(
@@ -304,9 +304,9 @@ fn encrypt_sync_payload(
         .as_ref()
         .ok_or_else(|| "Sync root key is not configured".to_string())?;
     let key_version = payload_key_version.max(1) as u32;
-    let dek = wealthfolio_device_sync::crypto::derive_dek(root_key, key_version)
+    let dek = sensible_folio_device_sync::crypto::derive_dek(root_key, key_version)
         .map_err(|e| format!("Failed to derive event DEK: {}", e))?;
-    wealthfolio_device_sync::crypto::encrypt(&dek, plaintext_payload)
+    sensible_folio_device_sync::crypto::encrypt(&dek, plaintext_payload)
         .map_err(|e| format!("Failed to encrypt sync payload: {}", e))
 }
 
@@ -320,9 +320,9 @@ fn decrypt_sync_payload(
         .as_ref()
         .ok_or_else(|| "Sync root key is not configured".to_string())?;
     let key_version = payload_key_version.max(1) as u32;
-    let dek = wealthfolio_device_sync::crypto::derive_dek(root_key, key_version)
+    let dek = sensible_folio_device_sync::crypto::derive_dek(root_key, key_version)
         .map_err(|e| format!("Failed to derive event DEK: {}", e))?;
-    wealthfolio_device_sync::crypto::decrypt(&dek, encrypted_payload)
+    sensible_folio_device_sync::crypto::decrypt(&dek, encrypted_payload)
         .map_err(|e| format!("Failed to decrypt sync payload: {}", e))
 }
 
@@ -863,7 +863,7 @@ pub async fn device_sync_bootstrap_snapshot_if_needed(
         .device_enroll_service()
         .get_sync_state()
         .await
-        .map(|sync_state| sync_state.state == wealthfolio_device_sync::SyncState::Ready)
+        .map(|sync_state| sync_state.state == sensible_folio_device_sync::SyncState::Ready)
         .unwrap_or(false);
 
     // Start the background sync engine whenever this device is READY.

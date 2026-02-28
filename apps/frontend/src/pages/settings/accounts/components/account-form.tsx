@@ -3,8 +3,8 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { useState, useCallback } from "react";
 
-import { Button } from "@wealthfolio/ui/components/ui/button";
-import { Checkbox } from "@wealthfolio/ui/components/ui/checkbox";
+import { Button } from "@sensible-folio/ui/components/ui/button";
+import { Checkbox } from "@sensible-folio/ui/components/ui/checkbox";
 
 import {
   DialogDescription,
@@ -12,7 +12,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@wealthfolio/ui/components/ui/dialog";
+} from "@sensible-folio/ui/components/ui/dialog";
 import {
   Form,
   FormControl,
@@ -20,9 +20,9 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@wealthfolio/ui/components/ui/form";
-import { Icons } from "@wealthfolio/ui/components/ui/icons";
-import { Input } from "@wealthfolio/ui/components/ui/input";
+} from "@sensible-folio/ui/components/ui/form";
+import { Icons } from "@sensible-folio/ui/components/ui/icons";
+import { Input } from "@sensible-folio/ui/components/ui/input";
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -31,7 +31,7 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@wealthfolio/ui/components/ui/alert-dialog";
+} from "@sensible-folio/ui/components/ui/alert-dialog";
 import { newAccountSchema } from "@/lib/schemas";
 import {
   CurrencyInput,
@@ -39,8 +39,8 @@ import {
   RadioGroupItem,
   ResponsiveSelect,
   type ResponsiveSelectOption,
-} from "@wealthfolio/ui";
-import { Alert, AlertDescription } from "@wealthfolio/ui/components/ui/alert";
+} from "@sensible-folio/ui";
+import { Alert, AlertDescription } from "@sensible-folio/ui/components/ui/alert";
 
 import { useAccountMutations } from "./use-account-mutations";
 

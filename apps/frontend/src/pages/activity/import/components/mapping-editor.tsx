@@ -1,8 +1,8 @@
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@wealthfolio/ui/components/ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@sensible-folio/ui/components/ui/tabs";
 import { Account, ActivityType, CsvRowData, ImportFormat, ImportMappingData } from "@/lib/types";
 import { useMemo } from "react";
 
-import { CardContent } from "@wealthfolio/ui/components/ui/card";
+import { CardContent } from "@sensible-folio/ui/components/ui/card";
 import { validateTickerSymbol } from "../utils/validation-utils";
 import { findMappedActivityType } from "../utils/activity-type-mapping";
 import { CSVFileViewer } from "./csv-file-viewer";

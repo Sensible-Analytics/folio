@@ -1,5 +1,5 @@
-import { Badge } from "@wealthfolio/ui/components/ui/badge";
-import { Button } from "@wealthfolio/ui/components/ui/button";
+import { Badge } from "@sensible-folio/ui/components/ui/badge";
+import { Button } from "@sensible-folio/ui/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -7,15 +7,15 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@wealthfolio/ui/components/ui/dialog";
-import { Icons } from "@wealthfolio/ui/components/ui/icons";
+} from "@sensible-folio/ui/components/ui/dialog";
+import { Icons } from "@sensible-folio/ui/components/ui/icons";
 import type {
   AddonManifest,
   Permission,
   PermissionCategory,
   RiskLevel,
-} from "@wealthfolio/addon-sdk";
-import { AlertFeedback } from "@wealthfolio/ui";
+} from "@sensible-folio/addon-sdk";
+import { AlertFeedback } from "@sensible-folio/ui";
 import { PermissionCategoriesDisplay } from "./permission-categories-display";
 
 interface PermissionDialogProps {

@@ -1,4 +1,4 @@
-use wealthfolio_connect::DEFAULT_CLOUD_API_URL;
+use sensible_folio_connect::DEFAULT_CLOUD_API_URL;
 
 pub fn connect_sync_enabled() -> bool {
     cfg!(feature = "connect-sync")

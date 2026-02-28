@@ -13,7 +13,7 @@ use tauri::AppHandle;
 use tauri::AppHandle;
 
 #[cfg(feature = "connect-sync")]
-use wealthfolio_core::quotes::MarketSyncMode;
+use sensible_folio_core::quotes::MarketSyncMode;
 
 #[cfg(feature = "connect-sync")]
 use crate::commands::brokers_sync::perform_broker_sync;

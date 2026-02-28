@@ -10,7 +10,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@wealthfolio/ui/components/ui/dialog";
+} from "@sensible-folio/ui/components/ui/dialog";
 import {
   Form,
   FormControl,
@@ -18,17 +18,17 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@wealthfolio/ui/components/ui/form";
-import { Input } from "@wealthfolio/ui/components/ui/input";
-import { Button } from "@wealthfolio/ui/components/ui/button";
+} from "@sensible-folio/ui/components/ui/form";
+import { Input } from "@sensible-folio/ui/components/ui/input";
+import { Button } from "@sensible-folio/ui/components/ui/button";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@wealthfolio/ui/components/ui/select";
-import { CurrencyInput } from "@wealthfolio/ui";
+} from "@sensible-folio/ui/components/ui/select";
+import { CurrencyInput } from "@sensible-folio/ui";
 import type { SymbolSearchResult } from "@/lib/types";
 
 // Simplified asset types for the form (values are InstrumentType)

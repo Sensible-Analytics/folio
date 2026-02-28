@@ -1,4 +1,4 @@
-import type { AddonContext } from "@wealthfolio/addon-sdk";
+import type { AddonContext } from "@sensible-folio/addon-sdk";
 import {
   Card,
   CardContent,
@@ -10,7 +10,7 @@ import {
   PageHeader,
   Skeleton,
   useBalancePrivacy,
-} from "@wealthfolio/ui";
+} from "@sensible-folio/ui";
 import React, { useState } from "react";
 import {
   AccountBreakdown,

@@ -6,7 +6,7 @@ use tauri::{AppHandle, Emitter, State};
 
 use crate::context::ServiceContext;
 use crate::events::{BROKER_SYNC_COMPLETE, BROKER_SYNC_ERROR, BROKER_SYNC_START};
-use wealthfolio_connect::{
+use sensible_folio_connect::{
     broker::BrokerApiClient, fetch_subscription_plans_public, BrokerAccount, BrokerConnection,
     PlansResponse, Platform, SyncConfig, SyncOrchestrator, SyncProgressPayload,
     SyncProgressReporter, SyncResult, UserInfo,
@@ -133,7 +133,7 @@ pub async fn perform_broker_sync(
             SyncOrchestrator::new(context.sync_service(), reporter, SyncConfig::default());
         orchestrator.sync_all(&client).await
     } else {
-        let reporter = Arc::new(wealthfolio_connect::NoOpProgressReporter);
+        let reporter = Arc::new(sensible_folio_connect::NoOpProgressReporter);
         let orchestrator =
             SyncOrchestrator::new(context.sync_service(), reporter, SyncConfig::default());
         orchestrator.sync_all(&client).await
@@ -148,7 +148,7 @@ pub async fn perform_broker_sync(
 #[tauri::command]
 pub async fn get_synced_accounts(
     state: State<'_, Arc<ServiceContext>>,
-) -> Result<Vec<wealthfolio_core::accounts::Account>, String> {
+) -> Result<Vec<sensible_folio_core::accounts::Account>, String> {
     state
         .sync_service()
         .get_synced_accounts()
@@ -263,7 +263,7 @@ pub async fn get_user_info(state: State<'_, Arc<ServiceContext>>) -> Result<User
 #[tauri::command]
 pub async fn get_broker_sync_states(
     state: State<'_, Arc<ServiceContext>>,
-) -> Result<Vec<wealthfolio_connect::BrokerSyncState>, String> {
+) -> Result<Vec<sensible_folio_connect::BrokerSyncState>, String> {
     debug!("Fetching all broker sync states...");
     state
         .sync_service()
@@ -275,7 +275,7 @@ pub async fn get_broker_sync_states(
 #[tauri::command]
 pub async fn get_broker_ingest_states(
     state: State<'_, Arc<ServiceContext>>,
-) -> Result<Vec<wealthfolio_connect::BrokerSyncState>, String> {
+) -> Result<Vec<sensible_folio_connect::BrokerSyncState>, String> {
     get_broker_sync_states(state).await
 }
 
@@ -286,7 +286,7 @@ pub async fn get_import_runs(
     limit: Option<i64>,
     offset: Option<i64>,
     state: State<'_, Arc<ServiceContext>>,
-) -> Result<Vec<wealthfolio_connect::ImportRun>, String> {
+) -> Result<Vec<sensible_folio_connect::ImportRun>, String> {
     let limit = limit.unwrap_or(50);
     let offset = offset.unwrap_or(0);
     debug!(
@@ -307,7 +307,7 @@ pub async fn get_data_import_runs(
     limit: Option<i64>,
     offset: Option<i64>,
     state: State<'_, Arc<ServiceContext>>,
-) -> Result<Vec<wealthfolio_connect::ImportRun>, String> {
+) -> Result<Vec<sensible_folio_connect::ImportRun>, String> {
     get_import_runs(run_type, limit, offset, state).await
 }
 

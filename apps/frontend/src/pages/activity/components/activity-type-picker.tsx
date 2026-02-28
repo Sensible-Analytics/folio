@@ -6,8 +6,8 @@ import {
   CarouselNext,
   CarouselPrevious,
   type CarouselApi,
-} from "@wealthfolio/ui/components/ui/carousel";
-import { Icons, type IconName } from "@wealthfolio/ui/components/ui/icons";
+} from "@sensible-folio/ui/components/ui/carousel";
+import { Icons, type IconName } from "@sensible-folio/ui/components/ui/icons";
 import { cn } from "@/lib/utils";
 
 export type PrimaryActivityType =

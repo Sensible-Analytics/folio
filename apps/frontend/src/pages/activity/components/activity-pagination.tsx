@@ -1,4 +1,4 @@
-import { Button, Icons } from "@wealthfolio/ui";
+import { Button, Icons } from "@sensible-folio/ui";
 
 interface ActivityPaginationProps {
   hasMore: boolean;

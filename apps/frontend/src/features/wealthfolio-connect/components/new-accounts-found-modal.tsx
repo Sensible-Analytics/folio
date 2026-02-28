@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import { Button } from "@wealthfolio/ui/components/ui/button";
-import { Input } from "@wealthfolio/ui/components/ui/input";
-import { Label } from "@wealthfolio/ui/components/ui/label";
-import { RadioGroup, RadioGroupItem } from "@wealthfolio/ui";
-import { Icons } from "@wealthfolio/ui/components/ui/icons";
+import { Button } from "@sensible-folio/ui/components/ui/button";
+import { Input } from "@sensible-folio/ui/components/ui/input";
+import { Label } from "@sensible-folio/ui/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@sensible-folio/ui";
+import { Icons } from "@sensible-folio/ui/components/ui/icons";
 import {
   Sheet,
   SheetContent,
@@ -11,9 +11,9 @@ import {
   SheetFooter,
   SheetHeader,
   SheetTitle,
-} from "@wealthfolio/ui/components/ui/sheet";
-import { Alert, AlertDescription } from "@wealthfolio/ui/components/ui/alert";
-import { ScrollArea } from "@wealthfolio/ui/components/ui/scroll-area";
+} from "@sensible-folio/ui/components/ui/sheet";
+import { Alert, AlertDescription } from "@sensible-folio/ui/components/ui/alert";
+import { ScrollArea } from "@sensible-folio/ui/components/ui/scroll-area";
 import { updateAccount } from "@/adapters";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";

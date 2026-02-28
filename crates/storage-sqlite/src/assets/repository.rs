@@ -5,8 +5,8 @@ use diesel::sqlite::SqliteConnection;
 use std::collections::HashSet;
 use std::sync::Arc;
 
-use wealthfolio_core::assets::{Asset, AssetRepositoryTrait, NewAsset, UpdateAssetProfile};
-use wealthfolio_core::{Error, Result};
+use sensible_folio_core::assets::{Asset, AssetRepositoryTrait, NewAsset, UpdateAssetProfile};
+use sensible_folio_core::{Error, Result};
 
 use super::model::{AssetDB, InsertableAssetDB};
 use crate::db::{get_connection, WriteHandle};

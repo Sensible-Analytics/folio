@@ -3,19 +3,19 @@ import { getExchangeDisplayName } from "@/lib/constants";
 import { SymbolSearchResult } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
-import { Badge } from "@wealthfolio/ui";
-import { Button } from "@wealthfolio/ui/components/ui/button";
+import { Badge } from "@sensible-folio/ui";
+import { Button } from "@sensible-folio/ui/components/ui/button";
 import {
   Command,
   CommandInput,
   CommandItem,
   CommandList,
   CommandSeparator,
-} from "@wealthfolio/ui/components/ui/command";
-import { Icons } from "@wealthfolio/ui/components/ui/icons";
-import { Popover, PopoverContent, PopoverTrigger } from "@wealthfolio/ui/components/ui/popover";
-import { Skeleton } from "@wealthfolio/ui/components/ui/skeleton";
-import { useComposedRefs } from "@wealthfolio/ui/hooks";
+} from "@sensible-folio/ui/components/ui/command";
+import { Icons } from "@sensible-folio/ui/components/ui/icons";
+import { Popover, PopoverContent, PopoverTrigger } from "@sensible-folio/ui/components/ui/popover";
+import { Skeleton } from "@sensible-folio/ui/components/ui/skeleton";
+import { useComposedRefs } from "@sensible-folio/ui/hooks";
 import { Command as CommandPrimitive } from "cmdk";
 import { debounce } from "lodash";
 import { forwardRef, memo, useCallback, useEffect, useMemo, useRef, useState } from "react";

@@ -1,16 +1,16 @@
-import { Button } from "@wealthfolio/ui/components/ui/button";
-import { Icons } from "@wealthfolio/ui/components/ui/icons";
+import { Button } from "@sensible-folio/ui/components/ui/button";
+import { Icons } from "@sensible-folio/ui/components/ui/icons";
 import {
   Sheet,
   SheetContent,
   SheetFooter,
   SheetHeader,
   SheetTitle,
-} from "@wealthfolio/ui/components/ui/sheet";
+} from "@sensible-folio/ui/components/ui/sheet";
 import { ActivityType, ActivityTypeNames } from "@/lib/constants";
 import { Account } from "@/lib/types";
 import { cn } from "@/lib/utils";
-import { ScrollArea } from "@wealthfolio/ui";
+import { ScrollArea } from "@sensible-folio/ui";
 import { useEffect, useState } from "react";
 
 interface ActivityMobileFilterSheetProps {

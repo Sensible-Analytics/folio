@@ -5,8 +5,8 @@
 
 use std::collections::HashSet;
 
-use wealthfolio_core::accounts::TrackingMode;
-use wealthfolio_core::events::DomainEvent;
+use sensible_folio_core::accounts::TrackingMode;
+use sensible_folio_core::events::DomainEvent;
 
 use crate::events::PortfolioRequestPayload;
 
@@ -94,9 +94,9 @@ pub fn plan_portfolio_job(events: &[DomainEvent]) -> Option<PortfolioRequestPayl
 
     // Use incremental sync with the collected asset IDs
     let sync_mode = if asset_ids.is_empty() {
-        wealthfolio_core::quotes::MarketSyncMode::Incremental { asset_ids: None }
+        sensible_folio_core::quotes::MarketSyncMode::Incremental { asset_ids: None }
     } else {
-        wealthfolio_core::quotes::MarketSyncMode::Incremental {
+        sensible_folio_core::quotes::MarketSyncMode::Incremental {
             asset_ids: Some(asset_ids.into_iter().collect()),
         }
     };
@@ -168,7 +168,7 @@ pub fn plan_asset_enrichment(events: &[DomainEvent]) -> Vec<String> {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use wealthfolio_core::events::CurrencyChange;
+    use sensible_folio_core::events::CurrencyChange;
 
     #[test]
     fn test_plan_portfolio_job_empty_events() {
@@ -210,7 +210,7 @@ mod tests {
 
         let payload = result.unwrap();
         // FX assets are synced via AssetsCreated events, not constructed from currencies
-        if let wealthfolio_core::quotes::MarketSyncMode::Incremental { asset_ids } =
+        if let sensible_folio_core::quotes::MarketSyncMode::Incremental { asset_ids } =
             payload.market_sync_mode
         {
             assert!(asset_ids.is_none());
@@ -233,7 +233,7 @@ mod tests {
         ];
 
         let result = plan_portfolio_job(&events).unwrap();
-        if let wealthfolio_core::quotes::MarketSyncMode::Incremental { asset_ids } =
+        if let sensible_folio_core::quotes::MarketSyncMode::Incremental { asset_ids } =
             result.market_sync_mode
         {
             let ids = asset_ids.unwrap();
@@ -263,7 +263,7 @@ mod tests {
         let result = plan_portfolio_job(&events).unwrap();
         assert!(result.account_ids.is_none());
 
-        if let wealthfolio_core::quotes::MarketSyncMode::Incremental { asset_ids } =
+        if let sensible_folio_core::quotes::MarketSyncMode::Incremental { asset_ids } =
             result.market_sync_mode
         {
             assert_eq!(asset_ids, Some(vec!["asset-1".to_string()]));
@@ -364,7 +364,7 @@ mod tests {
         let result = plan_portfolio_job(&events).unwrap();
 
         // Should use incremental sync mode
-        if let wealthfolio_core::quotes::MarketSyncMode::Incremental { asset_ids } =
+        if let sensible_folio_core::quotes::MarketSyncMode::Incremental { asset_ids } =
             result.market_sync_mode
         {
             assert!(asset_ids.is_none());

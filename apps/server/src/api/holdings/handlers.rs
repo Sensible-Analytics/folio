@@ -6,7 +6,7 @@ use axum::{
 };
 use chrono::{NaiveDate, Utc};
 use rust_decimal::Decimal;
-use wealthfolio_core::{
+use sensible_folio_core::{
     accounts::AccountServiceTrait,
     constants::PORTFOLIO_TOTAL_ACCOUNT_ID,
     portfolio::{
@@ -102,7 +102,7 @@ pub async fn get_latest_valuations(
     State(state): State<Arc<AppState>>,
     raw: axum::extract::RawQuery,
 ) -> ApiResult<Json<Vec<DailyAccountValuation>>> {
-    use wealthfolio_core::accounts::AccountServiceTrait;
+    use sensible_folio_core::accounts::AccountServiceTrait;
 
     // Parse query manually for robustness (supports accountIds and accountIds[])
     let mut ids: Vec<String> = Vec::new();

@@ -1,14 +1,14 @@
-import { Button } from "@wealthfolio/ui/components/ui/button";
-import { Icons } from "@wealthfolio/ui/components/ui/icons";
-import { Popover, PopoverContent, PopoverTrigger } from "@wealthfolio/ui/components/ui/popover";
+import { Button } from "@sensible-folio/ui/components/ui/button";
+import { Icons } from "@sensible-folio/ui/components/ui/icons";
+import { Popover, PopoverContent, PopoverTrigger } from "@sensible-folio/ui/components/ui/popover";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@wealthfolio/ui/components/ui/tooltip";
+} from "@sensible-folio/ui/components/ui/tooltip";
 import { cn } from "@/lib/utils";
-import { GainPercent } from "@wealthfolio/ui";
+import { GainPercent } from "@sensible-folio/ui";
 import React, { useState } from "react";
 
 // Explanatory texts for info popovers

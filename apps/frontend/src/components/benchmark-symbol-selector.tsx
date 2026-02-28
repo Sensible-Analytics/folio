@@ -1,5 +1,5 @@
 import { searchTicker } from "@/adapters";
-import { Button } from "@wealthfolio/ui/components/ui/button";
+import { Button } from "@sensible-folio/ui/components/ui/button";
 import {
   Command,
   CommandEmpty,
@@ -7,10 +7,10 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "@wealthfolio/ui/components/ui/command";
-import { Icons } from "@wealthfolio/ui/components/ui/icons";
-import { Popover, PopoverContent, PopoverTrigger } from "@wealthfolio/ui/components/ui/popover";
-import { Skeleton } from "@wealthfolio/ui/components/ui/skeleton";
+} from "@sensible-folio/ui/components/ui/command";
+import { Icons } from "@sensible-folio/ui/components/ui/icons";
+import { Popover, PopoverContent, PopoverTrigger } from "@sensible-folio/ui/components/ui/popover";
+import { Skeleton } from "@sensible-folio/ui/components/ui/skeleton";
 import { SymbolSearchResult } from "@/lib/types";
 import { getExchangeDisplayName } from "@/lib/constants";
 

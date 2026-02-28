@@ -1,8 +1,8 @@
 {
-  "name": "@wealthfolio/ui",
+  "name": "@sensible-folio/ui",
   "version": "3.0.0",
   "type": "module",
-  "description": "Wealthfolio UI components based on shadcn/ui and Tailwind CSS",
+  "description": "Sensible Folio UI components based on shadcn/ui and Tailwind CSS",
   "main": "dist/index.js",
   "types": "dist/src/index.d.ts",
   "exports": {

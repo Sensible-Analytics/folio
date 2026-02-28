@@ -10,9 +10,9 @@ use crate::db::{get_connection, WriteHandle};
 use crate::errors::StorageError;
 use crate::schema::platforms;
 use crate::schema::platforms::dsl::*;
-use wealthfolio_connect::broker::PlatformRepositoryTrait;
-use wealthfolio_connect::Platform as ConnectPlatform;
-use wealthfolio_core::errors::Result;
+use sensible_folio_connect::broker::PlatformRepositoryTrait;
+use sensible_folio_connect::Platform as ConnectPlatform;
+use sensible_folio_core::errors::Result;
 
 use super::model::{Platform, PlatformDB};
 

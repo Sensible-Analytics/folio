@@ -13,8 +13,8 @@ use chrono::Utc;
 use insta::{assert_json_snapshot, assert_snapshot};
 use rust_decimal::Decimal;
 use rust_decimal_macros::dec;
-use wealthfolio_core::activities::{Activity, ActivityStatus};
-use wealthfolio_core::portfolio::snapshot::AccountStateSnapshot;
+use sensible_folio_core::activities::{Activity, ActivityStatus};
+use sensible_folio_core::portfolio::snapshot::AccountStateSnapshot;
 
 fn make_activity(activity_type: &str, qty: Decimal, price: Decimal, fee: Decimal) -> Activity {
     let now = Utc::now();

@@ -3,9 +3,9 @@ import { useForm, useWatch } from "react-hook-form";
 import * as z from "zod";
 import { useEffect } from "react";
 
-import { Button } from "@wealthfolio/ui/components/ui/button";
-import { Icons } from "@wealthfolio/ui/components/ui/icons";
-import { Card, CardContent } from "@wealthfolio/ui/components/ui/card";
+import { Button } from "@sensible-folio/ui/components/ui/button";
+import { Icons } from "@sensible-folio/ui/components/ui/icons";
+import { Card, CardContent } from "@sensible-folio/ui/components/ui/card";
 
 import {
   DialogDescription,
@@ -22,11 +22,11 @@ import {
   FormDescription,
   DatePickerInput,
   Input,
-} from "@wealthfolio/ui";
+} from "@sensible-folio/ui";
 
 import { newContributionLimitSchema } from "@/lib/schemas";
 import { useContributionLimitMutations } from "../use-contribution-limit-mutations";
-import { MoneyInput } from "@wealthfolio/ui";
+import { MoneyInput } from "@sensible-folio/ui";
 
 type NewContributionLimit = z.infer<typeof newContributionLimitSchema>;
 

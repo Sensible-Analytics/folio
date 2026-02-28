@@ -8,7 +8,7 @@
 //! are never acceptable; property tests find the edge cases humans miss.
 
 use proptest::prelude::*;
-use wealthfolio_core::bank_connect::models::{BankConnectSettings, BankKey};
+use sensible_folio_core::bank_connect::models::{BankConnectSettings, BankKey};
 
 // ─── BankKey parse / display round-trip ────────────────────────────────────
 

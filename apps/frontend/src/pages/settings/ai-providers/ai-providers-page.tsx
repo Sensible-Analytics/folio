@@ -1,8 +1,8 @@
 import { useMemo, useState } from "react";
-import { Separator } from "@wealthfolio/ui/components/ui/separator";
-import { Skeleton } from "@wealthfolio/ui/components/ui/skeleton";
-import { Icons } from "@wealthfolio/ui/components/ui/icons";
-import { Button } from "@wealthfolio/ui/components/ui/button";
+import { Separator } from "@sensible-folio/ui/components/ui/separator";
+import { Skeleton } from "@sensible-folio/ui/components/ui/skeleton";
+import { Icons } from "@sensible-folio/ui/components/ui/icons";
+import { Button } from "@sensible-folio/ui/components/ui/button";
 
 import { SettingsHeader } from "../settings-header";
 import {

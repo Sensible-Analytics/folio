@@ -8,11 +8,11 @@ import {
   CardTitle,
   Progress,
   Skeleton,
-} from "@wealthfolio/ui";
+} from "@sensible-folio/ui";
 import { useMemo } from "react";
 import { cn } from "@/lib/utils";
 import { useBalancePrivacy } from "@/hooks/use-balance-privacy";
-import { Icons } from "@wealthfolio/ui/components/ui/icons";
+import { Icons } from "@sensible-folio/ui/components/ui/icons";
 import { useSettingsContext } from "@/lib/settings-provider";
 
 // ============================================================================

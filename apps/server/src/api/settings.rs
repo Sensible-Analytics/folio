@@ -15,13 +15,13 @@ use axum::{
 use base64::{engine::general_purpose::STANDARD as BASE64, Engine as _};
 use reqwest::StatusCode as HttpStatusCode;
 use semver::Version;
-use serde::Deserialize;
-use tokio::{fs, task};
-use wealthfolio_core::{
+use sensible_folio_core::{
     quotes::MarketSyncMode,
     settings::{Settings, SettingsServiceTrait, SettingsUpdate},
 };
-use wealthfolio_storage_sqlite::db;
+use sensible_folio_storage_sqlite::db;
+use serde::Deserialize;
+use tokio::{fs, task};
 
 async fn get_settings(State(state): State<Arc<AppState>>) -> ApiResult<Json<Settings>> {
     let s = state.settings_service.get_settings()?;
@@ -47,7 +47,7 @@ async fn update_settings(
                 account_ids: None,
                 market_sync_mode: MarketSyncMode::BackfillHistory {
                     asset_ids: None,
-                    days: wealthfolio_core::quotes::DEFAULT_HISTORY_DAYS,
+                    days: sensible_folio_core::quotes::DEFAULT_HISTORY_DAYS,
                 },
                 force_full_recalculation: true,
             };

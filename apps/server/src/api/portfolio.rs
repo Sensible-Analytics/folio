@@ -13,8 +13,8 @@ use axum::{
     Json, Router,
 };
 use futures_core::stream::Stream;
+use sensible_folio_core::quotes::{MarketSyncMode, DEFAULT_HISTORY_DAYS};
 use tokio_stream::wrappers::{errors::BroadcastStreamRecvError, BroadcastStream};
-use wealthfolio_core::quotes::{MarketSyncMode, DEFAULT_HISTORY_DAYS};
 
 async fn update_portfolio(
     State(state): State<Arc<AppState>>,

@@ -18,22 +18,22 @@ use crate::platform::Platform;
 use chrono::{DateTime, Months, Utc};
 use rust_decimal::prelude::FromPrimitive;
 use rust_decimal::Decimal;
-use std::collections::{HashMap, HashSet};
-use wealthfolio_core::accounts::{Account, AccountServiceTrait, NewAccount, TrackingMode};
-use wealthfolio_core::activities::{
+use sensible_folio_core::accounts::{Account, AccountServiceTrait, NewAccount, TrackingMode};
+use sensible_folio_core::activities::{
     compute_idempotency_key, ActivityRepositoryTrait, ActivityServiceTrait, ActivityUpsert,
     NewActivity,
 };
-use wealthfolio_core::assets::{
+use sensible_folio_core::assets::{
     parse_crypto_pair_symbol, parse_symbol_with_exchange_suffix, AssetKind, AssetServiceTrait,
     AssetSpec,
 };
-use wealthfolio_core::errors::Result;
-use wealthfolio_core::events::{DomainEvent, DomainEventSink, NoOpDomainEventSink};
-use wealthfolio_core::portfolio::snapshot::{
+use sensible_folio_core::errors::Result;
+use sensible_folio_core::events::{DomainEvent, DomainEventSink, NoOpDomainEventSink};
+use sensible_folio_core::portfolio::snapshot::{
     AccountStateSnapshot, Position, SnapshotRepositoryTrait, SnapshotServiceTrait, SnapshotSource,
 };
-use wealthfolio_core::utils::time_utils::valuation_date_today;
+use sensible_folio_core::utils::time_utils::valuation_date_today;
+use std::collections::{HashMap, HashSet};
 
 const DEFAULT_BROKERAGE_PROVIDER: &str = "snaptrade";
 /// Precision used for holdings normalization/diff comparisons.
@@ -530,8 +530,8 @@ impl BrokerSyncServiceTrait for BrokerSyncService {
         balances: Vec<HoldingsBalance>,
         positions: Vec<HoldingsPosition>,
     ) -> Result<(HoldingsDiff, usize, Vec<String>)> {
+        use sensible_folio_core::assets::InstrumentType;
         use std::collections::VecDeque;
-        use wealthfolio_core::assets::InstrumentType;
 
         // Get the account to determine its currency
         let account = self.account_service.get_account(&account_id)?;
@@ -1111,7 +1111,7 @@ mod tests {
 
     use chrono::Utc;
     use rust_decimal::Decimal;
-    use wealthfolio_core::portfolio::snapshot::{AccountStateSnapshot, Position};
+    use sensible_folio_core::portfolio::snapshot::{AccountStateSnapshot, Position};
 
     use super::BrokerSyncService;
 

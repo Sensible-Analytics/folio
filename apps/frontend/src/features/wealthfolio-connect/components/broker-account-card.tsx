@@ -1,6 +1,6 @@
-import { Card, CardContent } from "@wealthfolio/ui/components/ui/card";
-import { Badge } from "@wealthfolio/ui/components/ui/badge";
-import { Icons } from "@wealthfolio/ui/components/ui/icons";
+import { Card, CardContent } from "@sensible-folio/ui/components/ui/card";
+import { Badge } from "@sensible-folio/ui/components/ui/badge";
+import { Icons } from "@sensible-folio/ui/components/ui/icons";
 import { format } from "date-fns";
 import type { BrokerAccount } from "../types";
 

@@ -9,7 +9,7 @@ import {
   DonutChart,
   EmptyPlaceholder,
   Skeleton,
-} from "@wealthfolio/ui";
+} from "@sensible-folio/ui";
 import { useMemo, useState } from "react";
 
 interface DrillableDonutChartProps {

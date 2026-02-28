@@ -1,4 +1,4 @@
-import { Dialog, DialogContent } from "@wealthfolio/ui/components/ui/dialog";
+import { Dialog, DialogContent } from "@sensible-folio/ui/components/ui/dialog";
 import { GoalForm } from "./goal-form";
 import type { Goal } from "@/lib/types";
 

@@ -1,4 +1,4 @@
-import { Skeleton } from "@wealthfolio/ui";
+import { Skeleton } from "@sensible-folio/ui";
 
 interface TableSkeletonProps {
   rows?: number;

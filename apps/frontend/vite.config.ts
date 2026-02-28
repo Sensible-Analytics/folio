@@ -42,8 +42,8 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      "@wealthfolio/addon-sdk": path.resolve(__dirname, "../../packages/addon-sdk/src"),
-      "@wealthfolio/ui": path.resolve(__dirname, "../../packages/ui/src"),
+      "@sensible-folio/addon-sdk": path.resolve(__dirname, "../../packages/addon-sdk/src"),
+      "@sensible-folio/ui": path.resolve(__dirname, "../../packages/ui/src"),
       // Conditional adapter alias based on build target
       "@/adapters": path.resolve(
         __dirname,

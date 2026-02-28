@@ -7,7 +7,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@wealthfolio/ui";
+} from "@sensible-folio/ui";
 import { KeyboardEvent, useState } from "react";
 
 interface ActivityDataGridPaginationProps {

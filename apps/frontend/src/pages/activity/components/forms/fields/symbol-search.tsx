@@ -1,6 +1,6 @@
 import TickerSearchInput from "@/components/ticker-search";
-import { Input } from "@wealthfolio/ui/components/ui/input";
-import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@wealthfolio/ui";
+import { Input } from "@sensible-folio/ui/components/ui/input";
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@sensible-folio/ui";
 import { DataSource, QuoteMode } from "@/lib/constants";
 import type { SymbolSearchResult } from "@/lib/types";
 import { useRef, useState } from "react";

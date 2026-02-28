@@ -1,9 +1,9 @@
 import React, { useMemo, useState, useCallback } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { Card, CardContent, CardHeader } from "@wealthfolio/ui/components/ui/card";
-import { Button } from "@wealthfolio/ui/components/ui/button";
-import { Icons } from "@wealthfolio/ui/components/ui/icons";
-import { AlertFeedback, Page, PageContent, PageHeader } from "@wealthfolio/ui";
+import { Card, CardContent, CardHeader } from "@sensible-folio/ui/components/ui/card";
+import { Button } from "@sensible-folio/ui/components/ui/button";
+import { Icons } from "@sensible-folio/ui/components/ui/icons";
+import { AlertFeedback, Page, PageContent, PageHeader } from "@sensible-folio/ui";
 import { AnimatePresence, motion } from "motion/react";
 import { logger, getAccounts } from "@/adapters";
 import { usePlatform } from "@/hooks/use-platform";

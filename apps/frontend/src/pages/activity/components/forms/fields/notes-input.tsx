@@ -5,7 +5,7 @@ import {
   FormLabel,
   FormMessage,
   Textarea,
-} from "@wealthfolio/ui";
+} from "@sensible-folio/ui";
 import { useFormContext, type FieldPath, type FieldValues } from "react-hook-form";
 
 interface NotesInputProps<TFieldValues extends FieldValues = FieldValues> {

@@ -4,9 +4,9 @@
 
 import { logger } from "@/adapters";
 import { usePlatform } from "@/hooks/use-platform";
-import { Icons } from "@wealthfolio/ui";
-import { Button } from "@wealthfolio/ui/components/ui/button";
-import { Input } from "@wealthfolio/ui/components/ui/input";
+import { Icons } from "@sensible-folio/ui";
+import { Button } from "@sensible-folio/ui/components/ui/button";
+import { Input } from "@sensible-folio/ui/components/ui/input";
 import { useEffect, useRef, useState } from "react";
 
 interface EnterCodeProps {

@@ -1,10 +1,10 @@
 import { useQueryClient } from "@tanstack/react-query";
-import { Badge } from "@wealthfolio/ui/components/ui/badge";
-import { Button } from "@wealthfolio/ui/components/ui/button";
-import { Icons } from "@wealthfolio/ui/components/ui/icons";
-import { Popover, PopoverContent, PopoverTrigger } from "@wealthfolio/ui/components/ui/popover";
-import { Separator } from "@wealthfolio/ui/components/ui/separator";
-import { Skeleton } from "@wealthfolio/ui/components/ui/skeleton";
+import { Badge } from "@sensible-folio/ui/components/ui/badge";
+import { Button } from "@sensible-folio/ui/components/ui/button";
+import { Icons } from "@sensible-folio/ui/components/ui/icons";
+import { Popover, PopoverContent, PopoverTrigger } from "@sensible-folio/ui/components/ui/popover";
+import { Separator } from "@sensible-folio/ui/components/ui/separator";
+import { Skeleton } from "@sensible-folio/ui/components/ui/skeleton";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -17,15 +17,15 @@ import {
 } from "@/hooks/use-calculate-portfolio";
 import { QueryKeys } from "@/lib/query-keys";
 import { cn } from "@/lib/utils";
-import { ActionConfirm } from "@wealthfolio/ui";
+import { ActionConfirm } from "@sensible-folio/ui";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@wealthfolio/ui/components/ui/collapsible";
-import { Input } from "@wealthfolio/ui/components/ui/input";
-import { Label } from "@wealthfolio/ui/components/ui/label";
-import { Switch } from "@wealthfolio/ui/components/ui/switch";
+} from "@sensible-folio/ui/components/ui/collapsible";
+import { Input } from "@sensible-folio/ui/components/ui/input";
+import { Label } from "@sensible-folio/ui/components/ui/label";
+import { Switch } from "@sensible-folio/ui/components/ui/switch";
 import {
   useDeleteApiKey,
   useMarketDataProviderSettings,

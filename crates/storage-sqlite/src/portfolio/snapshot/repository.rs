@@ -13,9 +13,9 @@ use std::sync::Arc;
 use super::model::AccountStateSnapshotDB;
 use crate::db::{get_connection, WriteHandle};
 use crate::errors::StorageError;
-use wealthfolio_core::constants::PORTFOLIO_TOTAL_ACCOUNT_ID;
-use wealthfolio_core::errors::{Error, Result};
-use wealthfolio_core::portfolio::snapshot::{AccountStateSnapshot, SnapshotRepositoryTrait};
+use sensible_folio_core::constants::PORTFOLIO_TOTAL_ACCOUNT_ID;
+use sensible_folio_core::errors::{Error, Result};
+use sensible_folio_core::portfolio::snapshot::{AccountStateSnapshot, SnapshotRepositoryTrait};
 
 pub struct SnapshotRepository {
     pool: Arc<Pool<ConnectionManager<SqliteConnection>>>,
@@ -909,9 +909,9 @@ mod tests {
     use diesel::dsl::count_star;
     use diesel::RunQueryDsl;
     use rust_decimal::Decimal;
+    use sensible_folio_core::portfolio::snapshot::SnapshotSource;
     use std::collections::HashMap;
     use tempfile::tempdir;
-    use wealthfolio_core::portfolio::snapshot::SnapshotSource;
 
     /// Creates a test repository with an in-memory-like temp database
     /// Returns the repository, pool (for creating test accounts), and temp dir (to keep it alive)

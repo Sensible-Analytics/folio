@@ -17,12 +17,12 @@ import {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@wealthfolio/ui";
+} from "@sensible-folio/ui";
 import { useMemo, useState } from "react";
 
 import { ActionPalette, type ActionPaletteGroup } from "@/components/action-palette";
 import { PrivacyToggle } from "@/components/privacy-toggle";
-import { Button } from "@wealthfolio/ui/components/ui/button";
+import { Button } from "@sensible-folio/ui/components/ui/button";
 import {
   Command,
   CommandEmpty,
@@ -30,9 +30,9 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "@wealthfolio/ui/components/ui/command";
-import { Popover, PopoverContent, PopoverTrigger } from "@wealthfolio/ui/components/ui/popover";
-import { ScrollArea } from "@wealthfolio/ui/components/ui/scroll-area";
+} from "@sensible-folio/ui/components/ui/command";
+import { Popover, PopoverContent, PopoverTrigger } from "@sensible-folio/ui/components/ui/popover";
+import { ScrollArea } from "@sensible-folio/ui/components/ui/scroll-area";
 import {
   Sheet,
   SheetContent,
@@ -40,7 +40,7 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@wealthfolio/ui/components/ui/sheet";
+} from "@sensible-folio/ui/components/ui/sheet";
 import { useAccounts } from "@/hooks/use-accounts";
 import { useValuationHistory } from "@/hooks/use-valuation-history";
 import { AccountType } from "@/lib/constants";
@@ -61,7 +61,7 @@ import { PortfolioUpdateTrigger } from "@/pages/dashboard/portfolio-update-trigg
 import { useRecalculatePortfolioMutation } from "@/hooks/use-calculate-portfolio";
 import { useCalculatePerformanceHistory } from "@/pages/performance/hooks/use-performance-data";
 import { useQuery } from "@tanstack/react-query";
-import { Icons, type Icon } from "@wealthfolio/ui";
+import { Icons, type Icon } from "@sensible-folio/ui";
 import { format, parseISO, subMonths } from "date-fns";
 import { useNavigate, useParams } from "react-router-dom";
 import { AccountContributionLimit } from "./account-contribution-limit";

@@ -5,19 +5,19 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-} from "@wealthfolio/ui/components/ui/dialog";
-import { Button } from "@wealthfolio/ui/components/ui/button";
-import { Input } from "@wealthfolio/ui/components/ui/input";
-import { Label } from "@wealthfolio/ui/components/ui/label";
-import { Checkbox } from "@wealthfolio/ui/components/ui/checkbox";
-import { Icons } from "@wealthfolio/ui/components/ui/icons";
+} from "@sensible-folio/ui/components/ui/dialog";
+import { Button } from "@sensible-folio/ui/components/ui/button";
+import { Input } from "@sensible-folio/ui/components/ui/input";
+import { Label } from "@sensible-folio/ui/components/ui/label";
+import { Checkbox } from "@sensible-folio/ui/components/ui/checkbox";
+import { Icons } from "@sensible-folio/ui/components/ui/icons";
 import {
   CurrencyInput,
   DatePickerInput,
   ResponsiveSelect,
   MoneyInput,
   QuantityInput,
-} from "@wealthfolio/ui";
+} from "@sensible-folio/ui";
 import { cn } from "@/lib/utils";
 import { useSettingsContext } from "@/lib/settings-provider";
 

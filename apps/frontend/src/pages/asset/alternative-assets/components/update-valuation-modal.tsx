@@ -8,7 +8,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@wealthfolio/ui/components/ui/dialog";
+} from "@sensible-folio/ui/components/ui/dialog";
 import {
   Form,
   FormControl,
@@ -16,11 +16,11 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@wealthfolio/ui/components/ui/form";
-import { Button } from "@wealthfolio/ui/components/ui/button";
-import { Textarea } from "@wealthfolio/ui/components/ui/textarea";
-import { Icons } from "@wealthfolio/ui/components/ui/icons";
-import { MoneyInput, DatePickerInput } from "@wealthfolio/ui";
+} from "@sensible-folio/ui/components/ui/form";
+import { Button } from "@sensible-folio/ui/components/ui/button";
+import { Textarea } from "@sensible-folio/ui/components/ui/textarea";
+import { Icons } from "@sensible-folio/ui/components/ui/icons";
+import { MoneyInput, DatePickerInput } from "@sensible-folio/ui";
 
 import {
   updateValuationSchema,

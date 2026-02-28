@@ -1,8 +1,8 @@
-use wealthfolio_core::assets::{AssetKind, NewAsset};
-use wealthfolio_core::errors::{DatabaseError, ValidationError};
-use wealthfolio_core::fx::{ExchangeRate, FxRepositoryTrait};
-use wealthfolio_core::quotes::{DataSource, Quote};
-use wealthfolio_core::{Error, Result};
+use sensible_folio_core::assets::{AssetKind, NewAsset};
+use sensible_folio_core::errors::{DatabaseError, ValidationError};
+use sensible_folio_core::fx::{ExchangeRate, FxRepositoryTrait};
+use sensible_folio_core::quotes::{DataSource, Quote};
+use sensible_folio_core::{Error, Result};
 
 use crate::assets::{AssetDB, InsertableAssetDB};
 use crate::db::get_connection;

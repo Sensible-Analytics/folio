@@ -1,19 +1,19 @@
-Wealthfolio addons are TypeScript modules that extend the application's
+Sensible Folio addons are TypeScript modules that extend the application's
 functionality. This guide covers how to build, test, and distribute addons.
 
 **New to addon development?** Start with our
 [Quick Start Guide](/docs/addons/getting-started) to create your first addon.
 
-## What are Wealthfolio Addons?
+## What are Sensible Folio Addons?
 
-Addons are TypeScript/React-based extensions that provide access to
-Wealthfolio's financial data and UI system.
+Addons are TypeScript/React-based extensions that provide access to Sensible
+Folio's financial data and UI system.
 
 **Technical Foundation** Each addon is a JavaScript function that receives an
 `AddonContext` object with access to APIs, UI components, and event system.
 
 **Integration Capabilities** Addons can register new navigation items, routes,
-and components that integrate directly into Wealthfolio's interface.
+and components that integrate directly into Sensible Folio's interface.
 
 **Development Environment** Built with TypeScript, React, and modern web APIs.
 Includes hot-reload development server and comprehensive type definitions.
@@ -22,7 +22,7 @@ Includes hot-reload development server and comprehensive type definitions.
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                    Wealthfolio Host Application                 │
+│                    Sensible Folio Host Application                 │
 ├─────────────────────────────────────────────────────────────────┤
 │  ┌─────────────────┐  ┌─────────────────┐  ┌─────────────────┐  │
 │  │  Addon Runtime  │  │  Permission     │  │   API Bridge    │  │
@@ -49,8 +49,8 @@ Includes hot-reload development server and comprehensive type definitions.
 Every addon exports an enable function that receives a context object:
 
 ```typescript
-import type { AddonContext } from '@wealthfolio/addon-sdk';
-import { Icons } from '@wealthfolio/ui';
+import type { AddonContext } from '@sensible-folio/addon-sdk';
+import { Icons } from '@sensible-folio/ui';
 
 export default function enable(ctx: AddonContext) {
   // Access financial data
@@ -154,15 +154,15 @@ interface AddonContext {
 ### Required Packages
 
 ```bash
-npm install @wealthfolio/addon-sdk @wealthfolio/ui react react-dom
-npm install -D @wealthfolio/addon-dev-tools typescript vite
+npm install @sensible-folio/addon-sdk @sensible-folio/ui react react-dom
+npm install -D @sensible-folio/addon-dev-tools typescript vite
 ```
 
 ### Core Dependencies
 
-- **@wealthfolio/addon-sdk**: TypeScript types and API definitions
-- **@wealthfolio/ui**: UI components based on shadcn/ui and Tailwind CSS
-- **@wealthfolio/addon-dev-tools**: CLI and development server
+- **@sensible-folio/addon-sdk**: TypeScript types and API definitions
+- **@sensible-folio/ui**: UI components based on shadcn/ui and Tailwind CSS
+- **@sensible-folio/addon-dev-tools**: CLI and development server
 
 ### Development Server
 
@@ -173,7 +173,7 @@ The development tools include a hot-reload server:
 npm run dev:server
 
 # Available on localhost:3001-3003
-# Auto-discovered by Wealthfolio
+# Auto-discovered by Sensible Folio
 ```
 
 ```
@@ -256,11 +256,11 @@ await ctx.api.secrets.set("api-key", "value");
 
 ## UI Components
 
-Addons have access to Wealthfolio's UI component library:
+Addons have access to Sensible Folio's UI component library:
 
 ```typescript
-import { Button, Card, Dialog, Input, Table } from '@wealthfolio/ui';
-import { AmountDisplay, GainAmount, CurrencyInput } from '@wealthfolio/ui/financial';
+import { Button, Card, Dialog, Input, Table } from '@sensible-folio/ui';
+import { AmountDisplay, GainAmount, CurrencyInput } from '@sensible-folio/ui/financial';
 import { TrendingUp, DollarSign } from 'lucide-react';
 
 function MyComponent() {
@@ -327,7 +327,7 @@ export default defineConfig({
   "scripts": {
     "build": "vite build",
     "dev": "vite build --watch",
-    "dev:server": "wealthfolio dev",
+    "dev:server": "sensible-folio dev",
     "clean": "rm -rf dist",
     "package": "mkdir -p dist && zip -r dist/$npm_package_name-$npm_package_version.zip manifest.json dist/ assets/ README.md",
     "bundle": "pnpm clean && pnpm build && pnpm package",
@@ -362,7 +362,7 @@ export default defineConfig({
 ## Publishing
 
 Users can install addons directly from ZIP files. To publish your addon in the
-Wealthfolio Store, contact **support@wealthfolio.app**.
+Sensible Folio Store, contact **support@sensible-folio.app**.
 
 ## Quick Start
 
@@ -379,13 +379,13 @@ Wealthfolio Store, contact **support@wealthfolio.app**.
     <span class="text-primary">Browse APIs →</span>
   </Card>
 
-  <Card href="https://github.com/afadil/wealthfolio/tree/main/addons/">
+  <Card href="https://github.com/Sensible-Analytics/folio/tree/main/addons/">
     <h3 class="text-lg font-semibold mb-2">💡 Examples</h3>
     <p class="text-muted-foreground mb-4">See real addon implementations</p>
     <span class="text-primary">Browse Examples →</span>
   </Card>
 
-  <Card href="https://wealthfolio.app/addons">
+  <Card href="https://github.com/Sensible-Analytics/folio/tree/main/addons">
     <h3 class="text-lg font-semibold mb-2">🏪 Addon Store</h3>
     <p class="text-muted-foreground mb-4">Explore available addons</p>
     <span class="text-primary">Visit Store →</span>

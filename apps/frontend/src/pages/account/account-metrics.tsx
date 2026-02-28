@@ -19,7 +19,7 @@ import {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@wealthfolio/ui";
+} from "@sensible-folio/ui";
 import React, { useState } from "react";
 
 import { useBalanceUpdate } from "./use-balance-update";

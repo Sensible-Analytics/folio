@@ -5,10 +5,10 @@ use diesel::sqlite::SqliteConnection;
 use std::sync::Arc;
 use uuid::Uuid;
 
-use wealthfolio_core::limits::{
+use sensible_folio_core::limits::{
     ContributionLimit, ContributionLimitRepositoryTrait, NewContributionLimit,
 };
-use wealthfolio_core::Result;
+use sensible_folio_core::Result;
 
 use super::model::ContributionLimitDB;
 use crate::db::{get_connection, WriteHandle};

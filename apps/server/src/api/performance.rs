@@ -2,7 +2,7 @@ use std::sync::Arc;
 
 use crate::{error::ApiResult, main_lib::AppState};
 use axum::{extract::State, routing::post, Json, Router};
-use wealthfolio_core::{
+use sensible_folio_core::{
     accounts::{AccountServiceTrait, TrackingMode},
     portfolio::{
         income::IncomeSummary,

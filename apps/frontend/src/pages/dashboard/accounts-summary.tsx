@@ -5,11 +5,11 @@ import { useLatestValuations } from "@/hooks/use-latest-valuations";
 import { useSettingsContext } from "@/lib/settings-provider";
 import type { AccountValuation } from "@/lib/types";
 import { calculatePerformanceMetrics } from "@/lib/utils";
-import { GainAmount, GainPercent, PrivacyAmount } from "@wealthfolio/ui";
-import { Button } from "@wealthfolio/ui/components/ui/button";
-import { Icons } from "@wealthfolio/ui/components/ui/icons";
-import { Separator } from "@wealthfolio/ui/components/ui/separator";
-import { Skeleton } from "@wealthfolio/ui/components/ui/skeleton";
+import { GainAmount, GainPercent, PrivacyAmount } from "@sensible-folio/ui";
+import { Button } from "@sensible-folio/ui/components/ui/button";
+import { Icons } from "@sensible-folio/ui/components/ui/icons";
+import { Separator } from "@sensible-folio/ui/components/ui/separator";
+import { Skeleton } from "@sensible-folio/ui/components/ui/skeleton";
 import React, { useCallback, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 

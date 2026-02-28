@@ -6,14 +6,14 @@
   <h3 align="center">Folio</h3>
 
   <p align="center">
-    Wealthfolio + Australian Bank Statement Downloader
+    Sensible Folio + Australian Bank Statement Downloader
     <br />
-    <em>A community fork of <a href="https://github.com/afadil/wealthfolio">afadil/wealthfolio</a></em>
+    <em>A community fork of <a href="https://github.com/Sensible-Analytics/folio">Sensible-Analytics/folio</a></em>
     <br />
     <br />
-    <a href="https://github.com/afadil/wealthfolio/releases">Download Wealthfolio</a>
+    <a href="https://github.com/Sensible-Analytics/folio/releases">Download Sensible Folio</a>
     ·
-    <a href="https://wealthfolio.app">Official Website</a>
+    <a href="https://github.com/Sensible-Analytics/folio">Official Repository</a>
     ·
     <a href="https://github.com/Sensible-Analytics/folio/issues">Report Issues</a>
   </p>
@@ -34,12 +34,12 @@
 
 ## What is this?
 
-This is a community fork of [Wealthfolio](https://github.com/afadil/wealthfolio)
-— the local-first, open-source desktop investment tracker — with one extra
-feature added:
+This is a community fork of
+[Sensible Folio](https://github.com/Sensible-Analytics/folio) — the local-first,
+open-source desktop investment tracker — with one extra feature added:
 
 **Bank Connect**: automatically download bank statements (PDF) from Australian
-banks directly inside the Wealthfolio desktop app.
+banks directly inside the Sensible Folio desktop app.
 
 Everything else — portfolio tracking, performance analytics, activities, goals —
 is the same as the upstream project.
@@ -49,7 +49,7 @@ is the same as the upstream project.
 ## Bank Connect — Australian Bank Statement Downloader
 
 The Bank Connect feature lets you log in to your Australian bank's website
-inside Wealthfolio and download statements without leaving the app.
+inside Sensible Folio and download statements without leaving the app.
 
 ### Supported Banks
 
@@ -88,8 +88,8 @@ In **Settings → Bank Connect** you can configure:
 ## Relationship to the upstream project
 
 This fork tracks the `main` branch of
-[afadil/wealthfolio](https://github.com/afadil/wealthfolio). The only changes on
-top of upstream are:
+[Sensible-Analytics/folio](https://github.com/Sensible-Analytics/folio). The
+only changes on top of upstream are:
 
 | Change               | Description                                                                                      |
 | -------------------- | ------------------------------------------------------------------------------------------------ |
@@ -98,7 +98,7 @@ top of upstream are:
 | `docs(claude)`       | Development notes for AI-assisted development                                                    |
 
 If you want the base investment tracker without Bank Connect, use the official
-app: [wealthfolio.app](https://wealthfolio.app/).
+app: [Sensible Folio](https://github.com/Sensible-Analytics/folio).
 
 ---
 
@@ -140,10 +140,10 @@ pnpm type-check
 
 ---
 
-## Wealthfolio — Original Features
+## Sensible Folio — Original Features
 
 Everything below is from the upstream
-[Wealthfolio](https://github.com/afadil/wealthfolio) project.
+[Sensible Folio](https://github.com/Sensible-Analytics/folio) project.
 
 ### Key Features
 
@@ -161,15 +161,15 @@ Everything below is from the upstream
 
 ### Web Mode
 
-Run Wealthfolio in a browser via a local Axum server:
+Run Sensible Folio in a browser via a local Axum server:
 
 ```bash
 pnpm run dev:web
 ```
 
 See the
-[original README](https://github.com/afadil/wealthfolio/blob/main/README.md) for
-full web mode and Docker documentation.
+[original README](https://github.com/Sensible-Analytics/folio/blob/main/README.md)
+for full web mode and Docker documentation.
 
 ### Folder Structure
 
@@ -326,7 +326,7 @@ This fork is maintained by
 For issues with the Bank Connect feature, open an issue here.
 
 For issues with the core investment tracker, consider contributing upstream to
-[afadil/wealthfolio](https://github.com/afadil/wealthfolio).
+[Sensible-Analytics/folio](https://github.com/Sensible-Analytics/folio).
 
 ---
 
@@ -335,5 +335,5 @@ For issues with the core investment tracker, consider contributing upstream to
 Code is licensed under **AGPL-3.0** — same as the upstream project. See
 `LICENSE`.
 
-Wealthfolio and the Wealthfolio logo are trademarks of Teymz Inc. See
-[TRADEMARKS.md](TRADEMARKS.md).
+Sensible Folio and the Sensible Folio logo are trademarks of Sensible Analytics.
+See [TRADEMARKS.md](TRADEMARKS.md).

@@ -7,11 +7,11 @@ use diesel::SqliteConnection;
 use std::sync::Arc;
 use uuid::Uuid;
 
-use wealthfolio_core::taxonomies::{
+use sensible_folio_core::taxonomies::{
     AssetTaxonomyAssignment, Category, NewAssetTaxonomyAssignment, NewCategory, NewTaxonomy,
     Taxonomy, TaxonomyRepositoryTrait, TaxonomyWithCategories,
 };
-use wealthfolio_core::Result;
+use sensible_folio_core::Result;
 
 use super::model::{
     AssetTaxonomyAssignmentDB, CategoryDB, NewAssetTaxonomyAssignmentDB, NewCategoryDB,

@@ -3,7 +3,7 @@
 //! Tauri command wrappers for E2EE cryptographic operations.
 //! Delegates to the shared crypto module in wealthfolio-device-sync.
 
-use wealthfolio_device_sync::crypto::{self, EphemeralKeyPair};
+use sensible_folio_device_sync::crypto::{self, EphemeralKeyPair};
 
 #[tauri::command]
 pub fn sync_generate_root_key() -> String {

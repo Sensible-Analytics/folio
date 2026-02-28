@@ -12,15 +12,15 @@ import { useSettingsContext } from "@/lib/settings-provider";
 import { DateRange, TimePeriod } from "@/lib/types";
 import { calculatePerformanceMetrics } from "@/lib/utils";
 import { PortfolioUpdateTrigger } from "@/pages/dashboard/portfolio-update-trigger";
-import type { TimePeriod as UITimePeriod } from "@wealthfolio/ui";
+import type { TimePeriod as UITimePeriod } from "@sensible-folio/ui";
 import {
   GainAmount,
   GainPercent,
   getInitialIntervalData,
   IntervalSelector,
   usePersistentState,
-} from "@wealthfolio/ui";
-import { Skeleton } from "@wealthfolio/ui/components/ui/skeleton";
+} from "@sensible-folio/ui";
+import { Skeleton } from "@sensible-folio/ui/components/ui/skeleton";
 import { useMemo, useState } from "react";
 import { AccountsSummary } from "./accounts-summary";
 import Balance from "./balance";

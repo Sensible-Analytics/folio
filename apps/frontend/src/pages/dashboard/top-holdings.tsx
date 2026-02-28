@@ -1,10 +1,10 @@
 import { TickerAvatar } from "@/components/ticker-avatar";
-import { Card, CardContent, CardHeader, CardTitle } from "@wealthfolio/ui/components/ui/card";
-import { Skeleton } from "@wealthfolio/ui/components/ui/skeleton";
+import { Card, CardContent, CardHeader, CardTitle } from "@sensible-folio/ui/components/ui/card";
+import { Skeleton } from "@sensible-folio/ui/components/ui/skeleton";
 import { HoldingType, isAlternativeAssetKind, type AssetKind } from "@/lib/constants";
 import { Holding } from "@/lib/types";
 import { cn } from "@/lib/utils";
-import { AmountDisplay, Button, GainAmount, GainPercent, Icons } from "@wealthfolio/ui";
+import { AmountDisplay, Button, GainAmount, GainPercent, Icons } from "@sensible-folio/ui";
 import { useMemo } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useBalancePrivacy } from "@/hooks/use-balance-privacy";

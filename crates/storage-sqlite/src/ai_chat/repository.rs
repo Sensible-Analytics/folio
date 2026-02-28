@@ -10,13 +10,13 @@ use diesel::r2d2::{ConnectionManager, Pool};
 use diesel::sqlite::SqliteConnection;
 use std::sync::Arc;
 
-use wealthfolio_ai::{
+use sensible_folio_ai::{
     AiError, ChatMessage, ChatMessageContent, ChatMessagePart, ChatMessageRole,
     ChatRepositoryResult, ChatRepositoryTrait, ChatThread, ChatThreadConfig, ListThreadsRequest,
     ThreadPage, CHAT_MAX_CONTENT_SIZE_BYTES,
 };
-use wealthfolio_core::errors::{DatabaseError, ValidationError};
-use wealthfolio_core::{Error as CoreError, Result as CoreResult};
+use sensible_folio_core::errors::{DatabaseError, ValidationError};
+use sensible_folio_core::{Error as CoreError, Result as CoreResult};
 
 use crate::db::{get_connection, WriteHandle};
 use crate::schema::{ai_messages, ai_thread_tags, ai_threads};

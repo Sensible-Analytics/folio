@@ -21,7 +21,7 @@
 //! # Example
 //!
 //! ```ignore
-//! use wealthfolio_ai::{ChatService, ChatConfig, AiEnvironment};
+//! use sensible_folio_ai::{ChatService, ChatConfig, AiEnvironment};
 //!
 //! // Create environment (Tauri/Axum implements AiEnvironment)
 //! let env = create_runtime_environment(...);

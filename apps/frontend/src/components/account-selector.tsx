@@ -1,4 +1,4 @@
-import { Button } from "@wealthfolio/ui/components/ui/button";
+import { Button } from "@sensible-folio/ui/components/ui/button";
 import {
   Command,
   CommandEmpty,
@@ -6,14 +6,14 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "@wealthfolio/ui/components/ui/command";
-import { Popover, PopoverContent, PopoverTrigger } from "@wealthfolio/ui/components/ui/popover";
+} from "@sensible-folio/ui/components/ui/command";
+import { Popover, PopoverContent, PopoverTrigger } from "@sensible-folio/ui/components/ui/popover";
 import { Account, TrackingMode } from "@/lib/types";
 import { cn } from "@/lib/utils";
-import { Icons, type Icon } from "@wealthfolio/ui";
+import { Icons, type Icon } from "@sensible-folio/ui";
 import { forwardRef, useState } from "react";
 
-import { Skeleton } from "@wealthfolio/ui/components/ui/skeleton";
+import { Skeleton } from "@sensible-folio/ui/components/ui/skeleton";
 import { useAccounts } from "@/hooks/use-accounts";
 import { useSettings } from "@/hooks/use-settings";
 import { AccountType, PORTFOLIO_ACCOUNT_ID } from "@/lib/constants";

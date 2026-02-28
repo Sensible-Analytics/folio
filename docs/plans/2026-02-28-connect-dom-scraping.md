@@ -165,7 +165,7 @@ mod tests {
 **Step 5: Run tests**
 
 ```bash
-cargo test -p wealthfolio-core bank_connect
+cargo test -p sensible-folio-core bank_connect
 ```
 
 Expected: 2 tests PASS.
@@ -201,7 +201,7 @@ requires DB)
 // In apps/tauri/src/commands/bank_connect.rs — add unit test at bottom
 #[cfg(test)]
 mod tests {
-    use wealthfolio_core::bank_connect::models::ScrapedAccount;
+    use sensible_folio_core::bank_connect::models::ScrapedAccount;
 
     fn sample_scraped_account() -> ScrapedAccount {
         ScrapedAccount {
@@ -287,7 +287,7 @@ fn map_account_type(raw: &str) -> String {
 **Step 4: Verify it compiles**
 
 ```bash
-cargo check -p wealthfolio-app
+cargo check -p sensible-folio-app
 ```
 
 **Step 5: Commit**
@@ -431,7 +431,7 @@ In `apps/tauri/src/lib.rs`, add `import_scraped_transactions` to the
 **Step 4: Compile check**
 
 ```bash
-cargo check -p wealthfolio-app
+cargo check -p sensible-folio-app
 ```
 
 **Step 5: Commit**
@@ -599,7 +599,7 @@ pub const ING_SCRIPT: &str = r#"
 **Step 2: Verify Rust still compiles (scripts are just string constants)**
 
 ```bash
-cargo check -p wealthfolio-app
+cargo check -p sensible-folio-app
 ```
 
 **Step 3: Commit**
@@ -711,7 +711,7 @@ In the IPC message dispatch, add:
 **Step 3: Compile + test**
 
 ```bash
-cargo check -p wealthfolio-app
+cargo check -p sensible-folio-app
 ```
 
 **Commit:**
@@ -827,7 +827,7 @@ Add `open_bank_panel`, `close_bank_panel`, `resize_bank_panel` to
 **Step 3: Compile check**
 
 ```bash
-cargo check -p wealthfolio-app
+cargo check -p sensible-folio-app
 ```
 
 **Step 4: Commit**
@@ -1142,7 +1142,7 @@ Expected: no errors.
 **Step 2: Run Rust tests**
 
 ```bash
-cargo test -p wealthfolio-core bank_connect
+cargo test -p sensible-folio-core bank_connect
 ```
 
 Expected: idempotency key tests pass.

@@ -1,5 +1,5 @@
 import { useFormContext } from "react-hook-form";
-import { Alert, AlertDescription, Icons } from "@wealthfolio/ui";
+import { Alert, AlertDescription, Icons } from "@sensible-folio/ui";
 import { useCashBalanceValidation } from "../hooks/use-cash-balance-validation";
 import { NewActivityFormValues } from "./forms/schemas";
 

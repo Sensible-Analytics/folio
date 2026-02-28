@@ -3,9 +3,9 @@
 use async_trait::async_trait;
 use std::sync::Arc;
 
-use wealthfolio_core::errors::{Result, ValidationError};
-use wealthfolio_core::secrets::SecretStore;
-use wealthfolio_core::settings::SettingsRepositoryTrait;
+use sensible_folio_core::errors::{Result, ValidationError};
+use sensible_folio_core::secrets::SecretStore;
+use sensible_folio_core::settings::SettingsRepositoryTrait;
 
 use crate::provider_model::{
     default_priority, AiProviderCatalog, AiProviderSettings, AiProvidersResponse, FetchedModel,
@@ -288,7 +288,7 @@ impl AiProviderServiceTrait for AiProviderService {
     async fn update_provider_settings(&self, request: UpdateProviderSettingsRequest) -> Result<()> {
         // Verify provider exists in catalog
         if !self.catalog.providers.contains_key(&request.provider_id) {
-            return Err(wealthfolio_core::errors::Error::Validation(
+            return Err(sensible_folio_core::errors::Error::Validation(
                 ValidationError::InvalidInput(format!("Unknown provider: {}", request.provider_id)),
             ));
         }
@@ -358,7 +358,7 @@ impl AiProviderServiceTrait for AiProviderService {
         // Verify provider exists if setting a default
         if let Some(ref provider_id) = request.provider_id {
             if !self.catalog.providers.contains_key(provider_id) {
-                return Err(wealthfolio_core::errors::Error::Validation(
+                return Err(sensible_folio_core::errors::Error::Validation(
                     ValidationError::InvalidInput(format!("Unknown provider: {}", provider_id)),
                 ));
             }

@@ -14,11 +14,11 @@ mod secrets;
 use api::app_router;
 use config::Config;
 use main_lib::{build_state, init_tracing};
+#[cfg(feature = "device-sync")]
+use sensible_folio_device_sync::SyncState;
 use tower_http::services::{ServeDir, ServeFile};
 #[cfg(feature = "device-sync")]
 use tracing::warn;
-#[cfg(feature = "device-sync")]
-use wealthfolio_device_sync::SyncState;
 
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {

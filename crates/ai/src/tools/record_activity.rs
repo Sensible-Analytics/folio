@@ -242,7 +242,7 @@ impl<E: AiEnvironment> RecordActivityTool<E> {
     fn resolve_account(
         &self,
         account_hint: Option<&str>,
-        accounts: &[wealthfolio_core::accounts::Account],
+        accounts: &[sensible_folio_core::accounts::Account],
     ) -> (Option<String>, Option<String>) {
         // If no hint provided, auto-select if there's only one account
         let Some(hint) = account_hint else {

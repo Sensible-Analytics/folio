@@ -1,12 +1,12 @@
 import type { TaxonomyAllocation } from "@/lib/types";
-import { formatPercent, PrivacyAmount } from "@wealthfolio/ui";
-import { Card } from "@wealthfolio/ui/components/ui/card";
+import { formatPercent, PrivacyAmount } from "@sensible-folio/ui";
+import { Card } from "@sensible-folio/ui/components/ui/card";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@wealthfolio/ui/components/ui/tooltip";
+} from "@sensible-folio/ui/components/ui/tooltip";
 import { useMemo } from "react";
 
 type VariantType = "security-types" | "risk-composition";

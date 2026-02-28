@@ -7,17 +7,17 @@ import {
 } from "@assistant-ui/react";
 import { PropsWithChildren, useEffect, useState, type FC } from "react";
 
-import { Icons } from "@wealthfolio/ui/components/ui/icons";
+import { Icons } from "@sensible-folio/ui/components/ui/icons";
 import { useShallow } from "zustand/shallow";
 import { cn } from "@/lib/utils";
-import { Avatar, AvatarFallback, AvatarImage } from "@wealthfolio/ui/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@sensible-folio/ui/components/ui/avatar";
 import {
   Dialog,
   DialogContent,
   DialogTitle,
   DialogTrigger,
-} from "@wealthfolio/ui/components/ui/dialog";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@wealthfolio/ui/components/ui/tooltip";
+} from "@sensible-folio/ui/components/ui/dialog";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@sensible-folio/ui/components/ui/tooltip";
 import { TooltipIconButton } from "./tooltip-icon-button";
 
 const useFileSrc = (file: File | undefined) => {

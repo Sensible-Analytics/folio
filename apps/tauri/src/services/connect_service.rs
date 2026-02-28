@@ -6,9 +6,9 @@
 use log::{debug, error};
 
 use crate::secret_store::KeyringSecretStore;
-use wealthfolio_connect::ConnectApiClient;
-use wealthfolio_connect::DEFAULT_CLOUD_API_URL;
-use wealthfolio_core::secrets::SecretStore;
+use sensible_folio_connect::ConnectApiClient;
+use sensible_folio_connect::DEFAULT_CLOUD_API_URL;
+use sensible_folio_core::secrets::SecretStore;
 
 /// Secret key for storing the cloud API access token.
 /// Note: SecretStore adds "wealthfolio_" prefix automatically.

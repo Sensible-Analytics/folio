@@ -5,22 +5,22 @@ use std::sync::Arc;
 use async_trait::async_trait;
 
 use crate::context::ServiceContext;
-use wealthfolio_core::events::DomainEvent;
-use wealthfolio_device_sync::engine::{
+use sensible_folio_core::events::DomainEvent;
+use sensible_folio_device_sync::engine::{
     CredentialStore, OutboxStore, ReplayEvent, ReplayStore, SyncIdentity, SyncTransport,
     TransportError,
 };
-use wealthfolio_device_sync::{
+use sensible_folio_device_sync::{
     ReconcileReadyStateResponse, SyncPullResponse, SyncPushRequest, SyncPushResponse, SyncState,
 };
 
-fn transport_err_from_sync(e: wealthfolio_device_sync::DeviceSyncError) -> TransportError {
+fn transport_err_from_sync(e: sensible_folio_device_sync::DeviceSyncError) -> TransportError {
     TransportError {
         message: e.to_string(),
         retry_class: e.retry_class(),
         error_code: e.error_code().map(|s| s.to_string()),
         details: match &e {
-            wealthfolio_device_sync::DeviceSyncError::Api { details, .. } => details.clone(),
+            sensible_folio_device_sync::DeviceSyncError::Api { details, .. } => details.clone(),
             _ => None,
         },
     }
@@ -29,12 +29,12 @@ fn transport_err_from_sync(e: wealthfolio_device_sync::DeviceSyncError) -> Trans
 fn transport_err_permanent(message: String) -> TransportError {
     TransportError {
         message,
-        retry_class: wealthfolio_device_sync::ApiRetryClass::Permanent,
+        retry_class: sensible_folio_device_sync::ApiRetryClass::Permanent,
         error_code: None,
         details: None,
     }
 }
-use wealthfolio_storage_sqlite::sync::SqliteSyncEngineDbPorts;
+use sensible_folio_storage_sqlite::sync::SqliteSyncEngineDbPorts;
 
 use super::{
     create_client, decrypt_sync_payload, encrypt_sync_payload, get_access_token,
@@ -66,7 +66,7 @@ impl OutboxStore for TauriEnginePorts {
     async fn list_pending_outbox(
         &self,
         limit: i64,
-    ) -> Result<Vec<wealthfolio_core::sync::SyncOutboxEvent>, String> {
+    ) -> Result<Vec<sensible_folio_core::sync::SyncOutboxEvent>, String> {
         self.db.list_pending_outbox(limit).await
     }
 
@@ -158,7 +158,9 @@ impl ReplayStore for TauriEnginePorts {
         self.db.prune_applied_events_up_to_seq(seq).await
     }
 
-    async fn get_engine_status(&self) -> Result<wealthfolio_core::sync::SyncEngineStatus, String> {
+    async fn get_engine_status(
+        &self,
+    ) -> Result<sensible_folio_core::sync::SyncEngineStatus, String> {
         self.db.get_engine_status().await
     }
 
@@ -178,7 +180,7 @@ impl SyncTransport for TauriEnginePorts {
         &self,
         token: &str,
         device_id: &str,
-    ) -> Result<wealthfolio_device_sync::SyncCursorResponse, TransportError> {
+    ) -> Result<sensible_folio_device_sync::SyncCursorResponse, TransportError> {
         create_client()
             .map_err(transport_err_permanent)?
             .get_events_cursor(token, device_id)

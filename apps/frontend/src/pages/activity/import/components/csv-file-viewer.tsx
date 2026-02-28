@@ -1,15 +1,15 @@
-import { DataTableColumnHeader } from "@wealthfolio/ui/components/ui/data-table/data-table-column-header";
-import { DataTableFacetedFilterProps } from "@wealthfolio/ui/components/ui/data-table/data-table-faceted-filter";
-import { DataTablePagination } from "@wealthfolio/ui/components/ui/data-table/data-table-pagination";
-import { DataTableToolbar } from "@wealthfolio/ui/components/ui/data-table/data-table-toolbar";
-import { Icons } from "@wealthfolio/ui/components/ui/icons";
-import { Table, TableBody, TableCell, TableRow } from "@wealthfolio/ui/components/ui/table";
+import { DataTableColumnHeader } from "@sensible-folio/ui/components/ui/data-table/data-table-column-header";
+import { DataTableFacetedFilterProps } from "@sensible-folio/ui/components/ui/data-table/data-table-faceted-filter";
+import { DataTablePagination } from "@sensible-folio/ui/components/ui/data-table/data-table-pagination";
+import { DataTableToolbar } from "@sensible-folio/ui/components/ui/data-table/data-table-toolbar";
+import { Icons } from "@sensible-folio/ui/components/ui/icons";
+import { Table, TableBody, TableCell, TableRow } from "@sensible-folio/ui/components/ui/table";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@wealthfolio/ui/components/ui/tooltip";
+} from "@sensible-folio/ui/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 import {
   ColumnDef,

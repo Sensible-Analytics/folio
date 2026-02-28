@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Avatar, AvatarImage, AvatarFallback } from "@wealthfolio/ui";
+import { Avatar, AvatarImage, AvatarFallback } from "@sensible-folio/ui";
 
 interface TickerAvatarProps {
   symbol: string;

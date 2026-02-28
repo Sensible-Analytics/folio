@@ -3,13 +3,11 @@ use super::registry::ServiceContext;
 use crate::domain_events::TauriDomainEventSink;
 use crate::secret_store::shared_secret_store;
 use crate::services::ConnectService;
-use std::sync::{Arc, RwLock};
-use tokio::sync::mpsc;
-use wealthfolio_ai::{AiProviderService, ChatConfig, ChatService};
-use wealthfolio_connect::{
+use sensible_folio_ai::{AiProviderService, ChatConfig, ChatService};
+use sensible_folio_connect::{
     BrokerSyncService, CoreImportRunRepositoryAdapter, ImportRunRepositoryTrait,
 };
-use wealthfolio_core::{
+use sensible_folio_core::{
     accounts::AccountService,
     activities::ActivityService,
     assets::{AlternativeAssetService, AssetClassificationService, AssetService},
@@ -31,8 +29,8 @@ use wealthfolio_core::{
     settings::{SettingsRepositoryTrait, SettingsService, SettingsServiceTrait},
     taxonomies::TaxonomyService,
 };
-use wealthfolio_device_sync::{engine::DeviceSyncRuntimeState, DeviceEnrollService};
-use wealthfolio_storage_sqlite::{
+use sensible_folio_device_sync::{engine::DeviceSyncRuntimeState, DeviceEnrollService};
+use sensible_folio_storage_sqlite::{
     accounts::AccountRepository,
     activities::ActivityRepository,
     ai_chat::AiChatRepository,
@@ -49,6 +47,8 @@ use wealthfolio_storage_sqlite::{
     sync::{AppSyncRepository, BrokerSyncStateRepository, ImportRunRepository, PlatformRepository},
     taxonomies::TaxonomyRepository,
 };
+use std::sync::{Arc, RwLock};
+use tokio::sync::mpsc;
 
 /// Result of context initialization, including the receiver for domain events.
 pub struct ContextInitResult {
@@ -88,7 +88,7 @@ pub async fn initialize_context(
     // The worker will be started by the caller after the context is managed
     // Must be created before services that emit events
     let (domain_event_sink, event_receiver) = TauriDomainEventSink::new();
-    let domain_event_sink: Arc<dyn wealthfolio_core::events::DomainEventSink> =
+    let domain_event_sink: Arc<dyn sensible_folio_core::events::DomainEventSink> =
         Arc::new(domain_event_sink);
 
     let fx_service =

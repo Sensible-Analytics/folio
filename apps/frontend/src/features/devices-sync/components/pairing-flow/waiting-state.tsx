@@ -2,8 +2,8 @@
 // Shows a loading state during pairing operations
 // ===============================================
 
-import { Button } from "@wealthfolio/ui/components/ui/button";
-import { Icons, Skeleton } from "@wealthfolio/ui";
+import { Button } from "@sensible-folio/ui/components/ui/button";
+import { Icons, Skeleton } from "@sensible-folio/ui";
 
 interface WaitingStateProps {
   title: string;

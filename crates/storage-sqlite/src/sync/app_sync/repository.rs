@@ -8,8 +8,8 @@ use std::collections::{HashMap, HashSet};
 use std::sync::{Arc, Mutex, OnceLock};
 use uuid::Uuid;
 
-use wealthfolio_core::errors::{DatabaseError, Error, Result};
-use wealthfolio_core::sync::{
+use sensible_folio_core::errors::{DatabaseError, Error, Result};
+use sensible_folio_core::sync::{
     should_apply_lww, SyncEngineStatus, SyncEntity, SyncEntityMetadata, SyncOperation,
     SyncOutboxEvent, SyncOutboxStatus, APP_SYNC_TABLES,
 };

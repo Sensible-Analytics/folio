@@ -5,13 +5,13 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@wealthfolio/ui/components/ui/table";
+} from "@sensible-folio/ui/components/ui/table";
 import { Lot } from "@/lib/types";
-import { formatAmount } from "@wealthfolio/ui";
+import { formatAmount } from "@sensible-folio/ui";
 import { formatDate } from "@/lib/utils";
-import { Card, CardContent } from "@wealthfolio/ui/components/ui/card";
-import { GainAmount } from "@wealthfolio/ui";
-import { GainPercent } from "@wealthfolio/ui";
+import { Card, CardContent } from "@sensible-folio/ui/components/ui/card";
+import { GainAmount } from "@sensible-folio/ui";
+import { GainPercent } from "@sensible-folio/ui";
 
 interface AssetLotsTableProps {
   lots: Lot[];

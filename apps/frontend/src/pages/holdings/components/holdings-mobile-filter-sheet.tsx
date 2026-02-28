@@ -1,5 +1,5 @@
-import { Button } from "@wealthfolio/ui/components/ui/button";
-import { Icons } from "@wealthfolio/ui/components/ui/icons";
+import { Button } from "@sensible-folio/ui/components/ui/button";
+import { Icons } from "@sensible-folio/ui/components/ui/icons";
 import {
   Sheet,
   SheetClose,
@@ -7,7 +7,7 @@ import {
   SheetFooter,
   SheetHeader,
   SheetTitle,
-} from "@wealthfolio/ui/components/ui/sheet";
+} from "@sensible-folio/ui/components/ui/sheet";
 import {
   INSTRUMENT_TYPE_OPTIONS,
   HOLDING_CATEGORY_FILTERS,
@@ -16,7 +16,7 @@ import {
 import { Account, HoldingCategoryFilterId } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { useSettingsContext } from "@/lib/settings-provider";
-import { AnimatedToggleGroup, ScrollArea, Separator } from "@wealthfolio/ui";
+import { AnimatedToggleGroup, ScrollArea, Separator } from "@sensible-folio/ui";
 
 interface HoldingsMobileFilterSheetProps {
   open: boolean;

@@ -11,10 +11,10 @@ import { useIsMobileViewport } from "@/hooks/use-platform";
 import { QueryKeys } from "@/lib/query-keys";
 import type { Account, Holding, SnapshotInfo } from "@/lib/types";
 import { formatDate } from "@/lib/utils";
-import { AmountDisplay, GainAmount, GainPercent, QuantityDisplay } from "@wealthfolio/ui";
-import { Badge } from "@wealthfolio/ui/components/ui/badge";
-import { Button } from "@wealthfolio/ui/components/ui/button";
-import { Icons } from "@wealthfolio/ui/components/ui/icons";
+import { AmountDisplay, GainAmount, GainPercent, QuantityDisplay } from "@sensible-folio/ui";
+import { Badge } from "@sensible-folio/ui/components/ui/badge";
+import { Button } from "@sensible-folio/ui/components/ui/button";
+import { Icons } from "@sensible-folio/ui/components/ui/icons";
 import {
   Table,
   TableBody,
@@ -22,7 +22,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@wealthfolio/ui/components/ui/table";
+} from "@sensible-folio/ui/components/ui/table";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -32,8 +32,13 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@wealthfolio/ui/components/ui/alert-dialog";
-import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@wealthfolio/ui/components/ui/sheet";
+} from "@sensible-folio/ui/components/ui/alert-dialog";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+} from "@sensible-folio/ui/components/ui/sheet";
 import { useQuery, useQueries, useQueryClient } from "@tanstack/react-query";
 import { useCallback, useMemo, useState } from "react";
 import { HoldingsEditMode } from "@/pages/holdings/components/holdings-edit-mode";

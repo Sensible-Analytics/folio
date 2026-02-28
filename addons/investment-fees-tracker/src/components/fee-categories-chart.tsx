@@ -5,7 +5,7 @@ import {
   CardTitle,
   EmptyPlaceholder,
   Skeleton,
-} from "@wealthfolio/ui";
+} from "@sensible-folio/ui";
 import { useMemo, useState } from "react";
 import { DonutChart } from "./donut-chart";
 

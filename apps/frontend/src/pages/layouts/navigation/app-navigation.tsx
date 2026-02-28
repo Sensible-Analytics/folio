@@ -1,5 +1,5 @@
 import { getDynamicNavItems, subscribeToNavigationUpdates } from "@/addons/addons-runtime-context";
-import { Icons } from "@wealthfolio/ui/components/ui/icons";
+import { Icons } from "@sensible-folio/ui/components/ui/icons";
 import { Building2 } from "lucide-react";
 import { useEffect, useState } from "react";
 

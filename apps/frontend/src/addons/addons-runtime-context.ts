@@ -1,4 +1,4 @@
-import type { AddonContext, SidebarItemHandle } from "@wealthfolio/addon-sdk";
+import type { AddonContext, SidebarItemHandle } from "@sensible-folio/addon-sdk";
 import React from "react";
 import { createSDKHostAPIBridge } from "./type-bridge";
 

@@ -9,7 +9,7 @@ use axum::{
     routing::{delete, get},
     Json, Router,
 };
-use wealthfolio_core::goals::{Goal, GoalsAllocation, NewGoal};
+use sensible_folio_core::goals::{Goal, GoalsAllocation, NewGoal};
 
 async fn get_goals(State(state): State<Arc<AppState>>) -> ApiResult<Json<Vec<Goal>>> {
     let goals = state.goal_service.get_goals()?;

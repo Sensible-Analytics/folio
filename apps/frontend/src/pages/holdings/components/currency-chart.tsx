@@ -1,8 +1,8 @@
-import { Card, CardContent } from "@wealthfolio/ui/components/ui/card";
-import { Skeleton } from "@wealthfolio/ui/components/ui/skeleton";
+import { Card, CardContent } from "@sensible-folio/ui/components/ui/card";
+import { Skeleton } from "@sensible-folio/ui/components/ui/skeleton";
 import { useBalancePrivacy } from "@/hooks/use-balance-privacy";
 import type { Holding } from "@/lib/types";
-import { AmountDisplay, formatPercent } from "@wealthfolio/ui";
+import { AmountDisplay, formatPercent } from "@sensible-folio/ui";
 import { motion } from "motion/react";
 import { useMemo } from "react";
 

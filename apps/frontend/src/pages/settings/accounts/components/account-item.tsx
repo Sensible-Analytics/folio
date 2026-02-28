@@ -1,7 +1,7 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@wealthfolio/ui/components/ui/avatar";
-import { Icons, type Icon } from "@wealthfolio/ui/components/ui/icons";
-import { Skeleton } from "@wealthfolio/ui/components/ui/skeleton";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@wealthfolio/ui";
+import { Avatar, AvatarFallback, AvatarImage } from "@sensible-folio/ui/components/ui/avatar";
+import { Icons, type Icon } from "@sensible-folio/ui/components/ui/icons";
+import { Skeleton } from "@sensible-folio/ui/components/ui/skeleton";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@sensible-folio/ui";
 import type { Account, AccountType, Platform } from "@/lib/types";
 import { Link } from "react-router-dom";
 import { AccountOperations } from "./account-operations";

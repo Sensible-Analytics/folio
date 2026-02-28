@@ -11,8 +11,8 @@ import {
   Skeleton,
   ToggleGroup,
   ToggleGroupItem,
-} from "@wealthfolio/ui";
-import { Input } from "@wealthfolio/ui/components/ui/input";
+} from "@sensible-folio/ui";
+import { Input } from "@sensible-folio/ui/components/ui/input";
 import { useMemo, useState } from "react";
 import { SettingsHeader } from "../settings-header";
 import { AccountEditModal } from "./components/account-edit-modal";

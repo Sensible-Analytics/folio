@@ -4,7 +4,7 @@ import { WealthfolioConnectProvider } from "@/features/wealthfolio-connect";
 import { DeviceSyncProvider } from "@/features/devices-sync";
 import { SettingsProvider } from "@/lib/settings-provider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { TooltipProvider } from "@wealthfolio/ui";
+import { TooltipProvider } from "@sensible-folio/ui";
 import { useState } from "react";
 import { PrivacyProvider } from "./context/privacy-context";
 import { LoginPage } from "./pages/auth/login-page";

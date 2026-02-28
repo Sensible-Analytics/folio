@@ -1,9 +1,9 @@
 //! Central projector for transactional sync outbox appends.
 
 use diesel::sqlite::SqliteConnection;
+use sensible_folio_core::errors::Result;
+use sensible_folio_core::sync::{SyncEntity, SyncOperation};
 use serde_json::Value;
-use wealthfolio_core::errors::Result;
-use wealthfolio_core::sync::{SyncEntity, SyncOperation};
 
 use super::repository::{insert_outbox_event, OutboxWriteRequest};
 use crate::sync::SyncOutboxModel;

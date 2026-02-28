@@ -1,5 +1,5 @@
-import { Button } from "@wealthfolio/ui";
-import { Icons } from "@wealthfolio/ui/components/ui/icons";
+import { Button } from "@sensible-folio/ui";
+import { Icons } from "@sensible-folio/ui/components/ui/icons";
 
 export interface ToolErrorProps {
   title?: string;

@@ -4,7 +4,7 @@ import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@wealthfolio/ui/components/ui/collapsible";
+} from "@sensible-folio/ui/components/ui/collapsible";
 import {
   FormControl,
   FormField,
@@ -16,10 +16,10 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@wealthfolio/ui";
-import { CurrencyInput, MoneyInput } from "@wealthfolio/ui/components/financial";
-import { Icons } from "@wealthfolio/ui/components/ui/icons";
-import { Button } from "@wealthfolio/ui/components/ui/button";
+} from "@sensible-folio/ui";
+import { CurrencyInput, MoneyInput } from "@sensible-folio/ui/components/financial";
+import { Icons } from "@sensible-folio/ui/components/ui/icons";
+import { Button } from "@sensible-folio/ui/components/ui/button";
 import {
   SUBTYPES_BY_ACTIVITY_TYPE,
   SUBTYPE_DISPLAY_NAMES,

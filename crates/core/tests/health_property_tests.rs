@@ -4,8 +4,8 @@
 //! using the `proptest` crate for random test case generation.
 
 use proptest::prelude::*;
+use sensible_folio_core::health::{HealthCategory, HealthIssue, HealthStatus, Severity};
 use std::collections::HashSet;
-use wealthfolio_core::health::{HealthCategory, HealthIssue, HealthStatus, Severity};
 
 // =============================================================================
 // Generators

@@ -7,10 +7,10 @@ import {
   TIME_WEIGHTED_RETURN_INFO,
   VOLATILITY_INFO,
 } from "@/components/metric-display";
-import { Card, CardContent } from "@wealthfolio/ui/components/ui/card";
-import { Skeleton } from "@wealthfolio/ui/components/ui/skeleton";
-import { Icons } from "@wealthfolio/ui";
-import { Alert, AlertDescription } from "@wealthfolio/ui/components/ui/alert";
+import { Card, CardContent } from "@sensible-folio/ui/components/ui/card";
+import { Skeleton } from "@sensible-folio/ui/components/ui/skeleton";
+import { Icons } from "@sensible-folio/ui";
+import { Alert, AlertDescription } from "@sensible-folio/ui/components/ui/alert";
 import { PerformanceMetrics } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import React from "react";

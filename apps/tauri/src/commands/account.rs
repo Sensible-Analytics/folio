@@ -4,7 +4,7 @@ use crate::context::ServiceContext;
 use log::{debug, error};
 use tauri::State;
 
-use wealthfolio_core::accounts::{Account, AccountUpdate, NewAccount};
+use sensible_folio_core::accounts::{Account, AccountUpdate, NewAccount};
 
 #[tauri::command]
 pub async fn get_accounts(

@@ -1,8 +1,8 @@
 import { useHealthStatus } from "@/hooks/use-health";
 import { cn } from "@/lib/utils";
-import { Button } from "@wealthfolio/ui/components/ui/button";
-import { Icons } from "@wealthfolio/ui/components/ui/icons";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@wealthfolio/ui";
+import { Button } from "@sensible-folio/ui/components/ui/button";
+import { Icons } from "@sensible-folio/ui/components/ui/icons";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@sensible-folio/ui";
 import { Link } from "react-router-dom";
 import type { HealthSeverity } from "@/lib/types";
 

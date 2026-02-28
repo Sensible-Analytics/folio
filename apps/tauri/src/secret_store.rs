@@ -2,7 +2,7 @@ use std::sync::Arc;
 
 use keyring::Entry;
 
-use wealthfolio_core::{
+use sensible_folio_core::{
     errors::Error,
     secrets::{format_service_id, SecretStore},
     Result,

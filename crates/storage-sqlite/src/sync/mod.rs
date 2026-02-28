@@ -5,11 +5,11 @@ pub mod import_run;
 pub mod platform;
 pub mod state;
 
+use sensible_folio_core::portfolio::snapshot::SnapshotSource;
+use sensible_folio_core::sync::{SyncEntity, SyncOperation};
+use sensible_folio_core::Result;
 use serde::Serialize;
 use uuid::Uuid;
-use wealthfolio_core::portfolio::snapshot::SnapshotSource;
-use wealthfolio_core::sync::{SyncEntity, SyncOperation};
-use wealthfolio_core::Result;
 
 /// Broker ingest aliases. `import_run` includes both broker ingest and manual CSV imports.
 pub mod broker_ingest {

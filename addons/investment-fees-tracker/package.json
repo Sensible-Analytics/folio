@@ -28,8 +28,8 @@
   },
   "dependencies": {
     "@tanstack/react-query": "^5.90.20",
-    "@wealthfolio/addon-sdk": "workspace:*",
-    "@wealthfolio/ui": "workspace:*"
+    "@sensible-folio/addon-sdk": "workspace:*",
+    "@sensible-folio/ui": "workspace:*"
   },
   "peerDependencies": {
     "react": "^19.2.4",
@@ -41,7 +41,7 @@
     "@types/react": "^19.2.13",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^4.3.4",
-    "@wealthfolio/addon-dev-tools": "workspace:*",
+    "@sensible-folio/addon-dev-tools": "workspace:*",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
     "recharts": "^3.7.0",

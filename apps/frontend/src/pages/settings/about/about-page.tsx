@@ -3,17 +3,17 @@ import { useEffect, useState } from "react";
 import { getAppInfo } from "@/adapters";
 import { usePlatform } from "@/hooks/use-platform";
 import { useCheckForUpdates } from "@/hooks/use-updater";
-import { Button } from "@wealthfolio/ui/components/ui/button";
+import { Button } from "@sensible-folio/ui/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@wealthfolio/ui/components/ui/card";
-import { Icons } from "@wealthfolio/ui/components/ui/icons";
-import { Separator } from "@wealthfolio/ui/components/ui/separator";
-import { toast } from "@wealthfolio/ui/components/ui/use-toast";
+} from "@sensible-folio/ui/components/ui/card";
+import { Icons } from "@sensible-folio/ui/components/ui/icons";
+import { Separator } from "@sensible-folio/ui/components/ui/separator";
+import { toast } from "@sensible-folio/ui/components/ui/use-toast";
 import { SettingsHeader } from "../settings-header";
 
 export default function AboutSettingsPage() {

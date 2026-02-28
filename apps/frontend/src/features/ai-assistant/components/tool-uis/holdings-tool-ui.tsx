@@ -16,13 +16,13 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@wealthfolio/ui";
+} from "@sensible-folio/ui";
 import { useMemo, type FC } from "react";
 import { cn } from "@/lib/utils";
 import { useBalancePrivacy } from "@/hooks/use-balance-privacy";
 import { ResponsiveContainer, Treemap, Tooltip as ChartTooltip } from "recharts";
 import { useSettingsContext } from "@/lib/settings-provider";
-import { AnimatedToggleGroup } from "@wealthfolio/ui";
+import { AnimatedToggleGroup } from "@sensible-folio/ui";
 
 // ============================================================================
 // Types

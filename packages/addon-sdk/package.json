@@ -1,8 +1,8 @@
 {
-  "name": "@wealthfolio/addon-sdk",
+  "name": "@sensible-folio/addon-sdk",
   "version": "3.0.0",
   "type": "module",
-  "description": "TypeScript SDK for building Wealthfolio addons with enhanced functionality and type safety",
+  "description": "TypeScript SDK for building Sensible Folio addons with enhanced functionality and type safety",
   "main": "dist/index.js",
   "types": "dist/src/index.d.ts",
   "exports": {

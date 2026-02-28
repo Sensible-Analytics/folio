@@ -9,8 +9,8 @@ import {
   SheetContent,
   SheetHeader,
   SheetTitle,
-} from "@wealthfolio/ui";
-import { cn } from "@wealthfolio/ui/lib/utils";
+} from "@sensible-folio/ui";
+import { cn } from "@sensible-folio/ui/lib/utils";
 import { Link } from "react-router-dom";
 
 interface IssueDetailSheetProps {

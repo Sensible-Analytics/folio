@@ -3,10 +3,10 @@ import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
-} from "@wealthfolio/ui/components/ui/hover-card";
-import { Button } from "@wealthfolio/ui/components/ui/button";
-import { Badge } from "@wealthfolio/ui/components/ui/badge";
-import { Icons } from "@wealthfolio/ui/components/ui/icons";
+} from "@sensible-folio/ui/components/ui/hover-card";
+import { Button } from "@sensible-folio/ui/components/ui/button";
+import { Badge } from "@sensible-folio/ui/components/ui/badge";
+import { Icons } from "@sensible-folio/ui/components/ui/icons";
 import {
   useUpdatePortfolioMutation,
   useRecalculatePortfolioMutation,

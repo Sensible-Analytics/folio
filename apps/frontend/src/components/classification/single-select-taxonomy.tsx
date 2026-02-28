@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { RadioGroup, RadioGroupItem, Label, Skeleton, Icons } from "@wealthfolio/ui";
+import { RadioGroup, RadioGroupItem, Label, Skeleton, Icons } from "@sensible-folio/ui";
 import {
   Command,
   CommandEmpty,
@@ -8,8 +8,8 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-} from "@wealthfolio/ui/components/ui/command";
-import { Popover, PopoverContent, PopoverTrigger } from "@wealthfolio/ui/components/ui/popover";
+} from "@sensible-folio/ui/components/ui/command";
+import { Popover, PopoverContent, PopoverTrigger } from "@sensible-folio/ui/components/ui/popover";
 import { cn } from "@/lib/utils";
 import {
   useTaxonomy,

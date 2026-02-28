@@ -12,4 +12,4 @@ pub use quote_sync_state_repository::QuoteSyncStateRepository;
 
 // Re-export trait from core for convenience
 pub use repository::MarketDataRepository;
-pub use wealthfolio_core::quotes::SyncStateStore;
+pub use sensible_folio_core::quotes::SyncStateStore;

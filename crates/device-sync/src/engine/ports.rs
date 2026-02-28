@@ -1,6 +1,6 @@
 use async_trait::async_trait;
+use sensible_folio_core::sync::{SyncEngineStatus, SyncEntity, SyncOperation, SyncOutboxEvent};
 use serde::{Deserialize, Serialize};
-use wealthfolio_core::sync::{SyncEngineStatus, SyncEntity, SyncOperation, SyncOutboxEvent};
 
 use crate::{
     ApiRetryClass, ReconcileReadyStateResponse, SyncCursorResponse, SyncPullResponse,

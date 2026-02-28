@@ -5,7 +5,7 @@ code in this repository.
 
 ## Project Overview
 
-Wealthfolio - local-first desktop investment tracker. React + Vite frontend,
+Sensible Folio - local-first desktop investment tracker. React + Vite frontend,
 Tauri/Rust backend, SQLite storage. Also runs as a web app (Axum HTTP server).
 
 Key directories:
@@ -80,7 +80,7 @@ type-checking.
 
 ### UI
 
-- Components from `@wealthfolio/ui` and `packages/ui/src/components/`
+- Components from `@sensible-folio/ui` and `packages/ui/src/components/`
 - Forms: `react-hook-form` + `zod` schemas in `apps/frontend/src/lib/schemas.ts`
 - Theme tokens: `apps/frontend/src/globals.css`
 - State/data: React Query

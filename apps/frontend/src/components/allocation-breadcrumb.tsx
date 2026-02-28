@@ -1,6 +1,6 @@
 import type { DrillDownPath } from "@/hooks/use-drill-down-state";
 import { cn } from "@/lib/utils";
-import { Icons } from "@wealthfolio/ui/components/ui/icons";
+import { Icons } from "@sensible-folio/ui/components/ui/icons";
 import type React from "react";
 
 interface AllocationBreadcrumbProps {

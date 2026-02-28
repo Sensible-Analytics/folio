@@ -1,4 +1,4 @@
-import { DatePickerInput, FormField, FormItem, FormLabel, FormMessage } from "@wealthfolio/ui";
+import { DatePickerInput, FormField, FormItem, FormLabel, FormMessage } from "@sensible-folio/ui";
 import { useFormContext, type FieldPath, type FieldValues } from "react-hook-form";
 import { today, now, getLocalTimeZone } from "@internationalized/date";
 

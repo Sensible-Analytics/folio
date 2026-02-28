@@ -9,7 +9,7 @@ use std::sync::{Arc, OnceLock};
 use tokio::sync::Mutex;
 use tokio::time::{sleep, Duration};
 
-use wealthfolio_core::secrets::SecretStore;
+use sensible_folio_core::secrets::SecretStore;
 
 use crate::{
     crypto, CommitInitializeKeysRequest, DevicePlatform, DeviceSyncClient, EnrollDeviceResponse,

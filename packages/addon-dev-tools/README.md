@@ -1,11 +1,11 @@
-# @wealthfolio/addon-dev-tools
+# @sensible-folio/addon-dev-tools
 
-Development tools for Wealthfolio addons including hot reload server and CLI.
+Development tools for Sensible Folio addons including hot reload server and CLI.
 
 ## Installation
 
 ```bash
-npm install -g @wealthfolio/addon-dev-tools
+npm install -g @sensible-folio/addon-dev-tools
 ```
 
 ## CLI Commands
@@ -13,32 +13,32 @@ npm install -g @wealthfolio/addon-dev-tools
 ### Create New Addon
 
 ```bash
-wealthfolio create my-awesome-addon
+sensible-folio create my-awesome-addon
 ```
 
 ### Start Development Server
 
 ```bash
 # In your addon directory
-wealthfolio dev
+sensible-folio dev
 ```
 
 ### Build Addon
 
 ```bash
-wealthfolio build
+sensible-folio build
 ```
 
 ### Package for Distribution
 
 ```bash
-wealthfolio package
+sensible-folio package
 ```
 
 ### Test Setup
 
 ```bash
-wealthfolio test
+sensible-folio test
 ```
 
 ## Development Server
@@ -66,17 +66,17 @@ Add to your addon's `package.json`:
 ```json
 {
   "scripts": {
-    "dev:server": "wealthfolio dev"
+    "dev:server": "sensible-folio dev"
   },
   "devDependencies": {
-    "@wealthfolio/addon-dev-tools": "^1.0.0"
+    "@sensible-folio/addon-dev-tools": "^1.0.0"
   }
 }
 ```
 
 ## Architecture
 
-This package is separate from `@wealthfolio/addon-sdk` to:
+This package is separate from `@sensible-folio/addon-sdk` to:
 
 - Keep the SDK lightweight for production
 - Avoid unnecessary dependencies in addon bundles

@@ -8,8 +8,8 @@ import {
   SheetContent,
   SheetHeader,
   SheetTitle,
-} from "@wealthfolio/ui";
-import { AmountDisplay } from "@wealthfolio/ui/components/financial/amount-display";
+} from "@sensible-folio/ui";
+import { AmountDisplay } from "@sensible-folio/ui/components/financial/amount-display";
 import { format } from "date-fns";
 
 interface ActivityDetailSheetProps {

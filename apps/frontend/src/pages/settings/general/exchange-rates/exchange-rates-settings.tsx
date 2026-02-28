@@ -1,19 +1,19 @@
-import { Button } from "@wealthfolio/ui/components/ui/button";
+import { Button } from "@sensible-folio/ui/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@wealthfolio/ui/components/ui/card";
-import { DataTable } from "@wealthfolio/ui/components/ui/data-table";
-import { Dialog, DialogContent, DialogTrigger } from "@wealthfolio/ui/components/ui/dialog";
-import { Icons } from "@wealthfolio/ui/components/ui/icons";
-import { Skeleton } from "@wealthfolio/ui/components/ui/skeleton";
+} from "@sensible-folio/ui/components/ui/card";
+import { DataTable } from "@sensible-folio/ui/components/ui/data-table";
+import { Dialog, DialogContent, DialogTrigger } from "@sensible-folio/ui/components/ui/dialog";
+import { Icons } from "@sensible-folio/ui/components/ui/icons";
+import { Skeleton } from "@sensible-folio/ui/components/ui/skeleton";
 import { ExchangeRate } from "@/lib/types";
 import { formatDate } from "@/lib/utils";
 import { ColumnDef } from "@tanstack/react-table";
-import { ActionConfirm } from "@wealthfolio/ui";
+import { ActionConfirm } from "@sensible-folio/ui";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { AddExchangeRateForm } from "./add-exchange-rate-form";

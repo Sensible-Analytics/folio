@@ -11,8 +11,8 @@ use axum::{
     routing::{get, put},
     Json, Router,
 };
+use sensible_folio_core::accounts::AccountServiceTrait;
 use serde::Deserialize;
-use wealthfolio_core::accounts::AccountServiceTrait;
 
 #[derive(Debug, Deserialize)]
 #[serde(rename_all = "camelCase")]

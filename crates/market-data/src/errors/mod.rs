@@ -120,7 +120,7 @@ impl MarketDataError {
     /// # Examples
     ///
     /// ```
-    /// use wealthfolio_market_data::errors::{MarketDataError, RetryClass};
+    /// use sensible_folio_market_data::errors::{MarketDataError, RetryClass};
     ///
     /// let error = MarketDataError::RateLimited { provider: "YAHOO".to_string() };
     /// assert_eq!(error.retry_class(), RetryClass::NextProvider);

@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import { CardContent } from "@wealthfolio/ui/components/ui/card";
-import { Icons } from "@wealthfolio/ui/components/ui/icons";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@wealthfolio/ui/components/ui/tabs";
+import { CardContent } from "@sensible-folio/ui/components/ui/card";
+import { Icons } from "@sensible-folio/ui/components/ui/icons";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@sensible-folio/ui/components/ui/tabs";
 import { useCallback, useEffect, useMemo } from "react";
 
 import { CSVFileViewer } from "../components/csv-file-viewer";

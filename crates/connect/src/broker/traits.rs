@@ -10,8 +10,8 @@ use super::models::{
 use crate::broker_ingest::BrokerSyncState;
 use crate::broker_ingest::{ImportRun, ImportRunMode, ImportRunStatus, ImportRunSummary};
 use crate::platform::Platform;
-use wealthfolio_core::accounts::Account;
-use wealthfolio_core::errors::Result;
+use sensible_folio_core::accounts::Account;
+use sensible_folio_core::errors::Result;
 
 /// Trait for fetching data from the cloud broker API
 #[async_trait]

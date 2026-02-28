@@ -10,8 +10,8 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@wealthfolio/ui/components/ui/alert-dialog";
-import { Icons } from "@wealthfolio/ui";
+} from "@sensible-folio/ui/components/ui/alert-dialog";
+import { Icons } from "@sensible-folio/ui";
 import { useState } from "react";
 import { useDeviceSync } from "../providers/device-sync-provider";
 

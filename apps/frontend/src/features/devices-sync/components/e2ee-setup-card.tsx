@@ -3,16 +3,16 @@
 // One button: "Enable Device Sync" - handles enrollment + key init automatically
 // ===============================================================================
 
-import { Icons } from "@wealthfolio/ui";
-import { Alert, AlertDescription } from "@wealthfolio/ui/components/ui/alert";
-import { Button } from "@wealthfolio/ui/components/ui/button";
+import { Icons } from "@sensible-folio/ui";
+import { Alert, AlertDescription } from "@sensible-folio/ui/components/ui/alert";
+import { Button } from "@sensible-folio/ui/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@wealthfolio/ui/components/ui/card";
+} from "@sensible-folio/ui/components/ui/card";
 import { useState } from "react";
 import { useDeviceSync } from "../providers/device-sync-provider";
 import { SyncStates } from "../types";

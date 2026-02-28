@@ -1,4 +1,4 @@
-# Wealthfolio AI Assistant Architecture
+# Sensible Folio AI Assistant Architecture
 
 ## Overview
 
@@ -39,7 +39,7 @@ interface.
                                      │ AiEnvironment trait
                                      ▼
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│                        wealthfolio-ai crate                                  │
+│                        sensible-folio-ai crate                                  │
 │                                                                              │
 │  ┌───────────────────────────────────────────────────────────────────────┐  │
 │  │                         ChatService<E>                                 │  │
@@ -71,7 +71,7 @@ interface.
                                       │ AiChatRepositoryTrait (async)
                                       ▼
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│                       wealthfolio-core                                       │
+│                       sensible-folio-core                                       │
 │                                                                              │
 │  ┌───────────────────────────────────────────────────────────────────────┐  │
 │  │                    Domain Types (ai module)                            │  │
@@ -98,7 +98,7 @@ interface.
                                       │ Implements trait
                                       ▼
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│                    wealthfolio-storage-sqlite                                │
+│                    sensible-folio-storage-sqlite                                │
 │                                                                              │
 │  ┌───────────────────────────────────────────────────────────────────────┐  │
 │  │                      ai_chat module                                    │  │

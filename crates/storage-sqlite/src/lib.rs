@@ -56,7 +56,7 @@ pub use db::{
 pub use errors::{IntoCore, StorageError};
 
 // Re-export from wealthfolio-core for convenience
-pub use wealthfolio_core::errors::{DatabaseError, Error, Result};
+pub use sensible_folio_core::errors::{DatabaseError, Error, Result};
 
 // Re-export SQLite utilities
 pub use utils::{chunk_for_sqlite, SQLITE_MAX_PARAMS_CHUNK};

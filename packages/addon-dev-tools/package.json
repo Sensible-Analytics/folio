@@ -1,10 +1,10 @@
 {
-  "name": "@wealthfolio/addon-dev-tools",
+  "name": "@sensible-folio/addon-dev-tools",
   "version": "3.0.0",
-  "description": "Development tools for Wealthfolio addons - hot reload server and CLI",
+  "description": "Development tools for Sensible Folio addons - hot reload server and CLI",
   "main": "index.js",
   "bin": {
-    "wealthfolio": "cli.js"
+    "sensible-folio": "cli.js"
   },
   "keywords": [
     "wealthfolio",
