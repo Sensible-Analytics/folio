@@ -43,6 +43,11 @@ proptest! {
             years_back,
             enabled_banks: vec!["ING".into(), "CBA".into()],
             overwrite_existing: overwrite,
+            download_timeout_secs: 30,
+            session_timeout_secs: 120,
+            retry_attempts: 3,
+            auto_close_login_window: true,
+            log_level: "info".into(),
         };
 
         let json = serde_json::to_string(&settings).expect("serialise");
@@ -71,5 +76,6 @@ fn any_bank_key() -> impl Strategy<Value = BankKey> {
         Just(BankKey::Anz),
         Just(BankKey::Bom),
         Just(BankKey::Beyond),
+        Just(BankKey::Ibkr),
     ]
 }
