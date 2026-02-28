@@ -1,63 +1,61 @@
 pub const ING_SCRIPT: &str = r#"
-(async function ingAutomation() {
-  const yearsBack = __YEARS_BACK__;
-  const BANK = 'ING';
+(async function ING_DomScraper() {
+  const BANK_KEY = 'ING';
+  const YEARS_BACK = __YEARS_BACK__;
+  const RUN_ID = '__RUN_ID__';
+  const cutoffDate = new Date();
+  cutoffDate.setFullYear(cutoffDate.getFullYear() - YEARS_BACK);
 
-  const cutoff = new Date();
-  cutoff.setFullYear(cutoff.getFullYear() - yearsBack);
-
-  function log(level, msg) {
-    console.log(`[${BANK}][${level}] ${msg}`);
-    if (window.__TAURI_INTERNALS__?.ipc) {
-      window.__TAURI_INTERNALS__.ipc.postMessage(JSON.stringify({
-        cmd: 'bank_progress', callback: 0, error: 0,
-        payload: { bankKey: BANK, level, message: msg, timestamp: new Date().toISOString() }
-      }));
-    }
+  function log(level, message) {
+    window.__TAURI_INTERNALS__.ipc.postMessage(JSON.stringify({
+      cmd: 'bank_progress',
+      payload: { bankKey: BANK_KEY, level, message, timestamp: new Date().toISOString() }
+    }));
   }
 
-  function reportUrls(urls) {
-    if (window.__TAURI_INTERNALS__?.ipc) {
-      window.__TAURI_INTERNALS__.ipc.postMessage(JSON.stringify({
-        cmd: 'bank_urls', callback: 0, error: 0,
-        payload: { bankKey: BANK, urls }
-      }));
-    }
+  function sendBatch(account, transactions) {
+    window.__TAURI_INTERNALS__.ipc.postMessage(JSON.stringify({
+      cmd: 'bank_transactions',
+      payload: { bankKey: BANK_KEY, runId: RUN_ID, account, transactions }
+    }));
   }
 
-  function wait(ms) { return new Promise(r => setTimeout(r, ms)); }
+  function parseAmount(text) {
+    const clean = text.replace(/[^0-9.\-]/g, '');
+    const num = parseFloat(clean);
+    return isNaN(num) ? 0 : num;
+  }
 
-  async function waitForSelector(sel, timeout = 10000) {
-    const start = Date.now();
-    while (Date.now() - start < timeout) {
-      const el = document.querySelector(sel);
-      if (el) return el;
-      await wait(200);
+  function parseISODate(text) {
+    const iso = text.match(/(\d{4})-(\d{2})-(\d{2})/);
+    if (iso) return iso[0];
+    const dmy = text.match(/(\d{1,2})\s+(\w{3})\s+(\d{4})/);
+    if (dmy) {
+      const m = {Jan:'01',Feb:'02',Mar:'03',Apr:'04',May:'05',Jun:'06',
+                 Jul:'07',Aug:'08',Sep:'09',Oct:'10',Nov:'11',Dec:'12'};
+      return `${dmy[3]}-${m[dmy[2]] || '01'}-${dmy[1].padStart(2,'0')}`;
     }
     return null;
   }
 
-  log('info', 'ING automation started');
+  function wait(ms) { return new Promise(r => setTimeout(r, ms)); }
 
   try {
-    // ── Navigate to Statements ─────────────────────────────────────────────
-    const stmtLink = document.querySelector(
-      "a[href*='statement'], a[href*='eStatement'], nav a"
-    );
-    const stmtByText = [...document.querySelectorAll('a')]
-      .find(a => /statements?/i.test(a.textContent));
-    const target = stmtLink || stmtByText;
+    log('info', 'ING DOM scraper started');
 
-    if (!target) {
-      log('warn', 'Statements link not found. Please navigate to Statements manually then click Start Download again.');
-      reportUrls([]);
+    // Navigate to transaction history
+    const txLink = document.querySelector("a[href*='transaction'], a[href*='history']")
+      || [...document.querySelectorAll('a')].find(a => /transactions?|history/i.test(a.textContent));
+
+    if (!txLink) {
+      log('warn', 'Transaction history link not found. Please navigate to transactions manually.');
       return;
     }
-    log('info', 'Navigating to Statements page...');
-    target.click();
+    log('info', 'Navigating to transaction history...');
+    txLink.click();
     await wait(2500);
 
-    // ── Collect accounts from dropdown ────────────────────────────────────
+    // Collect account(s) from dropdown
     const accountSel = document.querySelector(
       "select[id*='account'], select[name*='account'], select[aria-label*='account']"
     );
@@ -67,8 +65,6 @@ pub const ING_SCRIPT: &str = r#"
 
     log('info', `Found ${accountOptions.length} account(s)`);
 
-    const allUrls = [];
-
     for (const opt of accountOptions) {
       if (opt && accountSel) {
         accountSel.value = opt.value;
@@ -77,55 +73,70 @@ pub const ING_SCRIPT: &str = r#"
         log('info', `Processing account: ${opt.text.trim()}`);
       }
 
-      // ── Iterate period / year dropdown ──────────────────────────────────
-      const periodSel = document.querySelector(
-        "select[id*='period'], select[name*='period'], select[id*='year']"
-      );
-      const periods = periodSel
-        ? [...periodSel.options].filter(o => o.value)
-        : [null];
+      // Scrape account metadata
+      const accountName = document.querySelector('.account-name, h1, .account-title')?.textContent?.trim()
+        || opt?.text?.trim() || 'ING Account';
+      const accountNumber = document.querySelector('.account-number, [class*="accountNumber"]')?.textContent?.trim() || '';
+      const balanceText = document.querySelector('.balance, [class*="balance"]')?.textContent?.trim() || '0';
+      const currentBalance = parseAmount(balanceText);
 
-      for (const period of periods) {
-        if (period && periodSel) {
-          // Parse year from option text; skip if before cutoff
-          const yearMatch = period.text.match(/(\d{4})/);
-          if (yearMatch && parseInt(yearMatch[1]) < cutoff.getFullYear()) continue;
+      const account = {
+        bankKey: BANK_KEY,
+        accountName,
+        accountNumber,
+        bsb: null,
+        currency: 'AUD',
+        accountType: 'CHECKING',
+        currentBalance
+      };
 
-          periodSel.value = period.value;
-          periodSel.dispatchEvent(new Event('change', { bubbles: true }));
-          await wait(500);
+      // Scrape transaction rows
+      const rows = [...document.querySelectorAll(
+        'table tbody tr, .transaction-list li, [class*="transaction"]'
+      )];
+      log('info', `Found ${rows.length} transaction row(s)`);
 
-          // Click Find/Search button
-          const findBtn = document.querySelector(
-            "button:not([disabled])[type='submit'], input[value='Find'], button"
-          );
-          const findByText = [...document.querySelectorAll('button')]
-            .find(b => /find|search/i.test(b.textContent));
-          const btn = findBtn || findByText;
-          if (btn) { btn.click(); await wait(1500); }
+      const transactions = [];
+
+      for (const row of rows) {
+        const cells = row.querySelectorAll('td');
+        const dateText = cells[0]?.textContent?.trim()
+          || row.querySelector('[class*="date"]')?.textContent?.trim() || '';
+        const date = parseISODate(dateText);
+        if (!date) continue;
+        if (new Date(date) < cutoffDate) continue;
+
+        const description = cells[1]?.textContent?.trim()
+          || row.querySelector('[class*="desc"]')?.textContent?.trim() || '';
+
+        // Check for separate debit/credit columns
+        const debitText = row.querySelector('[class*="debit"]')?.textContent?.trim();
+        const creditText = row.querySelector('[class*="credit"]')?.textContent?.trim();
+        let amount;
+        if (debitText || creditText) {
+          const debit = debitText ? parseAmount(debitText) : 0;
+          const credit = creditText ? parseAmount(creditText) : 0;
+          amount = credit > 0 ? credit : -debit;
+        } else {
+          const amountText = cells[2]?.textContent?.trim()
+            || row.querySelector('[class*="amount"]')?.textContent?.trim() || '0';
+          amount = parseAmount(amountText);
         }
 
-        // ── Collect PDF links ──────────────────────────────────────────────
-        const links = [...document.querySelectorAll(
-          "a[href$='.pdf'], a[href*='/statement'][href*='download'], a[download]"
-        )].map(a => ({
-          url: a.href,
-          filename: (opt?.text?.trim() || 'ING') + '_' +
-                    (period?.text?.trim() || '') + '.pdf'
-        })).filter(item => item.url.startsWith('http'));
+        const balanceText2 = cells[3]?.textContent?.trim()
+          || row.querySelector('[class*="balance"]')?.textContent?.trim() || '';
+        const balance = balanceText2 ? parseAmount(balanceText2) : null;
 
-        allUrls.push(...links);
-        if (links.length) log('info', `Found ${links.length} PDF(s) for period ${period?.text || 'all'}`);
+        transactions.push({ date, description, amount, balance, reference: null, transactionType: null });
       }
+
+      log('info', `Sending ${transactions.length} transaction(s) for account: ${accountName}`);
+      sendBatch(account, transactions);
     }
 
-    log(allUrls.length ? 'success' : 'warn',
-      allUrls.length ? `Found ${allUrls.length} statement(s) total` : 'No statements found');
-    reportUrls(allUrls);
-
+    log('success', 'ING scraping complete');
   } catch (err) {
-    log('error', `Automation error: ${err.message}`);
-    reportUrls([]);
+    log('error', `ING scraper error: ${err.message}`);
   }
 })();
 "#;

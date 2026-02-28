@@ -1,72 +1,63 @@
 pub const BOM_SCRIPT: &str = r#"
-(async function bomAutomation() {
-  const yearsBack = __YEARS_BACK__;
-  const BANK = 'BOM';
+(async function BOM_DomScraper() {
+  const BANK_KEY = 'BOM';
+  const YEARS_BACK = __YEARS_BACK__;
+  const RUN_ID = '__RUN_ID__';
+  const cutoffDate = new Date();
+  cutoffDate.setFullYear(cutoffDate.getFullYear() - YEARS_BACK);
 
-  const cutoff = new Date();
-  cutoff.setFullYear(cutoff.getFullYear() - yearsBack);
-
-  function log(level, msg) {
-    console.log(`[${BANK}][${level}] ${msg}`);
-    if (window.__TAURI_INTERNALS__?.ipc) {
-      window.__TAURI_INTERNALS__.ipc.postMessage(JSON.stringify({
-        cmd: 'bank_progress', callback: 0, error: 0,
-        payload: { bankKey: BANK, level, message: msg, timestamp: new Date().toISOString() }
-      }));
-    }
+  function log(level, message) {
+    window.__TAURI_INTERNALS__.ipc.postMessage(JSON.stringify({
+      cmd: 'bank_progress',
+      payload: { bankKey: BANK_KEY, level, message, timestamp: new Date().toISOString() }
+    }));
   }
 
-  function reportUrls(urls) {
-    if (window.__TAURI_INTERNALS__?.ipc) {
-      window.__TAURI_INTERNALS__.ipc.postMessage(JSON.stringify({
-        cmd: 'bank_urls', callback: 0, error: 0,
-        payload: { bankKey: BANK, urls }
-      }));
+  function sendBatch(account, transactions) {
+    window.__TAURI_INTERNALS__.ipc.postMessage(JSON.stringify({
+      cmd: 'bank_transactions',
+      payload: { bankKey: BANK_KEY, runId: RUN_ID, account, transactions }
+    }));
+  }
+
+  function parseAmount(text) {
+    const clean = text.replace(/[^0-9.\-]/g, '');
+    const num = parseFloat(clean);
+    return isNaN(num) ? 0 : num;
+  }
+
+  function parseISODate(text) {
+    const iso = text.match(/(\d{4})-(\d{2})-(\d{2})/);
+    if (iso) return iso[0];
+    const dmy = text.match(/(\d{1,2})\s+(\w{3})\s+(\d{4})/);
+    if (dmy) {
+      const m = {Jan:'01',Feb:'02',Mar:'03',Apr:'04',May:'05',Jun:'06',
+                 Jul:'07',Aug:'08',Sep:'09',Oct:'10',Nov:'11',Dec:'12'};
+      return `${dmy[3]}-${m[dmy[2]] || '01'}-${dmy[1].padStart(2,'0')}`;
     }
+    return null;
   }
 
   function wait(ms) { return new Promise(r => setTimeout(r, ms)); }
 
-  // Parse "01 Jan 2024" → "2024-01"
-  const MONTH_MAP = {
-    jan:'01', feb:'02', mar:'03', apr:'04', may:'05', jun:'06',
-    jul:'07', aug:'08', sep:'09', oct:'10', nov:'11', dec:'12'
-  };
-
-  function parseDDMonYYYY(text) {
-    if (!text) return null;
-    const m = text.toLowerCase().match(/(\d{1,2})\s+([a-z]{3})\s+(\d{4})/);
-    if (!m) return null;
-    const mon = MONTH_MAP[m[2]];
-    return mon ? `${m[3]}-${mon}` : null;
-  }
-
-  log('info', 'Bank of Melbourne automation started');
-  log('info', 'Note: BOM uses the Westpac Group portal (same as St.George, BankSA)');
-
   try {
-    // ── Navigate to Statements ─────────────────────────────────────────────
-    const stmtLink = document.querySelector(
-      "a[href*='viewStatement'], a[href*='statements']"
-    ) || [...document.querySelectorAll('a')]
-        .find(a => /statements?/i.test(a.textContent));
+    log('info', 'Bank of Melbourne DOM scraper started (Westpac Group portal)');
 
-    if (!stmtLink) {
-      log('warn', 'Statements link not found. Please navigate to Statements manually.');
-      reportUrls([]);
-      return;
+    // Navigate to accounts list
+    const accountsLink = document.querySelector("a[href*='accounts'], a[href*='transaction']")
+      || [...document.querySelectorAll('a')].find(a => /accounts|transactions?/i.test(a.textContent));
+
+    if (accountsLink) {
+      log('info', 'Navigating to accounts...');
+      accountsLink.click();
+      await wait(2000);
     }
-    log('info', 'Navigating to Statements...');
-    stmtLink.click();
-    await wait(2500);
 
-    // ── Click account tabs ────────────────────────────────────────────────
-    const tabs = [...document.querySelectorAll(
-      "[role='tab'], .tab-item, a.tab, ul.tabs li a"
-    )];
+    // Click each account tab
+    const tabs = [...document.querySelectorAll("[role='tab'], .tab-item, a.tab")];
     const targets = tabs.length ? tabs : [null];
 
-    const allUrls = [];
+    log('info', `Found ${targets.length} account tab(s)`);
 
     for (const tab of targets) {
       if (tab) {
@@ -75,42 +66,71 @@ pub const BOM_SCRIPT: &str = r#"
         log('info', `Processing tab: ${tab.textContent.trim()}`);
       }
 
-      // ── Statement table rows ──────────────────────────────────────────
+      // Scrape account metadata
+      const accountName = document.querySelector('.account-name, h1, .account-title')?.textContent?.trim()
+        || tab?.textContent?.trim() || 'BOM Account';
+      const accountNumber = document.querySelector('.account-number, [class*="accountNumber"]')?.textContent?.trim() || '';
+      const balanceText = document.querySelector('.balance, [class*="balance"]')?.textContent?.trim() || '0';
+      const currentBalance = parseAmount(balanceText);
+
+      const account = {
+        bankKey: BANK_KEY,
+        accountName,
+        accountNumber,
+        bsb: null,
+        currency: 'AUD',
+        accountType: 'CHECKING',
+        currentBalance
+      };
+
+      // Scrape transaction rows
       const rows = [...document.querySelectorAll(
-        "table.statement-table tbody tr, table tbody tr"
+        'table tbody tr, [class*="transactionRow"]'
       )];
+      log('info', `Found ${rows.length} transaction row(s)`);
+
+      const transactions = [];
 
       for (const row of rows) {
         const cells = row.querySelectorAll('td');
-        const dateText = cells[0]?.textContent?.trim() || cells[1]?.textContent?.trim();
-        const period = parseDDMonYYYY(dateText);
+        // Date format: "01 Jan 2024"
+        const dateText = cells[0]?.textContent?.trim()
+          || row.querySelector('[class*="date"]')?.textContent?.trim() || '';
+        const date = parseISODate(dateText);
+        if (!date) continue;
+        if (new Date(date) < cutoffDate) continue;
 
-        if (period) {
-          const year = parseInt(period.split('-')[0]);
-          if (year < cutoff.getFullYear()) continue;
+        const description = cells[1]?.textContent?.trim()
+          || row.querySelector('[class*="desc"], [class*="description"]')?.textContent?.trim() || '';
+
+        // Check for separate debit/credit columns
+        const debitText = row.querySelector('[class*="debit"]')?.textContent?.trim();
+        const creditText = row.querySelector('[class*="credit"]')?.textContent?.trim();
+        let amount;
+        if (debitText || creditText) {
+          const debit = debitText ? parseAmount(debitText) : 0;
+          const credit = creditText ? parseAmount(creditText) : 0;
+          amount = credit > 0 ? credit : -debit;
+        } else {
+          const amountText = cells[2]?.textContent?.trim()
+            || row.querySelector('[class*="amount"]')?.textContent?.trim() || '0';
+          amount = parseAmount(amountText);
         }
 
-        const dlLink = row.querySelector(
-          "a[href*='downloadStatement'], a[href$='.pdf']"
-        ) || [...row.querySelectorAll('a')]
-            .find(a => /download pdf/i.test(a.textContent));
+        const balanceText2 = cells[3]?.textContent?.trim()
+          || row.querySelector('[class*="balance"]')?.textContent?.trim() || '';
+        const balance = balanceText2 ? parseAmount(balanceText2) : null;
 
-        if (dlLink) {
-          allUrls.push({
-            url: dlLink.href,
-            filename: `BOM_${tab?.textContent?.trim() || 'account'}_${period || dateText || 'statement'}.pdf`
-          });
-        }
+        transactions.push({ date, description, amount, balance, reference: null, transactionType: null });
       }
+
+      log('info', `Sending ${transactions.length} transaction(s) for account: ${accountName}`);
+      sendBatch(account, transactions);
     }
 
-    log(allUrls.length ? 'success' : 'warn',
-      allUrls.length ? `Found ${allUrls.length} statement(s)` : 'No statements found');
-    reportUrls(allUrls);
-
+    log('success', 'BOM scraping complete');
   } catch (err) {
-    log('error', `Automation error: ${err.message}`);
-    reportUrls([]);
+    log('error', `BOM scraper error: ${err.message}`);
   }
 })();
 "#;
