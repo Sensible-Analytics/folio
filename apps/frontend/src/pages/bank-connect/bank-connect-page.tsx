@@ -114,6 +114,13 @@ function statusVariant(
   }
 }
 
+const VALID_LEVELS = ["info", "warn", "error", "success"] as const;
+type LogLevel = (typeof VALID_LEVELS)[number];
+
+function toLogLevel(s: string): LogLevel {
+  return (VALID_LEVELS as readonly string[]).includes(s) ? (s as LogLevel) : "info";
+}
+
 function levelColor(level: string): string {
   switch (level) {
     case "error":
@@ -236,6 +243,7 @@ export default function BankConnectPage() {
   const [settings, setSettings] = useState<BankConnectSettings | null>(null);
   const [newAccounts, setNewAccounts] = useState<NewAccountCreatedPayload[]>([]);
   const [dismissedAccountIds, setDismissedAccountIds] = useState<Set<string>>(new Set());
+  const [activeBankKey, setActiveBankKey] = useState<string | null>(null);
   const logEndRef = useRef<HTMLDivElement>(null);
   const logIdCounter = useRef(0);
   const panelRef = useRef<HTMLDivElement>(null);
@@ -262,67 +270,69 @@ export default function BankConnectPage() {
 
   // Subscribe to Tauri events
   useEffect(() => {
+    let mounted = true;
     const unlisteners: (() => Promise<void>)[] = [];
 
-    listenBankLoginDetected((event: { payload: BankLoginDetectedPayload }) => {
-      const key = event.payload.bankKey;
-      setStatuses((prev) => ({ ...prev, [key]: "logged-in" }));
-      addLog(key, "success", "Login detected — starting automation...");
-      // Auto-start download
-      startBankDownload(key).catch((err) =>
-        addLog(key, "error", `Automation failed: ${String(err)}`),
-      );
-    }).then((ul) => unlisteners.push(ul));
-
-    listenBankProgress((event: { payload: BankProgressPayload }) => {
-      addLog(
-        event.payload.bankKey,
-        event.payload.level as LogEntry["level"],
-        event.payload.message,
-      );
-    }).then((ul) => unlisteners.push(ul));
-
-    listenBankDownloadComplete((event: { payload: BankDownloadCompletePayload }) => {
-      setStatuses((prev) => ({ ...prev, [event.payload.bankKey]: "complete" }));
-      addLog(
-        event.payload.bankKey,
-        "success",
-        `Download complete: ${event.payload.downloaded} files`,
-      );
-      listBankDownloadRuns()
-        .then((runs) => setLastRuns(latestRunsByBank(runs)))
-        .catch(console.error);
-    }).then((ul) => unlisteners.push(ul));
-
-    listenBankWindowClosed((event: { payload: BankWindowClosedPayload }) => {
-      setStatuses((prev) => {
-        const current = prev[event.payload.bankKey];
-        if (current === "window-open" || current === "logged-in") {
-          return { ...prev, [event.payload.bankKey]: "idle" };
-        }
-        return prev;
-      });
-      addLog(event.payload.bankKey, "info", `${event.payload.bankKey} window closed`);
-    }).then((ul) => unlisteners.push(ul));
-
-    listenBankImportComplete((event: { payload: ImportCompletePayload }) => {
-      const { bankKey, newCount, skippedCount } = event.payload;
-      setStatuses((prev) => ({ ...prev, [bankKey]: "complete" }));
-      addLog(bankKey, "success", `Import complete: ${newCount} new, ${skippedCount} skipped`);
-      listBankDownloadRuns()
-        .then((runs) => setLastRuns(latestRunsByBank(runs)))
-        .catch(console.error);
-    }).then((ul) => unlisteners.push(ul));
-
-    listenBankNewAccountCreated((event: { payload: NewAccountCreatedPayload }) => {
-      setNewAccounts((prev) => {
-        // Avoid duplicates
-        if (prev.some((a) => a.accountId === event.payload.accountId)) return prev;
-        return [...prev, event.payload];
-      });
-    }).then((ul) => unlisteners.push(ul));
+    (async () => {
+      const uls = await Promise.all([
+        listenBankLoginDetected((event: { payload: BankLoginDetectedPayload }) => {
+          const key = event.payload.bankKey;
+          setStatuses((prev) => ({ ...prev, [key]: "logged-in" }));
+          addLog(key, "success", "Login detected — starting automation...");
+          // Auto-start download
+          startBankDownload(key).catch((err) =>
+            addLog(key, "error", `Automation failed: ${String(err)}`),
+          );
+        }),
+        listenBankProgress((event: { payload: BankProgressPayload }) => {
+          addLog(event.payload.bankKey, toLogLevel(event.payload.level), event.payload.message);
+        }),
+        listenBankDownloadComplete((event: { payload: BankDownloadCompletePayload }) => {
+          setStatuses((prev) => ({ ...prev, [event.payload.bankKey]: "complete" }));
+          addLog(
+            event.payload.bankKey,
+            "success",
+            `Download complete: ${event.payload.downloaded} files`,
+          );
+          listBankDownloadRuns()
+            .then((runs) => setLastRuns(latestRunsByBank(runs)))
+            .catch(console.error);
+        }),
+        listenBankWindowClosed((event: { payload: BankWindowClosedPayload }) => {
+          setStatuses((prev) => {
+            const current = prev[event.payload.bankKey];
+            if (current === "window-open" || current === "logged-in") {
+              return { ...prev, [event.payload.bankKey]: "idle" };
+            }
+            return prev;
+          });
+          addLog(event.payload.bankKey, "info", `${event.payload.bankKey} window closed`);
+        }),
+        listenBankImportComplete((event: { payload: ImportCompletePayload }) => {
+          const { bankKey, newCount, skippedCount } = event.payload;
+          setStatuses((prev) => ({ ...prev, [bankKey]: "complete" }));
+          addLog(bankKey, "success", `Import complete: ${newCount} new, ${skippedCount} skipped`);
+          listBankDownloadRuns()
+            .then((runs) => setLastRuns(latestRunsByBank(runs)))
+            .catch(console.error);
+        }),
+        listenBankNewAccountCreated((event: { payload: NewAccountCreatedPayload }) => {
+          setNewAccounts((prev) => {
+            // Avoid duplicates
+            if (prev.some((a) => a.accountId === event.payload.accountId)) return prev;
+            return [...prev, event.payload];
+          });
+        }),
+      ]);
+      if (!mounted) {
+        uls.forEach((ul) => ul());
+        return;
+      }
+      unlisteners.push(...uls);
+    })();
 
     return () => {
+      mounted = false;
       unlisteners.forEach((ul) => ul());
     };
   }, [addLog]);
@@ -353,6 +363,7 @@ export default function BankConnectPage() {
     if (!panelRef.current) return;
     const r = panelRef.current.getBoundingClientRect();
     activeBankRef.current = key;
+    setActiveBankKey(key);
     try {
       await openBankPanel(key, { x: r.left, y: r.top, width: r.width, height: r.height });
       setStatuses((prev) => ({ ...prev, [key]: "window-open" }));
@@ -366,6 +377,7 @@ export default function BankConnectPage() {
     try {
       await closeBankPanel(key);
       activeBankRef.current = null;
+      setActiveBankKey(null);
     } catch (err) {
       addLog(key, "error", `Failed to close ${key} panel: ${String(err)}`);
     }
@@ -438,7 +450,7 @@ export default function BankConnectPage() {
             ref={panelRef}
             className="bg-muted/20 flex flex-[3] items-center justify-center rounded-lg border"
           >
-            {!activeBankRef.current && (
+            {!activeBankKey && (
               <p className="text-muted-foreground text-sm">
                 Select a bank and log in — the bank site will open in a separate window
               </p>

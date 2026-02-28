@@ -120,6 +120,7 @@ export const startBankDownload = async (bankKey: string): Promise<string> => {
 // Event Listeners
 // ============================================================================
 
+// TODO: de-dup with events.ts adaptCallback/adaptUnlisten
 const adaptCallback = <T>(handler: EventCallback<T>): TauriEventCallback<T> => {
   return (event) => handler({ event: event.event, payload: event.payload, id: event.id });
 };

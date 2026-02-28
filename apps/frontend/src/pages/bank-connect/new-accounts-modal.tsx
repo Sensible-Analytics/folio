@@ -9,15 +9,10 @@ import {
   DialogTitle,
 } from "@wealthfolio/ui/components/ui/dialog";
 
-interface NewAccountInfo {
-  accountId: string;
-  accountName: string;
-  bankKey: string;
-  accountNumber: string;
-}
+import type { NewAccountCreatedPayload } from "@/adapters";
 
 interface NewAccountsModalProps {
-  accounts: NewAccountInfo[];
+  accounts: NewAccountCreatedPayload[];
   onDismiss: () => void;
 }
 
