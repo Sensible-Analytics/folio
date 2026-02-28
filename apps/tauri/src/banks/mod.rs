@@ -5,7 +5,7 @@ mod cba;
 mod ibkr;
 mod ing;
 
-pub fn get_automation_script(bank_key: &str, years_back: u32) -> Option<String> {
+pub fn get_automation_script(bank_key: &str, years_back: u32, run_id: &str) -> Option<String> {
     let script = match bank_key {
         "ING" => ing::ING_SCRIPT,
         "CBA" => cba::CBA_SCRIPT,
@@ -15,5 +15,9 @@ pub fn get_automation_script(bank_key: &str, years_back: u32) -> Option<String> 
         "IBKR" => ibkr::IBKR_SCRIPT,
         _ => return None,
     };
-    Some(script.replace("__YEARS_BACK__", &years_back.to_string()))
+    Some(
+        script
+            .replace("__YEARS_BACK__", &years_back.to_string())
+            .replace("__RUN_ID__", run_id),
+    )
 }

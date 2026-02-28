@@ -1,3 +1,4 @@
+use chrono::Utc;
 use diesel::prelude::*;
 use diesel::r2d2::{self, Pool};
 use diesel::sqlite::SqliteConnection;
@@ -103,6 +104,23 @@ impl BankConnectRepository {
             .execute(&mut conn)
             .map_err(StorageError::from)?;
         Ok(())
+    }
+
+    pub fn update_run_stats(
+        &self,
+        run_id: &str,
+        files_downloaded: i32,
+        files_skipped: i32,
+    ) -> Result<()> {
+        let completed_at = Utc::now().to_rfc3339();
+        self.update_run(
+            run_id,
+            "completed",
+            files_downloaded,
+            files_skipped,
+            None,
+            Some(completed_at),
+        )
     }
 
     pub fn list_runs(&self, bank_key: Option<&str>) -> Result<Vec<BankDownloadRun>> {

@@ -529,7 +529,13 @@ pub fn run() {
             commands::bank_connect::list_bank_download_runs,
             commands::bank_connect::open_bank_window,
             commands::bank_connect::close_bank_window,
+            commands::bank_connect::open_bank_panel,
+            commands::bank_connect::close_bank_panel,
+            commands::bank_connect::resize_bank_panel,
             commands::bank_connect::start_bank_download,
+            commands::bank_connect::import_scraped_transactions,
+            commands::bank_connect::bank_progress,
+            commands::bank_connect::bank_transactions,
             // Health commands
             commands::health::get_health_status,
             commands::health::run_health_checks,

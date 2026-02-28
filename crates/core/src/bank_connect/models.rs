@@ -1,4 +1,5 @@
 use serde::{Deserialize, Serialize};
+use sha2::{Digest, Sha256};
 
 /// All connectors (banks + brokers) share this key type.
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Hash)]
@@ -146,5 +147,113 @@ impl Default for BankConnectSettings {
             auto_close_login_window: true,
             log_level: "info".to_string(),
         }
+    }
+}
+
+/// A single transaction row scraped from bank DOM.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct ScrapedTransaction {
+    pub date: String, // "2024-01-15" (YYYY-MM-DD)
+    pub description: String,
+    pub amount: f64, // negative = debit, positive = credit
+    pub balance: Option<f64>,
+    pub reference: Option<String>, // bank's own transaction ID if available
+    pub transaction_type: Option<String>, // "DEBIT", "CREDIT", "TRANSFER"
+}
+
+/// Account metadata scraped from bank DOM.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct ScrapedAccount {
+    pub bank_key: String,
+    pub account_name: String,   // "Orange Everyday"
+    pub account_number: String, // "1234 5678" (display format, spaces stripped on use)
+    pub bsb: Option<String>,    // "923-100"
+    pub currency: String,       // "AUD"
+    pub account_type: String,   // "TRANSACTION", "SAVINGS", "INVESTMENT"
+    pub current_balance: Option<f64>,
+}
+
+/// Batch of transactions for one account, sent from JS via IPC.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct ScrapedTransactionBatch {
+    pub bank_key: String,
+    pub run_id: String,
+    pub account: ScrapedAccount,
+    pub transactions: Vec<ScrapedTransaction>,
+}
+
+/// Agent step event for the live log strip.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct AgentStepEvent {
+    pub bank_key: String,
+    pub step: String, // "navigate", "scrape", "import", "done", "error"
+    pub message: String,
+    pub detail: Option<String>,
+    pub timestamp: String, // ISO 8601
+}
+
+/// Generate a stable SHA-256 fingerprint for a scraped transaction.
+/// Same transaction always produces the same key → safe for SQLite upsert deduplication.
+pub fn make_idempotency_key(
+    bank_key: &str,
+    account_number: &str,
+    tx: &ScrapedTransaction,
+) -> String {
+    let input = format!(
+        "BANK_CONNECT|{}|{}|{}|{:.2}|{}",
+        bank_key,
+        account_number,
+        tx.date,
+        tx.amount,
+        tx.description.trim(),
+    );
+    format!("{:x}", Sha256::digest(input.as_bytes()))
+}
+
+#[cfg(test)]
+mod bank_connect_model_tests {
+    use super::*;
+
+    fn sample_tx() -> ScrapedTransaction {
+        ScrapedTransaction {
+            date: "2024-01-15".into(),
+            description: "WOOLWORTHS 0123".into(),
+            amount: -42.50,
+            balance: Some(1234.56),
+            reference: None,
+            transaction_type: Some("DEBIT".into()),
+        }
+    }
+
+    #[test]
+    fn idempotency_key_is_deterministic() {
+        let tx = sample_tx();
+        let k1 = make_idempotency_key("ING", "12345678", &tx);
+        let k2 = make_idempotency_key("ING", "12345678", &tx);
+        assert_eq!(k1, k2);
+        assert_eq!(k1.len(), 64); // SHA-256 hex is always 64 chars
+    }
+
+    #[test]
+    fn idempotency_key_differs_by_bank() {
+        let tx = sample_tx();
+        let k_ing = make_idempotency_key("ING", "12345678", &tx);
+        let k_cba = make_idempotency_key("CBA", "12345678", &tx);
+        assert_ne!(k_ing, k_cba);
+    }
+
+    #[test]
+    fn idempotency_key_differs_by_amount() {
+        let mut tx1 = sample_tx();
+        let mut tx2 = sample_tx();
+        tx1.amount = -42.50;
+        tx2.amount = -42.51;
+        let k1 = make_idempotency_key("ING", "12345678", &tx1);
+        let k2 = make_idempotency_key("ING", "12345678", &tx2);
+        assert_ne!(k1, k2);
     }
 }

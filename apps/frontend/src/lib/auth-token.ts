@@ -4,7 +4,11 @@ let authToken: string | null = null;
 let unauthorizedHandler: (() => void) | null = null;
 
 // Initialize from localStorage if available
-if (typeof window !== "undefined") {
+if (
+  typeof window !== "undefined" &&
+  typeof localStorage !== "undefined" &&
+  typeof localStorage.getItem === "function"
+) {
   authToken = localStorage.getItem(AUTH_TOKEN_KEY);
 }
 

@@ -120,6 +120,7 @@ export const startBankDownload = async (bankKey: string): Promise<string> => {
 // Event Listeners
 // ============================================================================
 
+// TODO: de-dup with events.ts adaptCallback/adaptUnlisten
 const adaptCallback = <T>(handler: EventCallback<T>): TauriEventCallback<T> => {
   return (event) => handler({ event: event.event, payload: event.payload, id: event.id });
 };
@@ -160,6 +161,61 @@ export async function listenBankWindowClosed(
 ): Promise<UnlistenFn> {
   const unlisten = await listen<BankWindowClosedPayload>(
     "bank://window-closed",
+    adaptCallback(handler),
+  );
+  return adaptUnlisten(unlisten);
+}
+
+// ============================================================================
+// Panel Commands
+// ============================================================================
+
+export interface WebviewBounds {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+}
+
+export interface ImportCompletePayload {
+  bankKey: string;
+  runId: string;
+  accountId: string;
+  newCount: number;
+  skippedCount: number;
+}
+
+export interface NewAccountCreatedPayload {
+  accountId: string;
+  accountName: string;
+  bankKey: string;
+  accountNumber: string;
+}
+
+export const openBankPanel = async (bankKey: string, bounds: WebviewBounds): Promise<void> =>
+  invoke<void>("open_bank_panel", { bankKey, bounds });
+
+export const closeBankPanel = async (bankKey: string): Promise<void> =>
+  invoke<void>("close_bank_panel", { bankKey });
+
+export const resizeBankPanel = async (bankKey: string, bounds: WebviewBounds): Promise<void> =>
+  invoke<void>("resize_bank_panel", { bankKey, bounds });
+
+export async function listenBankImportComplete(
+  handler: EventCallback<ImportCompletePayload>,
+): Promise<UnlistenFn> {
+  const unlisten = await listen<ImportCompletePayload>(
+    "bank://import-complete",
+    adaptCallback(handler),
+  );
+  return adaptUnlisten(unlisten);
+}
+
+export async function listenBankNewAccountCreated(
+  handler: EventCallback<NewAccountCreatedPayload>,
+): Promise<UnlistenFn> {
+  const unlisten = await listen<NewAccountCreatedPayload>(
+    "bank://new-account-created",
     adaptCallback(handler),
   );
   return adaptUnlisten(unlisten);

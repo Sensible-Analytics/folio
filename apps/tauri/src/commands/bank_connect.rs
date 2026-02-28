@@ -1,12 +1,16 @@
 use log::{debug, info};
-use serde::Serialize;
+use rust_decimal::Decimal;
+use serde::{Deserialize, Serialize};
 use std::sync::Arc;
 use tauri::{AppHandle, Emitter, Manager, State, WebviewUrl, WebviewWindowBuilder};
 use uuid::Uuid;
 
 use crate::context::ServiceContext;
+use wealthfolio_core::accounts::{NewAccount, TrackingMode};
+use wealthfolio_core::activities::NewActivity;
 use wealthfolio_core::bank_connect::{
-    BankConnectSettings, BankDownloadRun, BankKey, NewBankDownloadRun,
+    make_idempotency_key, BankConnectSettings, BankDownloadRun, BankKey, NewBankDownloadRun,
+    ScrapedAccount, ScrapedTransactionBatch,
 };
 
 // ─── Event Payloads ─────────────────────────────────────────────────────────
@@ -30,6 +34,15 @@ pub struct BankProgressPayload {
 #[serde(rename_all = "camelCase")]
 struct BankWindowClosedPayload {
     bank_key: String,
+}
+
+#[derive(Debug, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct WebviewBounds {
+    pub x: f64,
+    pub y: f64,
+    pub width: f64,
+    pub height: f64,
 }
 
 // ─── Settings persistence (JSON file in app data dir) ───────────────────────
@@ -58,6 +71,64 @@ fn save_settings_to_file(app: &AppHandle, settings: &BankConnectSettings) -> Res
     let json = serde_json::to_string_pretty(settings).map_err(|e| e.to_string())?;
     std::fs::write(&path, json).map_err(|e| e.to_string())?;
     Ok(())
+}
+
+// ─── Helpers ─────────────────────────────────────────────────────────────────
+
+/// Map a bank-scraped account type string to the canonical Wealthfolio account type.
+fn map_account_type(raw: &str) -> String {
+    match raw.to_uppercase().as_str() {
+        "SAVINGS" => "SAVINGS".to_string(),
+        "INVESTMENT" => "TRADING".to_string(),
+        _ => "CHECKING".to_string(),
+    }
+}
+
+/// Find an existing account by provider_account_id, or create a new one.
+/// provider_account_id format: "{BANK_KEY}:{account_number_stripped}"
+async fn find_or_create_bank_account(
+    ctx: &ServiceContext,
+    scraped: &ScrapedAccount,
+) -> Result<String, String> {
+    let account_number = scraped.account_number.replace(' ', "");
+    let provider_id = format!("{}:{}", scraped.bank_key, account_number);
+
+    // Check if account already exists
+    let accounts = ctx
+        .account_service()
+        .get_all_accounts()
+        .map_err(|e| e.to_string())?;
+
+    if let Some(existing) = accounts
+        .iter()
+        .find(|a| a.provider_account_id.as_deref() == Some(&provider_id))
+    {
+        return Ok(existing.id.clone());
+    }
+
+    // Create new account
+    let new_account = NewAccount {
+        id: Some(Uuid::new_v4().to_string()),
+        name: format!("{} - {}", scraped.bank_key, scraped.account_name),
+        account_type: map_account_type(&scraped.account_type),
+        group: None,
+        currency: scraped.currency.clone(),
+        is_default: false,
+        is_active: true,
+        platform_id: None,
+        account_number: Some(account_number),
+        meta: None,
+        provider: Some("BANK_CONNECT".to_string()),
+        provider_account_id: Some(provider_id),
+        is_archived: false,
+        tracking_mode: TrackingMode::Transactions,
+    };
+
+    ctx.account_service()
+        .create_account(new_account)
+        .await
+        .map(|a| a.id)
+        .map_err(|e| e.to_string())
 }
 
 // ─── Commands ────────────────────────────────────────────────────────────────
@@ -164,6 +235,92 @@ pub async fn close_bank_window(bank_key: String, app: AppHandle) -> Result<(), S
     Ok(())
 }
 
+// NOTE: Tauri v2 add_child() requires the "unstable" feature flag which is not enabled in this
+// project. These panel commands use a separate window (same as open_bank_window) but with the
+// label prefix "bank-panel-" so the frontend can distinguish panel vs. standalone windows.
+
+#[tauri::command]
+pub async fn open_bank_panel(
+    bank_key: String,
+    bounds: WebviewBounds,
+    app: AppHandle,
+) -> Result<(), String> {
+    let parsed_key: BankKey = bank_key.parse().map_err(|e: String| e)?;
+    let label = format!("bank-panel-{}", bank_key.to_lowercase());
+    let login_url = parsed_key.login_url();
+    let post_login = parsed_key.post_login_pattern().to_string();
+    let bank_key_clone = bank_key.clone();
+    let app_for_nav = app.clone();
+
+    debug!("Opening bank panel for {} at {}", bank_key, login_url);
+
+    // Close existing panel for this bank if open
+    if let Some(existing) = app.get_webview_window(&label) {
+        let _ = existing.close();
+        std::thread::sleep(std::time::Duration::from_millis(100));
+    }
+
+    let session_dir = app
+        .path()
+        .app_data_dir()
+        .map(|p| p.join("bank-sessions").join(&bank_key))
+        .ok();
+
+    let url = WebviewUrl::External(tauri::Url::parse(login_url).map_err(|e| e.to_string())?);
+
+    let mut builder = WebviewWindowBuilder::new(&app, &label, url)
+        .title(format!("{} - Bank Connect", parsed_key.display_name()))
+        .inner_size(bounds.width, bounds.height)
+        .resizable(true)
+        .on_navigation(move |nav_url| {
+            let url_str = nav_url.as_str();
+            if url_str.contains(&post_login) {
+                info!("Bank login detected for {}: {}", bank_key_clone, url_str);
+                let _ = app_for_nav.emit(
+                    "bank://login-detected",
+                    BankLoginDetectedPayload {
+                        bank_key: bank_key_clone.clone(),
+                    },
+                );
+            }
+            true
+        });
+
+    if let Some(dir) = session_dir {
+        builder = builder.data_directory(dir);
+    }
+
+    builder.build().map_err(|e| e.to_string())?;
+
+    info!("Bank panel opened for {}", bank_key);
+    Ok(())
+}
+
+#[tauri::command]
+pub async fn close_bank_panel(bank_key: String, app: AppHandle) -> Result<(), String> {
+    let label = format!("bank-panel-{}", bank_key.to_lowercase());
+    if let Some(wv) = app.get_webview_window(&label) {
+        wv.close().map_err(|e| e.to_string())?;
+    }
+    Ok(())
+}
+
+#[tauri::command]
+pub async fn resize_bank_panel(
+    bank_key: String,
+    bounds: WebviewBounds,
+    app: AppHandle,
+) -> Result<(), String> {
+    let label = format!("bank-panel-{}", bank_key.to_lowercase());
+    if let Some(wv) = app.get_webview_window(&label) {
+        wv.set_size(tauri::LogicalSize::new(bounds.width, bounds.height))
+            .map_err(|e| e.to_string())?;
+        wv.set_position(tauri::LogicalPosition::new(bounds.x, bounds.y))
+            .map_err(|e| e.to_string())?;
+    }
+    Ok(())
+}
+
 #[tauri::command]
 pub async fn start_bank_download(
     bank_key: String,
@@ -188,7 +345,7 @@ pub async fn start_bank_download(
         .map_err(|e| format!("Failed to create download run: {}", e))?;
 
     // Get the automation script
-    let script = crate::banks::get_automation_script(&bank_key, settings.years_back)
+    let script = crate::banks::get_automation_script(&bank_key, settings.years_back, &run_id)
         .ok_or_else(|| format!("No automation script for bank: {}", bank_key))?;
 
     // Inject script into bank window
@@ -214,4 +371,205 @@ pub async fn start_bank_download(
 
     info!("Bank download started for run {}", run_id);
     Ok(run_id)
+}
+
+// ─── Import pipeline ─────────────────────────────────────────────────────────
+
+#[derive(Debug, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct ImportResult {
+    pub account_id: String,
+    pub new_count: u32,
+    pub skipped_count: u32,
+}
+
+pub async fn import_scraped_transactions_inner(
+    batch: ScrapedTransactionBatch,
+    ctx: &ServiceContext,
+    app: &AppHandle,
+) -> Result<ImportResult, String> {
+    let account_id = find_or_create_bank_account(ctx, &batch.account).await?;
+
+    let mut new_count = 0u32;
+    let mut skipped_count = 0u32;
+
+    for tx in &batch.transactions {
+        let ikey = make_idempotency_key(&batch.bank_key, &batch.account.account_number, tx);
+
+        let (activity_type, amount_abs) = if tx.amount < 0.0 {
+            ("WITHDRAWAL", tx.amount.abs())
+        } else {
+            ("DEPOSIT", tx.amount)
+        };
+
+        let amount_decimal = Decimal::try_from(amount_abs)
+            .map_err(|e| format!("Bad amount '{}': {}", amount_abs, e))?;
+
+        let new_activity = NewActivity {
+            id: Some(Uuid::new_v4().to_string()),
+            account_id: account_id.clone(),
+            symbol: None,
+            activity_type: activity_type.to_string(),
+            subtype: None,
+            activity_date: tx.date.clone(),
+            quantity: None,
+            unit_price: None,
+            currency: batch.account.currency.clone(),
+            fee: None,
+            amount: Some(amount_decimal),
+            status: None,
+            notes: Some(tx.description.clone()),
+            fx_rate: None,
+            metadata: None,
+            needs_review: Some(false),
+            source_system: Some("BANK_CONNECT".to_string()),
+            source_record_id: tx.reference.clone(),
+            source_group_id: Some(batch.run_id.clone()),
+            idempotency_key: Some(ikey),
+        };
+
+        match ctx.activity_service().create_activity(new_activity).await {
+            Ok(_) => new_count += 1,
+            Err(e) => {
+                let msg = e.to_string();
+                if msg.contains("Unique constraint violation") || msg.contains("UNIQUE") {
+                    skipped_count += 1;
+                } else {
+                    return Err(msg);
+                }
+            }
+        }
+    }
+
+    ctx.bank_connect_repository()
+        .update_run_stats(&batch.run_id, new_count as i32, skipped_count as i32)
+        .map_err(|e| format!("Failed to update run stats: {}", e))?;
+
+    let _ = app.emit(
+        "bank://import-complete",
+        serde_json::json!({
+            "bankKey": batch.bank_key,
+            "runId": batch.run_id,
+            "accountId": account_id,
+            "newCount": new_count,
+            "skippedCount": skipped_count,
+        }),
+    );
+
+    let _ = app.emit(
+        "bank://new-account-created",
+        serde_json::json!({
+            "accountId": account_id,
+            "accountName": format!("{} - {}", batch.bank_key, batch.account.account_name),
+            "bankKey": batch.bank_key,
+            "accountNumber": batch.account.account_number,
+        }),
+    );
+
+    Ok(ImportResult {
+        account_id,
+        new_count,
+        skipped_count,
+    })
+}
+
+#[tauri::command]
+pub async fn import_scraped_transactions(
+    batch: ScrapedTransactionBatch,
+    state: State<'_, Arc<ServiceContext>>,
+    app: AppHandle,
+) -> Result<ImportResult, String> {
+    let ctx = state.inner();
+    import_scraped_transactions_inner(batch, ctx, &app).await
+}
+
+/// Receives a progress log from the bank automation script and re-emits it
+/// as a `bank://progress` app event so the frontend can display it.
+#[tauri::command]
+pub async fn bank_progress(
+    bank_key: String,
+    level: String,
+    message: String,
+    timestamp: String,
+    app: AppHandle,
+) -> Result<(), String> {
+    let _ = app.emit(
+        "bank://progress",
+        BankProgressPayload {
+            bank_key,
+            level,
+            message,
+            timestamp,
+        },
+    );
+    Ok(())
+}
+
+/// Receives a scraped transaction batch from the bank automation script and
+/// runs the import pipeline asynchronously.
+#[tauri::command]
+pub async fn bank_transactions(
+    batch: ScrapedTransactionBatch,
+    state: State<'_, Arc<ServiceContext>>,
+    app: AppHandle,
+) -> Result<(), String> {
+    let ctx = Arc::clone(state.inner());
+    let app_clone = app.clone();
+    let bank_key = batch.bank_key.clone();
+    tauri::async_runtime::spawn(async move {
+        if let Err(e) = import_scraped_transactions_inner(batch, &ctx, &app_clone).await {
+            let _ = app_clone.emit(
+                "bank://progress",
+                BankProgressPayload {
+                    bank_key,
+                    level: "error".to_string(),
+                    message: format!("Import failed: {}", e),
+                    timestamp: chrono::Utc::now().to_rfc3339(),
+                },
+            );
+        }
+    });
+    Ok(())
+}
+
+#[cfg(test)]
+mod bank_connect_tests {
+    use wealthfolio_core::bank_connect::models::ScrapedAccount;
+
+    fn sample_scraped_account() -> ScrapedAccount {
+        ScrapedAccount {
+            bank_key: "ING".into(),
+            account_name: "Orange Everyday".into(),
+            account_number: "12345678".into(),
+            bsb: Some("923-100".into()),
+            currency: "AUD".into(),
+            account_type: "TRANSACTION".into(),
+            current_balance: Some(1234.56),
+        }
+    }
+
+    #[test]
+    fn provider_id_format() {
+        let scraped = sample_scraped_account();
+        let account_number = scraped.account_number.replace(' ', "");
+        let provider_id = format!("{}:{}", scraped.bank_key, account_number);
+        assert_eq!(provider_id, "ING:12345678");
+    }
+
+    #[test]
+    fn provider_id_strips_spaces() {
+        let mut scraped = sample_scraped_account();
+        scraped.account_number = "1234 5678".into();
+        let account_number = scraped.account_number.replace(' ', "");
+        let provider_id = format!("{}:{}", scraped.bank_key, account_number);
+        assert_eq!(provider_id, "ING:12345678");
+    }
+
+    #[test]
+    fn map_account_type_defaults_to_checking() {
+        assert_eq!(super::map_account_type("TRANSACTION"), "CHECKING");
+        assert_eq!(super::map_account_type("SAVINGS"), "SAVINGS");
+        assert_eq!(super::map_account_type("INVESTMENT"), "TRADING");
+        assert_eq!(super::map_account_type("unknown"), "CHECKING");
+    }
 }
