@@ -7,17 +7,11 @@ pub const ING_SCRIPT: &str = r#"
   cutoffDate.setFullYear(cutoffDate.getFullYear() - YEARS_BACK);
 
   function log(level, message) {
-    window.__TAURI_INTERNALS__.ipc.postMessage(JSON.stringify({
-      cmd: 'bank_progress',
-      payload: { bankKey: BANK_KEY, level, message, timestamp: new Date().toISOString() }
-    }));
+    window.__TAURI__.invoke('bank_progress', { bankKey: BANK_KEY, level, message, timestamp: new Date().toISOString() });
   }
 
   function sendBatch(account, transactions) {
-    window.__TAURI_INTERNALS__.ipc.postMessage(JSON.stringify({
-      cmd: 'bank_transactions',
-      payload: { bankKey: BANK_KEY, runId: RUN_ID, account, transactions }
-    }));
+    window.__TAURI__.invoke('bank_transactions', { bankKey: BANK_KEY, runId: RUN_ID, account, transactions });
   }
 
   function parseAmount(text) {

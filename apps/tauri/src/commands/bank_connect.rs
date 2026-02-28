@@ -388,6 +388,55 @@ pub async fn import_scraped_transactions(
     import_scraped_transactions_inner(batch, ctx, &app).await
 }
 
+/// Receives a progress log from the bank automation script and re-emits it
+/// as a `bank://progress` app event so the frontend can display it.
+#[tauri::command]
+pub async fn bank_progress(
+    bank_key: String,
+    level: String,
+    message: String,
+    timestamp: String,
+    app: AppHandle,
+) -> Result<(), String> {
+    let _ = app.emit(
+        "bank://progress",
+        BankProgressPayload {
+            bank_key,
+            level,
+            message,
+            timestamp,
+        },
+    );
+    Ok(())
+}
+
+/// Receives a scraped transaction batch from the bank automation script and
+/// runs the import pipeline asynchronously.
+#[tauri::command]
+pub async fn bank_transactions(
+    batch: ScrapedTransactionBatch,
+    state: State<'_, Arc<ServiceContext>>,
+    app: AppHandle,
+) -> Result<(), String> {
+    let ctx = Arc::clone(state.inner());
+    let app_clone = app.clone();
+    let bank_key = batch.bank_key.clone();
+    tauri::async_runtime::spawn(async move {
+        if let Err(e) = import_scraped_transactions_inner(batch, &ctx, &app_clone).await {
+            let _ = app_clone.emit(
+                "bank://progress",
+                BankProgressPayload {
+                    bank_key,
+                    level: "error".to_string(),
+                    message: format!("Import failed: {}", e),
+                    timestamp: chrono::Utc::now().to_rfc3339(),
+                },
+            );
+        }
+    });
+    Ok(())
+}
+
 #[cfg(test)]
 mod bank_connect_tests {
     use wealthfolio_core::bank_connect::models::ScrapedAccount;
