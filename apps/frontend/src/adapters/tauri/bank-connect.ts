@@ -66,9 +66,7 @@ export const getBankConnectSettings = async (): Promise<BankConnectSettings> => 
   }
 };
 
-export const saveBankConnectSettings = async (
-  settings: BankConnectSettings,
-): Promise<void> => {
+export const saveBankConnectSettings = async (settings: BankConnectSettings): Promise<void> => {
   try {
     return await invoke<void>("save_bank_connect_settings", { settings });
   } catch (err) {
@@ -77,9 +75,7 @@ export const saveBankConnectSettings = async (
   }
 };
 
-export const listBankDownloadRuns = async (
-  bankKey?: string,
-): Promise<BankDownloadRun[]> => {
+export const listBankDownloadRuns = async (bankKey?: string): Promise<BankDownloadRun[]> => {
   try {
     return await invoke<BankDownloadRun[]>("list_bank_download_runs", { bankKey });
   } catch (err) {
@@ -140,10 +136,7 @@ export async function listenBankLoginDetected(
 export async function listenBankProgress(
   handler: EventCallback<BankProgressPayload>,
 ): Promise<UnlistenFn> {
-  const unlisten = await listen<BankProgressPayload>(
-    "bank://progress",
-    adaptCallback(handler),
-  );
+  const unlisten = await listen<BankProgressPayload>("bank://progress", adaptCallback(handler));
   return adaptUnlisten(unlisten);
 }
 

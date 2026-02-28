@@ -159,9 +159,7 @@ jobs:
         with:
           # Verify specific harnesses in crates/core
           args: >
-            --workspace
-            --include-pattern "kani::"
-            --output-format terse
+            --workspace --include-pattern "kani::" --output-format terse
         continue-on-error: false
 
   # ─── E2E (Web Mode) ─────────────────────────────────────────────────────────
@@ -217,7 +215,9 @@ jobs:
         run: node scripts/run-e2e.mjs
         env:
           CI: true
-          WF_SECRET_KEY: ${{ secrets.E2E_SECRET_KEY || 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa' }}
+          WF_SECRET_KEY:
+            ${{ secrets.E2E_SECRET_KEY ||
+            'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa' }}
 
       - name: Upload test report
         if: always()

@@ -47,6 +47,9 @@ sha2 = "0.10"
 hex = "0.4"
 chrono-tz = "0.10"
 
+[lints.rust]
+unexpected_cfgs = { level = "warn", check-cfg = ['cfg(kani)'] }
+
 [dev-dependencies]
 tempfile = "3"
 proptest = "1.4"
