@@ -1,4 +1,5 @@
 use log::{debug, info};
+use rust_decimal::Decimal;
 use serde::Serialize;
 use std::sync::Arc;
 use tauri::{AppHandle, Emitter, Manager, State, WebviewUrl, WebviewWindowBuilder};
@@ -6,8 +7,10 @@ use uuid::Uuid;
 
 use crate::context::ServiceContext;
 use wealthfolio_core::accounts::{NewAccount, TrackingMode};
+use wealthfolio_core::activities::NewActivity;
 use wealthfolio_core::bank_connect::{
-    BankConnectSettings, BankDownloadRun, BankKey, NewBankDownloadRun, ScrapedAccount,
+    make_idempotency_key, BankConnectSettings, BankDownloadRun, BankKey, NewBankDownloadRun,
+    ScrapedAccount, ScrapedTransactionBatch,
 };
 
 // ─── Event Payloads ─────────────────────────────────────────────────────────
@@ -273,6 +276,116 @@ pub async fn start_bank_download(
 
     info!("Bank download started for run {}", run_id);
     Ok(run_id)
+}
+
+// ─── Import pipeline ─────────────────────────────────────────────────────────
+
+#[derive(Debug, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct ImportResult {
+    pub account_id: String,
+    pub new_count: u32,
+    pub skipped_count: u32,
+}
+
+pub async fn import_scraped_transactions_inner(
+    batch: ScrapedTransactionBatch,
+    ctx: &ServiceContext,
+    app: &AppHandle,
+) -> Result<ImportResult, String> {
+    let account_id = find_or_create_bank_account(ctx, &batch.account).await?;
+
+    let mut new_count = 0u32;
+    let mut skipped_count = 0u32;
+
+    for tx in &batch.transactions {
+        let ikey = make_idempotency_key(&batch.bank_key, &batch.account.account_number, tx);
+
+        let (activity_type, amount_abs) = if tx.amount < 0.0 {
+            ("WITHDRAWAL", tx.amount.abs())
+        } else {
+            ("DEPOSIT", tx.amount)
+        };
+
+        let amount_decimal = Decimal::try_from(amount_abs)
+            .map_err(|e| format!("Bad amount '{}': {}", amount_abs, e))?;
+
+        let new_activity = NewActivity {
+            id: Some(Uuid::new_v4().to_string()),
+            account_id: account_id.clone(),
+            symbol: None,
+            activity_type: activity_type.to_string(),
+            subtype: None,
+            activity_date: tx.date.clone(),
+            quantity: None,
+            unit_price: None,
+            currency: batch.account.currency.clone(),
+            fee: None,
+            amount: Some(amount_decimal),
+            status: None,
+            notes: Some(tx.description.clone()),
+            fx_rate: None,
+            metadata: None,
+            needs_review: Some(false),
+            source_system: Some("BANK_CONNECT".to_string()),
+            source_record_id: tx.reference.clone(),
+            source_group_id: Some(batch.run_id.clone()),
+            idempotency_key: Some(ikey),
+        };
+
+        match ctx.activity_service().create_activity(new_activity).await {
+            Ok(_) => new_count += 1,
+            Err(e) => {
+                let msg = e.to_string();
+                if msg.contains("Unique constraint violation") || msg.contains("UNIQUE") {
+                    skipped_count += 1;
+                } else {
+                    return Err(msg);
+                }
+            }
+        }
+    }
+
+    ctx.bank_connect_repository()
+        .update_run_stats(&batch.run_id, new_count as i32, skipped_count as i32)
+        .map_err(|e| format!("Failed to update run stats: {}", e))?;
+
+    let _ = app.emit(
+        "bank://import-complete",
+        serde_json::json!({
+            "bankKey": batch.bank_key,
+            "runId": batch.run_id,
+            "accountId": account_id,
+            "newCount": new_count,
+            "skippedCount": skipped_count,
+        }),
+    );
+
+    let _ = app.emit(
+        "bank://new-account-created",
+        serde_json::json!({
+            "accountId": account_id,
+            "accountName": format!("{} - {}", batch.bank_key, batch.account.account_name),
+            "bankKey": batch.bank_key,
+            "accountNumber": batch.account.account_number,
+        }),
+    );
+
+    Ok(ImportResult {
+        account_id,
+        new_count,
+        skipped_count,
+    })
+}
+
+#[tauri::command]
+pub async fn import_scraped_transactions(
+    batch: ScrapedTransactionBatch,
+    state: State<'_, Arc<ServiceContext>>,
+    app: AppHandle,
+) -> Result<ImportResult, String> {
+    let ctx = state.inner();
+    import_scraped_transactions_inner(batch, ctx, &app).await
 }
 
 #[cfg(test)]
