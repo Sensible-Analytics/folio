@@ -31,7 +31,7 @@
   "identifier": "com.sensibleanalytics.sensiblefolio",
   "plugins": {
     "updater": {
-      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDNBNzg3Q0E2NzdBM0I2MDEKUldRQnRxTjNwbng0T21lOEN2QVBEL1RoNUFBS3F2TVdLaGpFNWpDRFpQK1U2M0FOQzk4dCtuTzIK",
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDcyMDQ5QjIzQjEwNTE1OTQKUldTVUZRV3hJNXNFY3ZnZEtqQ2lIZlFWcUlXNVQrTEdFak5nV2ZhcnNmVjBDL3RlZzhqb3FVdVUK",
       "endpoints": ["https://releases.sensiblefolio.app/{{target}}/{{arch}}/{{current_version}}"],
       "windows": {
         "installMode": "passive"
