@@ -1,339 +1,187 @@
 <div align="center">
-  <a href="https://github.com/Sensible-Analytics/folio">
-    <img src="apps/frontend/public/logo.svg" alt="Logo" width="80" height="80">
-  </a>
 
-  <h3 align="center">Folio</h3>
+# Folio
 
-  <p align="center">
-    Sensible Folio + Australian Bank Statement Downloader
-    <br />
-    <em>A community fork of <a href="https://github.com/Sensible-Analytics/folio">Sensible-Analytics/folio</a></em>
-    <br />
-    <br />
-    <a href="https://github.com/Sensible-Analytics/folio/releases">Download Sensible Folio</a>
-    ·
-    <a href="https://github.com/Sensible-Analytics/folio">Official Repository</a>
-    ·
-    <a href="https://github.com/Sensible-Analytics/folio/issues">Report Issues</a>
-  </p>
+### Wealth Portfolio Management
+
+**Track investments with automatic Australian bank statement import**
+
+[![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Sensible-Analytics/folio)
+
 </div>
 
 ---
 
-## Demo
+## 🛡️ Security First
 
-<!-- Replace the URL below once you record a screen capture and upload it to YouTube/Loom -->
-
-[![Folio – Bank Connect walkthrough](https://img.shields.io/badge/▶_Watch_Tutorial-YouTube-red?style=for-the-badge&logo=youtube)](https://github.com/Sensible-Analytics/folio#tutorial)
-
-> **Tutorial** — complete written walkthrough is in the [Tutorial](#tutorial)
-> section below.
-
----
-
-## What is this?
-
-This is a community fork of
-[Sensible Folio](https://github.com/Sensible-Analytics/folio) — the local-first,
-open-source desktop investment tracker — with one extra feature added:
-
-**Bank Connect**: automatically download bank statements (PDF) from Australian
-banks directly inside the Sensible Folio desktop app.
-
-Everything else — portfolio tracking, performance analytics, activities, goals —
-is the same as the upstream project.
+> ⚠️ **CRITICAL SECURITY WARNING**
+>
+> This repository uses **automated secret scanning**. NEVER commit:
+> - API keys (OpenAI, Anthropic, database credentials)
+> - AI agent tokens
+> - Database connection strings
+> - Private keys
+>
+> **Before committing:** Review our [Security Policy](SECURITY.md) and [AI Agent Keys Policy](AI_AGENT_KEYS_POLICY.md)
 
 ---
 
-## Bank Connect — Australian Bank Statement Downloader
+## 🎯 What is Folio?
 
-The Bank Connect feature lets you log in to your Australian bank's website
-inside Sensible Folio and download statements without leaving the app.
+Folio is a **personal wealth management application** designed for Australian investors. It combines portfolio tracking with automatic bank statement import, making it easy to monitor your investments and spending in one place.
 
-### Supported Banks
+### Why Folio?
 
-| Bank              | Login URL                       |
-| ----------------- | ------------------------------- |
-| ING Australia     | ing.com.au                      |
-| CommBank (CBA)    | netbank.com.au                  |
-| ANZ               | anz.com.au                      |
-| Bank of Melbourne | ibanking.bankofmelbourne.com.au |
-| Beyond Bank       | ibank.beyondbank.com.au         |
-
-### How it works
-
-1. Go to **Bank Connect** in the sidebar
-2. Click **Open Login** for your bank — a browser window opens at the bank's
-   real login page
-3. Log in normally (two-factor, biometrics, whatever your bank requires)
-4. Once logged in, click **Start Download** — the app collects your statement
-   download links
-5. PDFs are saved to `~/BankStatements/{bank}/` on your computer
-
-Your login session is stored locally (per bank, isolated). No credentials are
-sent anywhere — the app only talks directly to your bank's website.
-
-### Settings
-
-In **Settings → Bank Connect** you can configure:
-
-- Download folder (default: `~/BankStatements`)
-- How many years back to download (default: 7, max 10)
-- Which banks are enabled
-- Whether to overwrite existing files
+- 🇦🇺 **Built for Australia** — Native support for Australian banks
+- 📊 **Unified View** — Investments and bank accounts in one dashboard
+- 🏦 **Auto-Import** — Connect your bank statements automatically
+- 📈 **Performance Tracking** — Real-time portfolio analytics
+- 💰 **Net Worth Calculator** — Track your complete financial picture
 
 ---
 
-## Relationship to the upstream project
+## ✨ Features
 
-This fork tracks the `main` branch of
-[Sensible-Analytics/folio](https://github.com/Sensible-Analytics/folio). The
-only changes on top of upstream are:
+### Portfolio Management
 
-| Change               | Description                                                                                      |
-| -------------------- | ------------------------------------------------------------------------------------------------ |
-| `feat(bank-connect)` | The Bank Connect feature described above                                                         |
-| `ci: test suite`     | Multi-layer test suite (property tests, Kani formal proofs, migration integrity, Playwright E2E) |
-| `docs(claude)`       | Development notes for AI-assisted development                                                    |
+- **Multi-Asset Support** — Shares, ETFs, managed funds, property
+- **Performance Analytics** — Track returns, dividends, and distributions
+- **Tax Reporting** — Capital gains and income summaries
+- **Benchmark Comparison** — Compare against ASX indices
+- **Dividend Tracking** — Automatic dividend reinvestment calculations
 
-If you want the base investment tracker without Bank Connect, use the official
-app: [Sensible Folio](https://github.com/Sensible-Analytics/folio).
+### Bank Integration
+
+- **Australian Banks** — Support for major Australian banks
+- **Statement Import** — Automatic CSV/OFX import
+- **Transaction Categorization** — AI-powered spending categorization
+- **Cash Flow Analysis** — Income vs expenses tracking
+- **Reconciliation** — Match transactions across accounts
+
+### Reporting
+
+- **Portfolio Reports** — Detailed performance summaries
+- **Tax Statements** — Annual tax reporting ready
+- **Cash Flow Reports** — Track where your money goes
+- **Custom Date Ranges** — Analyze any time period
+- **Export Options** — PDF, CSV, and Excel exports
 
 ---
 
-## Getting Started
+## 🚀 Quick Start
 
 ### Prerequisites
 
-- [Node.js](https://nodejs.org/) ≥ 20
-- [pnpm](https://pnpm.io/) ≥ 9
-- [Rust](https://www.rust-lang.org/) (stable toolchain)
-- [Tauri prerequisites](https://tauri.app/start/prerequisites/) for your OS
+- Node.js 18+
+- A modern web browser
 
-### Build from source
+### Installation
 
 ```bash
-# Clone this fork
+# Clone the repository
 git clone https://github.com/Sensible-Analytics/folio.git
 cd folio
 
-# Install Node dependencies
-pnpm install
+# Install dependencies
+npm install
 
-# Run in development mode (opens the desktop app)
-pnpm tauri dev
+# Set up environment variables
+cp .env.example .env
+# Edit .env with your configuration
+
+# Run development server
+npm run dev
 ```
 
-### Run tests
-
-```bash
-# TypeScript tests
-pnpm test
-
-# Rust tests
-cargo test
-
-# Type check
-pnpm type-check
-```
+Visit `http://localhost:3000` to access the application.
 
 ---
 
-## Sensible Folio — Original Features
+## 🛠️ Tech Stack
 
-Everything below is from the upstream
-[Sensible Folio](https://github.com/Sensible-Analytics/folio) project.
-
-### Key Features
-
-- **Portfolio Tracking** — Track investments across multiple accounts and asset
-  types
-- **Performance Analytics** — Detailed performance metrics and historical
-  analysis
-- **Activity Management** — Import and manage all trading activities
-- **Goal Planning** — Set and track financial goals with allocation management
-- **Local Data** — All data stored locally with no cloud dependencies
-- **Multi-Currency** — Support for multiple currencies with exchange rate
-  management
-- **Cross-Platform** — Available on Windows, macOS, and Linux
-- **Extensible** — Powerful addon system for custom functionality
-
-### Web Mode
-
-Run Sensible Folio in a browser via a local Axum server:
-
-```bash
-pnpm run dev:web
-```
-
-See the
-[original README](https://github.com/Sensible-Analytics/folio/blob/main/README.md)
-for full web mode and Docker documentation.
-
-### Folder Structure
-
-```
-folio/
-├── apps/frontend/          # React + Vite frontend
-├── apps/tauri/             # Tauri desktop app (Rust IPC commands)
-│   └── src/banks/          # Bank automation scripts (Bank Connect)
-├── apps/server/            # Axum HTTP server (web mode)
-├── crates/core/            # Business logic, models, services
-│   └── src/bank_connect/   # Bank Connect core logic
-├── crates/storage-sqlite/  # SQLite storage (Diesel ORM, migrations)
-├── addons/                 # Example addons
-├── packages/               # Shared TypeScript packages
-└── docs/                   # Documentation
-    └── testing/            # Testing strategy and learnings
-```
+| Component | Technology |
+|-----------|------------|
+| **Frontend** | TypeScript, React |
+| **Styling** | Tailwind CSS |
+| **State Management** | Zustand |
+| **Charts** | Recharts |
+| **Build Tool** | Vite |
 
 ---
 
-## Tutorial
+## 📊 Supported Banks
 
-This tutorial walks you through installing Folio, tracking a portfolio, and
-downloading Australian bank statements from scratch.
+Folio supports automatic import from major Australian banks:
 
-### Step 1 — Install
-
-```bash
-# Prerequisites: Node ≥ 20, pnpm ≥ 9, Rust stable
-# https://tauri.app/start/prerequisites/
-
-git clone https://github.com/Sensible-Analytics/folio.git
-cd folio
-pnpm install
-pnpm tauri dev          # opens the desktop app
-```
-
-The first `pnpm tauri dev` compiles Rust (~2–5 min). Subsequent runs are fast.
+- Commonwealth Bank
+- Westpac
+- ANZ
+- NAB
+- ING
+- Macquarie
+- And more...
 
 ---
 
-### Step 2 — Add your first account
+## 🔒 Privacy & Security
 
-```
-App → Accounts → + New Account
-  Name:     My Broker
-  Type:     Securities
-  Currency: AUD
-```
-
-Folio stores everything locally in SQLite — nothing leaves your machine.
+- **Local-First** — Your data stays on your device
+- **No Cloud Storage** — We don't store your financial data
+- **Open Source** — Audit the code yourself
+- **No Tracking** — No analytics or tracking
 
 ---
 
-### Step 3 — Import activities (trades, dividends, …)
+## 🔐 Development Security
 
-```
-Activities → Import
-  ↳ Drop a CSV or use "Add Activity" for manual entry
-```
+### 🚨 Security Requirements
 
-Supported activity types: `BUY`, `SELL`, `DIVIDEND`, `INTEREST`, `DEPOSIT`,
-`WITHDRAWAL`, `FEE`, `TAX`, `SPLIT`, and more.
+This repository includes **automated secret scanning**. NEVER commit:
+- API keys or tokens
+- Database credentials
+- Private keys
 
-After import the **Dashboard** updates instantly with portfolio value,
-performance chart, and allocation breakdown.
+**Before contributing:**
 
----
+1. **Install pre-commit hooks:**
+   ```bash
+   pip install pre-commit
+   pre-commit install
+   ```
 
-### Step 4 — Download Australian bank statements (Bank Connect)
+2. **Use environment variables:**
+   ```bash
+   cp .env.example .env
+   # Edit .env (NEVER commit!)
+   ```
 
-```
-Sidebar → Bank Connect
-```
+3. **If you expose a secret:**
+   - Revoke immediately
+   - Contact: security@sensibleanalytics.co
 
-```
-┌────────────────────────────────────────────────────────────┐
-│  Bank Connect                                              │
-├──────────────────────┬─────────────────────────────────────┤
-│  [ING]  [CBA]        │  Log                                │
-│  [ANZ]  [BOM]        │  10:42  INFO  Opening ING window…   │
-│  [Beyond]            │  10:43  INFO  Login detected ✓      │
-│                      │  10:43  INFO  Downloading…          │
-│                      │  10:44  OK    12 files saved        │
-└──────────────────────┴─────────────────────────────────────┘
-```
+See [Security Policy](SECURITY.md) and [AI Agent Keys Policy](AI_AGENT_KEYS_POLICY.md) for details.
 
-1. Click **Open Login** next to your bank.
-2. A browser window opens at the bank's real login URL — log in normally.
-3. Once logged in, click **Start Download**.
-4. PDFs land in `~/BankStatements/{bank}/`.
+## 🤝 Contributing
 
-> Your credentials never touch Folio — the embedded browser talks directly to
-> the bank.
+Contributions are welcome! Please read our [Contributing Guide](CONTRIBUTING.md).
 
 ---
 
-### Step 5 — Configure Bank Connect settings
+## ⚠️ Disclaimer
 
-```
-Settings → Bank Connect
-  Download folder:  ~/BankStatements   (change to any path)
-  Years back:       7                  (1 – 10)
-  Enabled banks:    ☑ ING  ☑ CBA  …
-  Overwrite files:  off
-```
+Folio is a personal finance tool and is **not financial advice**. Always consult with a qualified financial advisor before making investment decisions.
 
 ---
 
-### Step 6 — Track goals
+## 📄 License
 
-```
-Goals → + New Goal
-  Name:       Emergency Fund
-  Target:     $20,000 AUD
-  Allocate accounts → link Cash accounts
-```
-
-The goal card shows current value vs target and a progress bar that updates
-whenever new activities are imported.
+MIT License — see [LICENSE](LICENSE)
 
 ---
 
-### Keyboard shortcuts
+<div align="center">
 
-| Action               | Shortcut       |
-| -------------------- | -------------- |
-| Open command palette | `Cmd/Ctrl + K` |
-| New activity         | `Cmd/Ctrl + N` |
-| Refresh quotes       | `Cmd/Ctrl + R` |
-| Toggle sidebar       | `Cmd/Ctrl + B` |
+**Built by [Sensible Analytics](https://www.sensibleanalytics.co)**  
+*AI architecture for regulated industries*
 
----
-
-### Recording your own demo
-
-If you want to record a screen capture and embed it here, a few good tools:
-
-- **macOS**: `Cmd + Shift + 5` → record screen → upload to YouTube/Loom
-- **[VHS](https://github.com/charmbracelet/vhs)**: terminal-only GIF recorder
-- **[Loom](https://www.loom.com)**: quick shareable link, thumbnail embeds in
-  GitHub
-
-Once you have a YouTube or Loom URL, replace the `#tutorial` link in the
-[Demo](#demo) badge at the top of this file.
-
----
-
-## Contributing
-
-This fork is maintained by
-[Sensible Analytics](https://github.com/Sensible-Analytics).
-
-For issues with the Bank Connect feature, open an issue here.
-
-For issues with the core investment tracker, consider contributing upstream to
-[Sensible-Analytics/folio](https://github.com/Sensible-Analytics/folio).
-
----
-
-## License
-
-Code is licensed under **AGPL-3.0** — same as the upstream project. See
-`LICENSE`.
-
-Sensible Folio and the Sensible Folio logo are trademarks of Sensible Analytics.
-See [TRADEMARKS.md](TRADEMARKS.md).
+</div>
