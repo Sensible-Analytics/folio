@@ -44,7 +44,7 @@ jobs:
           CONNECT_API_URL: http://test.local
 
       - name: Upload to Codecov
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v6
         with:
           files: lcov.info
           flags: rust
@@ -77,7 +77,7 @@ jobs:
         run: pnpm test:coverage
 
       - name: Upload to Codecov
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v6
         with:
           files: apps/frontend/coverage/lcov.info
           flags: typescript
