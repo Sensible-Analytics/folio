@@ -10,6 +10,7 @@
 
 const express = require("express");
 const cors = require("cors");
+const rateLimit = require("express-rate-limit");
 const chokidar = require("chokidar");
 const path = require("path");
 const fs = require("fs");
@@ -33,6 +34,16 @@ class AddonDevServer {
   }
 
   setupMiddleware() {
+    // Rate limiting to prevent abuse (security fix)
+    const limiter = rateLimit({
+      windowMs: 15 * 60 * 1000, // 15 minutes
+      max: 100, // limit each IP to 100 requests per windowMs
+      standardHeaders: true,
+      legacyHeaders: false,
+      message: { error: 'Too many requests, please try again later.' }
+    });
+    this.app.use(limiter);
+
     this.app.use(
       cors({
         origin: ["http://localhost:1420", "http://localhost:3000"],
