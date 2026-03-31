@@ -1,172 +1,88 @@
-# AGENTS.md
+# Agent Instructions - Branch Protection Workflow
 
-AI agent guide for this repository. Covers behavioral rules, architecture, and
-common task playbooks.
+## ⚠️ IMPORTANT: This repository has branch protection enabled
 
----
+Direct pushes to `main`/`master` are **BLOCKED**. All changes must go through Pull Requests.
 
-## Behavioral Guidelines
+## Required Workflow
 
-**These come first because they prevent the most mistakes.**
+### Making Changes
 
-### 1. Think Before Coding
+1. **Create a feature branch** (never work on main/master):
+   ```bash
+   git checkout -b feat/your-feature-name
+   # or
+   git checkout -b fix/issue-description
+   ```
 
-- State assumptions explicitly. If uncertain, ask.
-- If multiple interpretations exist, present them—don't pick silently.
-- If a simpler approach exists, say so. Push back when warranted.
+2. **Make your changes and commit**:
+   ```bash
+   git add .
+   git commit -m "feat: descriptive commit message"
+   ```
 
-### 2. Simplicity First
+3. **Push the branch**:
+   ```bash
+   git push origin feat/your-feature-name
+   ```
 
-- No features beyond what was asked.
-- No abstractions for single-use code.
-- No error handling for impossible scenarios.
-- If 200 lines could be 50, rewrite it.
+4. **Create a Pull Request** using the GitHub CLI:
+   ```bash
+   gh pr create --title "feat: Add new feature" --body "Description of changes"
+   ```
 
-### 3. Surgical Changes
+5. **Merge after review**:
+   ```bash
+   gh pr merge --squash --delete-branch
+   ```
 
-- Don't "improve" adjacent code, comments, or formatting.
-- Don't refactor things that aren't broken.
-- Match existing style, even if you'd do it differently.
-- If you notice unrelated issues, mention them—don't fix them.
-- Remove only what YOUR changes made unused.
+### Branch Naming Conventions
 
-### 4. Goal-Driven Execution
+- `feat/` - New features
+- `fix/` - Bug fixes
+- `docs/` - Documentation changes
+- `refactor/` - Code refactoring
+- `test/` - Test additions/changes
+- `chore/` - Maintenance tasks
 
-- Transform tasks into verifiable goals.
-- For multi-step tasks, state a brief plan with verification steps.
-- Unverified work is incomplete work.
+### What You MUST NOT Do
 
-### 5. Output Precision
+- ❌ Never push directly to `main` or `master`
+- ❌ Never use `git push --force` on protected branches
+- ❌ Never delete the `main` or `master` branch
+- ❌ Never commit directly without a PR
 
-- Lead with findings, not process descriptions.
-- Use structured formats (lists, tables, code blocks).
-- Include absolute file paths—never relative.
+### Git Configuration
 
----
-
-## Overview
-
-- **Frontend**: React + Vite + Tailwind v4 + shadcn (`apps/frontend/`)
-- **Desktop**: Tauri/Rust with SQLite (`apps/tauri/`, `crates/`)
-- **Web mode**: Axum HTTP server (`apps/server/`)
-- **Packages**: `@sensible-folio/ui`, addon-sdk, addon-dev-tools (`packages/`)
-
-## Code Layout
-
-```
-apps/frontend/
-├── src/
-│   ├── pages/          # Route pages
-│   ├── components/     # Shared components
-│   ├── features/       # Self-contained feature modules
-│   ├── commands/       # Backend call wrappers (Tauri/Web)
-│   ├── adapters/       # Runtime detection (desktop vs web)
-│   └── addons/         # Addon runtime
-
-apps/tauri/src/
-└── commands/           # Tauri IPC commands
-
-apps/server/src/
-└── api/                # Axum HTTP handlers
-
-crates/
-├── core/               # Business logic, models, services
-├── storage-sqlite/     # Diesel ORM, repositories, migrations
-├── market-data/        # Market data providers
-├── connect/            # External integrations
-├── device-sync/        # Device sync, E2EE
-└── ai/                 # AI providers and LLM integration
+When working with this repository, ensure your git config includes:
+```bash
+git config user.name "Your Name"
+git config user.email "your.email@example.com"
 ```
 
-## Run Targets
+## Security Considerations
 
-| Task         | Command            |
-| ------------ | ------------------ |
-| Desktop dev  | `pnpm tauri dev`   |
-| Web dev      | `pnpm run dev:web` |
-| Tests (TS)   | `pnpm test`        |
-| Tests (Rust) | `cargo test`       |
-| Type check   | `pnpm type-check`  |
-| Lint         | `pnpm lint`        |
-| All checks   | `pnpm check`       |
+- All changes go through PR review
+- No force pushes allowed
+- Branch deletion is prevented
+- CI checks should pass before merge
 
----
+## Quick Reference
 
-## Agent Playbook
+```bash
+# Start new work
+git checkout -b feat/new-feature
 
-### Adding a feature with backend data
+# After making changes
+git add . && git commit -m "feat: add new feature"
+git push origin feat/new-feature
 
-1. **Frontend route/UI** → `apps/frontend/src/pages/`,
-   `apps/frontend/src/routes.tsx`
-2. **Command wrapper** → `apps/frontend/src/commands/<domain>.ts` (follow
-   `RUN_ENV` pattern)
-3. **Tauri command** → `apps/tauri/src/commands/*.rs`, wire in `mod.rs` +
-   `lib.rs`
-4. **Web endpoint** → `apps/server/src/api/`, call `crates/core` service
-5. **Core logic** → `crates/core/` services/repos
-6. **Tests** → Vitest for TS, `#[test]` for Rust
+# Create PR
+gh pr create --title "feat: Add new feature" --body "What it does"
 
-### UI patterns
+# After PR approved
+gh pr merge --squash --delete-branch
 
-- Components: `@sensible-folio/ui` and `packages/ui/src/components/`
-- Forms: `react-hook-form` + `zod` schemas from
-  `apps/frontend/src/lib/schemas.ts`
-- Theme: tokens in `apps/frontend/src/globals.css`
-
-### Architecture pattern
-
+# Back to main
+git checkout main && git pull
 ```
-Frontend → Adapter (tauri/web) → Command wrapper
-                ↓
-        Tauri IPC  |  Axum HTTP
-                ↓
-           crates/core (business logic)
-                ↓
-           crates/storage-sqlite
-```
-
----
-
-## Conventions
-
-### TypeScript
-
-- Strict mode, no unused locals/params
-- Prefer interfaces over types, avoid enums
-- Functional components, named exports
-- Directory names: lowercase-with-dashes
-
-### Rust
-
-- Idiomatic Rust, small focused functions
-- `Result`/`Option`, propagate with `?`, `thiserror` for domain errors
-- Keep Tauri/Axum commands thin—delegate to `crates/core`
-- Migrations in `crates/storage-sqlite/migrations`
-
-### Security
-
-- All data local (SQLite), no cloud
-- Secrets via OS keyring—never disk/localStorage
-- Never log secrets or financial data
-
----
-
-## Validation Checklist
-
-Before completing any task:
-
-- [ ] Builds: `pnpm build` or `pnpm tauri dev` or `cargo check`
-- [ ] Tests pass: `pnpm test` and/or `cargo test`
-- [ ] Both desktop and web compile if touching shared code
-- [ ] Changes are minimal and surgical
-
----
-
-## Plan Mode
-
-- Make plans extremely concise. Sacrifice grammar for brevity.
-- End with unresolved questions, if any.
-
----
-
-When in doubt, follow the nearest existing pattern.
