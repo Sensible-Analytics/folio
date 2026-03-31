@@ -43,7 +43,7 @@
     "addon:dev": "cd packages/addon-dev-tools && node dev-server.js"
   },
   "devDependencies": {
-    "@eslint/compat": "^1.4.1",
+    "@eslint/compat": "^2.0.3",
     "@eslint/js": "^9.39.2",
     "@playwright/test": "^1.58.2",
     "@tanstack/eslint-plugin-query": "^5.91.4",
