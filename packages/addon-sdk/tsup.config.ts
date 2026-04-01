@@ -1,16 +1,16 @@
-import { defineConfig } from 'tsup';
+import { defineConfig } from "tsup";
 
 export default defineConfig({
   entry: {
-    index: 'src/index.ts',
-    types: 'src/types.ts',
-    permissions: 'src/permissions.ts',
+    index: "src/index.ts",
+    types: "src/types.ts",
+    permissions: "src/permissions.ts",
   },
-  format: ['esm'],
+  format: ["esm"],
   dts: false,
   clean: true,
   sourcemap: true,
   minify: false,
-  target: 'es2020',
-  external: ['react'],
+  target: "es2020",
+  external: ["react"],
 });

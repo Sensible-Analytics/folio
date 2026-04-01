@@ -48,6 +48,19 @@ module.exports = {
         singleQuote: false,
       },
     },
+    {
+      files: ["packages/ui/src/components/**/*.tsx"],
+      options: {
+        printWidth: 120,
+      },
+    },
+    {
+      files: ["packages/addon-sdk/src/**/*.ts"],
+      options: {
+        printWidth: 90,
+        singleQuote: true,
+      },
+    },
   ],
 
   // Plugins (Tailwind CSS plugin for class sorting)

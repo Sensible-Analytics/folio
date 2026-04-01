@@ -70,30 +70,30 @@ mkdir src && touch src/index.ts
 
 ```typescript
 // src/index.ts
-import { getAddonContext, type AddonContext } from '@sensible-folio/addon-sdk';
+import { getAddonContext, type AddonContext } from "@sensible-folio/addon-sdk";
 
 export default function enable(context: AddonContext) {
   // Add navigation item
   const navItem = context.sidebar.addItem({
-    id: 'my-addon',
-    label: 'My Addon',
-    icon: 'chart-line',
-    route: '/addons/my-addon',
+    id: "my-addon",
+    label: "My Addon",
+    icon: "chart-line",
+    route: "/addons/my-addon",
   });
 
   // Register route
   context.router.add({
-    path: '/addons/my-addon',
-    component: () => import('./MyComponent'),
+    path: "/addons/my-addon",
+    component: () => import("./MyComponent"),
   });
 
   // Log activation
-  context.api.logger.info('My addon activated!');
+  context.api.logger.info("My addon activated!");
 
   // Cleanup on disable
   context.onDisable(() => {
     navItem.remove();
-    context.api.logger.info('My addon deactivated');
+    context.api.logger.info("My addon deactivated");
   });
 }
 ```
@@ -135,17 +135,17 @@ The SDK supports multiple import patterns:
 
 ```typescript
 // Default import (recommended)
-import { getAddonContext } from '@sensible-folio/addon-sdk';
+import { getAddonContext } from "@sensible-folio/addon-sdk";
 
 // Named imports
-import { AddonContext, PermissionLevel } from '@sensible-folio/addon-sdk';
+import { AddonContext, PermissionLevel } from "@sensible-folio/addon-sdk";
 
 // Type-only imports
-import type { AddonManifest, Permission } from '@sensible-folio/addon-sdk';
+import type { AddonManifest, Permission } from "@sensible-folio/addon-sdk";
 
 // Subpath imports
-import type { PortfolioHolding } from '@sensible-folio/addon-sdk/types';
-import { PERMISSION_CATEGORIES } from '@sensible-folio/addon-sdk/permissions';
+import type { PortfolioHolding } from "@sensible-folio/addon-sdk/types";
+import { PERMISSION_CATEGORIES } from "@sensible-folio/addon-sdk/permissions";
 ```
 
 ## 🏗️ Project Structure
@@ -490,12 +490,12 @@ export default AnalyticsDashboard;
 
 ```typescript
 // hooks/usePortfolioData.ts
-import { useState, useEffect } from 'react';
-import { getAddonContext } from '@sensible-folio/addon-sdk';
+import { useState, useEffect } from "react";
+import { getAddonContext } from "@sensible-folio/addon-sdk";
 import type {
   Holding,
   PerformanceMetrics,
-} from '@sensible-folio/addon-sdk/types';
+} from "@sensible-folio/addon-sdk/types";
 
 export function usePortfolioData(accountId?: string) {
   const [holdings, setHoldings] = useState<Holding[]>([]);
@@ -514,20 +514,20 @@ export function usePortfolioData(accountId?: string) {
         const ctx = getAddonContext();
 
         const holdingsData = await ctx.api.portfolio.getHoldings(
-          accountId || '',
+          accountId || "",
         );
         setHoldings(holdingsData);
 
         if (accountId) {
           const performanceData =
             await ctx.api.portfolio.calculatePerformanceSummary({
-              itemType: 'account',
+              itemType: "account",
               itemId: accountId,
             });
           setPerformance(performanceData);
         }
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'Unknown error');
+        setError(err instanceof Error ? err.message : "Unknown error");
       } finally {
         setLoading(false);
       }
@@ -588,35 +588,35 @@ export function usePortfolioData(accountId?: string) {
 Create a `vite.config.ts` for optimal bundling:
 
 ```typescript
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
-import { resolve } from 'path';
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import { resolve } from "path";
 
 export default defineConfig({
   plugins: [react()],
   build: {
     lib: {
-      entry: resolve(__dirname, 'src/index.ts'),
-      name: 'MyPortfolioAddon',
-      fileName: 'addon',
-      formats: ['es'],
+      entry: resolve(__dirname, "src/index.ts"),
+      name: "MyPortfolioAddon",
+      fileName: "addon",
+      formats: ["es"],
     },
     rollupOptions: {
-      external: ['react', 'react-dom'],
+      external: ["react", "react-dom"],
       output: {
         globals: {
-          react: 'React',
-          'react-dom': 'ReactDOM',
+          react: "React",
+          "react-dom": "ReactDOM",
         },
       },
     },
-    outDir: 'dist',
-    minify: 'terser',
+    outDir: "dist",
+    minify: "terser",
     sourcemap: true,
   },
   resolve: {
     alias: {
-      '@': resolve(__dirname, 'src'),
+      "@": resolve(__dirname, "src"),
     },
   },
 });
@@ -767,9 +767,9 @@ const limits = await ctx.api.financialPlanning.getContributionLimit();
 const settings = await ctx.api.getSettings();
 
 // Logging and debugging
-ctx.api.logger.info('Operation completed successfully');
-ctx.api.logger.error('Error occurred:', error);
-ctx.api.logger.debug('Debug info:', debugData);
+ctx.api.logger.info("Operation completed successfully");
+ctx.api.logger.error("Error occurred:", error);
+ctx.api.logger.debug("Debug info:", debugData);
 ```
 
 ### Available API Methods
@@ -812,12 +812,12 @@ const response = await ctx.api.activities.search(
   0,
   50,
   {
-    accountIds: 'account-1', // single string or string[] both work
-    activityTypes: ['BUY', 'DIVIDEND'],
-    symbol: 'AAPL',
+    accountIds: "account-1", // single string or string[] both work
+    activityTypes: ["BUY", "DIVIDEND"],
+    symbol: "AAPL",
   },
-  '', // optional keyword search (ignored when empty)
-  { id: 'date', desc: true },
+  "", // optional keyword search (ignored when empty)
+  { id: "date", desc: true },
 );
 ```
 
@@ -829,17 +829,17 @@ The SDK provides a comprehensive logging system:
 const ctx = getAddonContext();
 
 // Log levels: 'error', 'warn', 'info', 'debug'
-ctx.api.logger.error('Critical error occurred', { error, context });
-ctx.api.logger.warn('Warning message', additionalData);
-ctx.api.logger.info('Information message');
-ctx.api.logger.debug('Debug information', debugObject);
+ctx.api.logger.error("Critical error occurred", { error, context });
+ctx.api.logger.warn("Warning message", additionalData);
+ctx.api.logger.info("Information message");
+ctx.api.logger.debug("Debug information", debugObject);
 
 // Set log level (for development)
-ctx.api.logger.setLevel('debug');
+ctx.api.logger.setLevel("debug");
 
 // Check if logging level is enabled
-if (ctx.api.logger.isLevelEnabled('debug')) {
-  ctx.api.logger.debug('Expensive debug operation', expensiveData);
+if (ctx.api.logger.isLevelEnabled("debug")) {
+  ctx.api.logger.debug("Expensive debug operation", expensiveData);
 }
 ```
 
@@ -893,10 +893,10 @@ function MyAddonComponent() {
 
 ```typescript
 // Before
-import ctx from '@sensible-folio/addon-sdk';
+import ctx from "@sensible-folio/addon-sdk";
 
 // After (recommended)
-import { getAddonContext } from '@sensible-folio/addon-sdk';
+import { getAddonContext } from "@sensible-folio/addon-sdk";
 const ctx = getAddonContext();
 ```
 
@@ -904,11 +904,11 @@ const ctx = getAddonContext();
 
 ```typescript
 // Before
-import type { AddonContext, AddonManifest } from '@sensible-folio/addon-sdk';
+import type { AddonContext, AddonManifest } from "@sensible-folio/addon-sdk";
 
 // After (more specific)
-import type { AddonContext } from '@sensible-folio/addon-sdk';
-import type { AddonManifest } from '@sensible-folio/addon-sdk/manifest';
+import type { AddonContext } from "@sensible-folio/addon-sdk";
+import type { AddonManifest } from "@sensible-folio/addon-sdk/manifest";
 ```
 
 ## 👩‍💻 Development Guide
@@ -971,35 +971,35 @@ Create the essential configuration files:
 **vite.config.ts**
 
 ```typescript
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
-import { resolve } from 'path';
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import { resolve } from "path";
 
 export default defineConfig({
   plugins: [react()],
   build: {
     lib: {
-      entry: resolve(__dirname, 'src/index.ts'),
-      name: 'MyPortfolioAddon',
-      fileName: 'addon',
-      formats: ['es'],
+      entry: resolve(__dirname, "src/index.ts"),
+      name: "MyPortfolioAddon",
+      fileName: "addon",
+      formats: ["es"],
     },
     rollupOptions: {
-      external: ['react', 'react-dom'],
+      external: ["react", "react-dom"],
       output: {
         globals: {
-          react: 'React',
-          'react-dom': 'ReactDOM',
+          react: "React",
+          "react-dom": "ReactDOM",
         },
       },
     },
-    outDir: 'dist',
-    minify: 'terser',
+    outDir: "dist",
+    minify: "terser",
     sourcemap: true,
   },
   resolve: {
     alias: {
-      '@': resolve(__dirname, 'src'),
+      "@": resolve(__dirname, "src"),
     },
   },
 });
@@ -1063,17 +1063,17 @@ The SDK uses `tsup` for building with the following configuration:
 // tsup.config.ts
 export default defineConfig({
   entry: {
-    index: 'src/index.ts',
-    types: 'src/types.ts',
-    permissions: 'src/permissions.ts',
+    index: "src/index.ts",
+    types: "src/types.ts",
+    permissions: "src/permissions.ts",
   },
-  format: ['esm'],
+  format: ["esm"],
   dts: true, // Generate TypeScript declarations
   clean: true, // Clean dist folder before build
   sourcemap: true, // Generate source maps
   minify: false, // Keep code readable for debugging
-  target: 'es2020',
-  external: ['react'], // Don't bundle React
+  target: "es2020",
+  external: ["react"], // Don't bundle React
 });
 ```
 
@@ -1119,8 +1119,8 @@ npm publish --tag beta
 ```typescript
 // In your addon
 const ctx = getAddonContext();
-ctx.api.logger.setLevel('debug');
-ctx.api.logger.debug('Debug information:', data);
+ctx.api.logger.setLevel("debug");
+ctx.api.logger.debug("Debug information:", data);
 ```
 
 #### 2. Development Console
@@ -1138,7 +1138,7 @@ During development, enable hot reloading:
 
 ```typescript
 // Add to your addon's main file
-if (process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV === "development") {
   // Enable hot module replacement
   if (module.hot) {
     module.hot.accept();
@@ -1151,7 +1151,7 @@ if (process.env.NODE_ENV === 'development') {
 #### 1. Error Handling
 
 ```typescript
-import { getAddonContext } from '@sensible-folio/addon-sdk';
+import { getAddonContext } from "@sensible-folio/addon-sdk";
 
 async function fetchPortfolioData() {
   const ctx = getAddonContext();
@@ -1164,12 +1164,12 @@ async function fetchPortfolioData() {
     ).then((results) => results.flat());
     return holdings;
   } catch (error) {
-    ctx.api.logger.error('Failed to fetch holdings:', error);
+    ctx.api.logger.error("Failed to fetch holdings:", error);
 
     // Handle different error types
-    if (error.code === 'PERMISSION_DENIED') {
+    if (error.code === "PERMISSION_DENIED") {
       // Show permission error to user
-    } else if (error.code === 'NETWORK_ERROR') {
+    } else if (error.code === "NETWORK_ERROR") {
       // Handle network issues
     }
 
@@ -1185,13 +1185,13 @@ export default function enable(context: AddonContext) {
   const subscriptions: (() => void)[] = [];
 
   // Add event listeners
-  const unsubscribe = context.events.subscribe('portfolio.updated', handler);
+  const unsubscribe = context.events.subscribe("portfolio.updated", handler);
   subscriptions.push(unsubscribe);
 
   // Cleanup on disable
   context.onDisable(() => {
     subscriptions.forEach((unsub) => unsub());
-    context.api.logger.info('Addon cleaned up successfully');
+    context.api.logger.info("Addon cleaned up successfully");
   });
 }
 ```
@@ -1235,11 +1235,11 @@ const HeavyChart = lazy(() => import('./components/HeavyChart'));
 
 ```typescript
 // Use React Query or SWR for caching
-import { useQuery } from 'react-query';
+import { useQuery } from "react-query";
 
 function usePortfolioData(accountId: string) {
   return useQuery(
-    ['portfolio', accountId],
+    ["portfolio", accountId],
     () => ctx.api.portfolio.getHoldings(accountId),
     {
       staleTime: 5 * 60 * 1000, // 5 minutes
@@ -1258,8 +1258,8 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: {
-          vendor: ['react', 'react-dom'],
-          charts: ['chart.js', 'd3'],
+          vendor: ["react", "react-dom"],
+          charts: ["chart.js", "d3"],
         },
       },
     },
@@ -1599,7 +1599,7 @@ npm list react react-dom
 export default defineConfig({
   build: {
     rollupOptions: {
-      external: ['react', 'react-dom', '@sensible-folio/addon-sdk'],
+      external: ["react", "react-dom", "@sensible-folio/addon-sdk"],
     },
   },
 });
@@ -1687,9 +1687,9 @@ ls -la dist/  # Should update when you save files
 try {
   const accounts = await ctx.api.accounts.getAll();
   const data = await ctx.api.portfolio.getHoldings(accounts[0]?.id);
-  ctx.api.logger.info('Data loaded successfully', { count: data.length });
+  ctx.api.logger.info("Data loaded successfully", { count: data.length });
 } catch (error) {
-  ctx.api.logger.error('API call failed', {
+  ctx.api.logger.error("API call failed", {
     error: error.message,
     stack: error.stack,
     timestamp: new Date().toISOString(),
@@ -1703,7 +1703,7 @@ try {
 
 ```typescript
 // Use code splitting and lazy loading
-const HeavyComponent = lazy(() => import('./HeavyComponent'));
+const HeavyComponent = lazy(() => import("./HeavyComponent"));
 
 // Reduce bundle size
 // vite.config.ts
@@ -1712,8 +1712,8 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: {
-          vendor: ['react', 'react-dom'],
-          utils: ['lodash', 'date-fns'],
+          vendor: ["react", "react-dom"],
+          utils: ["lodash", "date-fns"],
         },
       },
     },
@@ -1726,7 +1726,7 @@ export default defineConfig({
 ```typescript
 // Proper cleanup in useEffect
 useEffect(() => {
-  const subscription = ctx.events.subscribe('update', handler);
+  const subscription = ctx.events.subscribe("update", handler);
 
   return () => {
     subscription.unsubscribe(); // ✓ Clean up
