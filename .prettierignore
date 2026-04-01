@@ -39,3 +39,6 @@ yarn.lock
 *.so
 *.dylib
 *.dll
+
+# Sisyphus internal files
+.sisyphus/
