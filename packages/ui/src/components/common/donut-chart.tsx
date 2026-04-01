@@ -101,7 +101,7 @@ export const DonutChart: React.FC<DonutChartProps> = ({
   const { isBalanceHidden } = useBalancePrivacy();
   const [hoverIndex, setHoverIndex] = useState<number | null>(null);
 
-  const handlePieEnter = (_: React.MouseEvent, index: number) => {
+  const handlePieEnter = (_data: any, index: number, _e: any) => {
     setHoverIndex(index);
   };
 
