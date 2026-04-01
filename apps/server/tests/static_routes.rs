@@ -1,8 +1,8 @@
 use axum::{body::to_bytes, body::Body, http::Request};
+use sensible_folio_server::{api::app_router, build_state, config::Config};
 use tempfile::tempdir;
 use tower::ServiceExt;
 use tower_http::services::{ServeDir, ServeFile};
-use wealthfolio_server::{api::app_router, build_state, config::Config};
 
 fn cleanup_env() {
     for key in ["WF_DB_PATH", "WF_SECRET_KEY", "WF_STATIC_DIR"] {
