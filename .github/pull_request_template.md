@@ -5,20 +5,23 @@
 ## Changes
 
 <!-- Describe the specific changes made -->
-- 
-- 
-- 
+
+-
+-
+-
 
 ## Motivation
 
 <!-- Why were these changes necessary? Link to any related issues -->
+
 Fixes # (issue number)
 
 ## Type of Change
 
 - [ ] 🐛 Bug fix (non-breaking change which fixes an issue)
 - [ ] ✨ New feature (non-breaking change which adds functionality)
-- [ ] 💥 Breaking change (fix or feature that would cause existing functionality to not work as expected)
+- [ ] 💥 Breaking change (fix or feature that would cause existing functionality
+      to not work as expected)
 - [ ] 📚 Documentation update
 - [ ] 🔧 Refactoring (no functional changes)
 - [ ] ⚡ Performance improvement
@@ -28,12 +31,14 @@ Fixes # (issue number)
 ## Testing
 
 <!-- Describe the tests you ran and how to reproduce them -->
+
 - [ ] Unit tests pass (`npm test` or `pytest`)
 - [ ] Integration tests pass
 - [ ] Manual testing performed
 - [ ] Tested on [list platforms/environments]
 
 **Test Instructions:**
+
 ```bash
 # Provide commands to test these changes
 ```
@@ -56,6 +61,7 @@ Fixes # (issue number)
 ## Breaking Changes
 
 <!-- If this is a breaking change, describe the impact and migration path -->
+
 - **Breaking:** [description of breaking change]
 - **Migration:** [how to migrate existing code]
 

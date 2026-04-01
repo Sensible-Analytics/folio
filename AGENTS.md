@@ -2,13 +2,15 @@
 
 ## ⚠️ IMPORTANT: This repository has branch protection enabled
 
-Direct pushes to `main`/`master` are **BLOCKED**. All changes must go through Pull Requests.
+Direct pushes to `main`/`master` are **BLOCKED**. All changes must go through
+Pull Requests.
 
 ## Required Workflow
 
 ### Making Changes
 
 1. **Create a feature branch** (never work on main/master):
+
    ```bash
    git checkout -b feat/your-feature-name
    # or
@@ -16,17 +18,20 @@ Direct pushes to `main`/`master` are **BLOCKED**. All changes must go through Pu
    ```
 
 2. **Make your changes and commit**:
+
    ```bash
    git add .
    git commit -m "feat: descriptive commit message"
    ```
 
 3. **Push the branch**:
+
    ```bash
    git push origin feat/your-feature-name
    ```
 
 4. **Create a Pull Request** using the GitHub CLI:
+
    ```bash
    gh pr create --title "feat: Add new feature" --body "Description of changes"
    ```
@@ -55,6 +60,7 @@ Direct pushes to `main`/`master` are **BLOCKED**. All changes must go through Pu
 ### Git Configuration
 
 When working with this repository, ensure your git config includes:
+
 ```bash
 git config user.name "Your Name"
 git config user.email "your.email@example.com"

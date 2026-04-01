@@ -17,18 +17,22 @@
 > ⚠️ **CRITICAL SECURITY WARNING**
 >
 > This repository uses **automated secret scanning**. NEVER commit:
+>
 > - API keys (OpenAI, Anthropic, database credentials)
 > - AI agent tokens
 > - Database connection strings
 > - Private keys
 >
-> **Before committing:** Review our [Security Policy](SECURITY.md) and [AI Agent Keys Policy](AI_AGENT_KEYS_POLICY.md)
+> **Before committing:** Review our [Security Policy](SECURITY.md) and
+> [AI Agent Keys Policy](AI_AGENT_KEYS_POLICY.md)
 
 ---
 
 ## 🎯 What is Folio?
 
-Folio is a **personal wealth management application** designed for Australian investors. It combines portfolio tracking with automatic bank statement import, making it easy to monitor your investments and spending in one place.
+Folio is a **personal wealth management application** designed for Australian
+investors. It combines portfolio tracking with automatic bank statement import,
+making it easy to monitor your investments and spending in one place.
 
 ### Why Folio?
 
@@ -99,13 +103,13 @@ Visit `http://localhost:3000` to access the application.
 
 ## 🛠️ Tech Stack
 
-| Component | Technology |
-|-----------|------------|
-| **Frontend** | TypeScript, React |
-| **Styling** | Tailwind CSS |
-| **State Management** | Zustand |
-| **Charts** | Recharts |
-| **Build Tool** | Vite |
+| Component            | Technology        |
+| -------------------- | ----------------- |
+| **Frontend**         | TypeScript, React |
+| **Styling**          | Tailwind CSS      |
+| **State Management** | Zustand           |
+| **Charts**           | Recharts          |
+| **Build Tool**       | Vite              |
 
 ---
 
@@ -137,6 +141,7 @@ Folio supports automatic import from major Australian banks:
 ### 🚨 Security Requirements
 
 This repository includes **automated secret scanning**. NEVER commit:
+
 - API keys or tokens
 - Database credentials
 - Private keys
@@ -144,12 +149,14 @@ This repository includes **automated secret scanning**. NEVER commit:
 **Before contributing:**
 
 1. **Install pre-commit hooks:**
+
    ```bash
    pip install pre-commit
    pre-commit install
    ```
 
 2. **Use environment variables:**
+
    ```bash
    cp .env.example .env
    # Edit .env (NEVER commit!)
@@ -159,17 +166,20 @@ This repository includes **automated secret scanning**. NEVER commit:
    - Revoke immediately
    - Contact: security@sensibleanalytics.co
 
-See [Security Policy](SECURITY.md) and [AI Agent Keys Policy](AI_AGENT_KEYS_POLICY.md) for details.
+See [Security Policy](SECURITY.md) and
+[AI Agent Keys Policy](AI_AGENT_KEYS_POLICY.md) for details.
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please read our [Contributing Guide](CONTRIBUTING.md).
+Contributions are welcome! Please read our
+[Contributing Guide](CONTRIBUTING.md).
 
 ---
 
 ## ⚠️ Disclaimer
 
-Folio is a personal finance tool and is **not financial advice**. Always consult with a qualified financial advisor before making investment decisions.
+Folio is a personal finance tool and is **not financial advice**. Always consult
+with a qualified financial advisor before making investment decisions.
 
 ---
 
@@ -182,6 +192,6 @@ MIT License — see [LICENSE](LICENSE)
 <div align="center">
 
 **Built by [Sensible Analytics](https://www.sensibleanalytics.co)**  
-*AI architecture for regulated industries*
+_AI architecture for regulated industries_
 
 </div>

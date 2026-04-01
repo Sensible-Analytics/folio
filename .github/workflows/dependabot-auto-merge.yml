@@ -29,7 +29,9 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Auto-merge patch and minor updates
-        if: contains(steps.metadata.outputs.update-type, 'semver-patch') || contains(steps.metadata.outputs.update-type, 'semver-minor')
+        if:
+          contains(steps.metadata.outputs.update-type, 'semver-patch') ||
+          contains(steps.metadata.outputs.update-type, 'semver-minor')
         run: |
           gh pr merge --auto --squash "$PR_URL"
           echo "✅ Auto-merged Dependabot PR: $PR_URL"
