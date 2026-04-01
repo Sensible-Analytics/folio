@@ -1,5 +1,5 @@
 import type React from "react";
-import type { ComponentProps } from "react";
+
 import { useMemo, useState } from "react";
 import { Cell, Pie, PieChart } from "recharts";
 import type { NameType, Payload, ValueType } from "recharts/types/component/DefaultTooltipContent";
@@ -130,8 +130,6 @@ export const DonutChart: React.FC<DonutChartProps> = ({
     );
   };
 
-  type PieComponentProps = ComponentProps<typeof Pie>;
-
   const pieProps = {
     data,
     cy: "80%",
@@ -142,7 +140,7 @@ export const DonutChart: React.FC<DonutChartProps> = ({
     dataKey: "value",
     nameKey: "name",
     onMouseEnter: handlePieEnter,
-    onClick: (_data, index, event) => {
+    onClick: (_data: any, index: number, event: any) => {
       if (onSectionClick && data[index]) {
         event?.stopPropagation?.();
         onSectionClick(data[index], index);
@@ -151,7 +149,7 @@ export const DonutChart: React.FC<DonutChartProps> = ({
     startAngle,
     endAngle,
     isAnimationActive: false,
-  } as PieComponentProps;
+  };
 
   return (
     <div className="relative h-[160px] w-full p-0">
