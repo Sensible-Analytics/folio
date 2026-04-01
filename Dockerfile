@@ -61,7 +61,7 @@ ENV OPENSSL_STATIC=1
 # Build using xx-cargo which handles target flags
 RUN xx-cargo build --release --manifest-path apps/server/Cargo.toml && \
     # Move the binary to a predictable location because the target dir changes with --target
-    cp target/$(xx-cargo --print-target-triple)/release/wealthfolio-server /wealthfolio-server
+    cp target/$(xx-cargo --print-target-triple)/release/sensible-folio-server /wealthfolio-server
 
 # Final stage
 FROM alpine:3.19
