@@ -14,3 +14,6 @@ pnpm-lock.yaml
 
 # Addon specific
 manifest.json
+
+# Sisyphus internal files
+.sisyphus/

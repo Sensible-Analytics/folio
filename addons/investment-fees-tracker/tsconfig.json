@@ -14,8 +14,18 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "baseUrl": ".",
+    "paths": {
+      "@sensible-folio/addon-sdk": ["../../packages/addon-sdk/src"],
+      "@sensible-folio/ui": ["../../packages/ui/src"],
+      "@sensible-folio/ui/*": ["../../packages/ui/src/*"]
+    }
   },
   "include": ["src"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "references": [
+    { "path": "./tsconfig.node.json" },
+    { "path": "../../packages/ui" },
+    { "path": "../../packages/addon-sdk" }
+  ]
 }
