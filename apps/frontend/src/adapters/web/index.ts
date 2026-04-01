@@ -360,3 +360,34 @@ export {
   syncComputeSas,
   syncGenerateDeviceId,
 } from "./crypto";
+
+// Bank Connect Commands (web stubs - not available in web mode)
+export {
+  getBankConnectSettings,
+  saveBankConnectSettings,
+  listBankDownloadRuns,
+  openBankWindow,
+  closeBankWindow,
+  startBankDownload,
+  listenBankLoginDetected,
+  listenBankProgress,
+  listenBankDownloadComplete,
+  listenBankWindowClosed,
+  openBankPanel,
+  closeBankPanel,
+  resizeBankPanel,
+  listenBankImportComplete,
+  listenBankNewAccountCreated,
+} from "./bank-connect";
+
+// Re-export bank-connect types
+export type {
+  BankConnectSettings,
+  BankDownloadRun,
+  BankLoginDetectedPayload,
+  BankProgressPayload,
+  BankDownloadCompletePayload,
+  BankWindowClosedPayload,
+  ImportCompletePayload,
+  NewAccountCreatedPayload,
+} from "./bank-connect";

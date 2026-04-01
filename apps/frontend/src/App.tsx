@@ -1,14 +1,15 @@
 import { isWeb } from "@/adapters";
-import { AuthGate, AuthProvider } from "@/context/auth-context";
+import { AuthProvider } from "@/context/auth-context";
 import { WealthfolioConnectProvider } from "@/features/wealthfolio-connect";
 import { DeviceSyncProvider } from "@/features/devices-sync";
 import { SettingsProvider } from "@/lib/settings-provider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { TooltipProvider } from "@sensible-folio/ui";
 import { useState } from "react";
+import { BrowserRouter } from "react-router-dom";
 import { PrivacyProvider } from "./context/privacy-context";
-import { LoginPage } from "./pages/auth/login-page";
 import { AppRoutes } from "./routes";
+import { ProtectedRoutes } from "./protected-routes";
 
 function App() {
   const [queryClient] = useState(
@@ -24,18 +25,8 @@ function App() {
       }),
   );
 
-  const isWebEnv = isWeb;
-
   // Make QueryClient available globally for addons
   window.__wealthfolio_query_client__ = queryClient;
-
-  const routedContent = isWebEnv ? (
-    <AuthGate fallback={<LoginPage />}>
-      <AppRoutes />
-    </AuthGate>
-  ) : (
-    <AppRoutes />
-  );
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -44,7 +35,17 @@ function App() {
           <DeviceSyncProvider>
             <PrivacyProvider>
               <SettingsProvider>
-                <TooltipProvider>{routedContent}</TooltipProvider>
+                <TooltipProvider>
+                  <BrowserRouter>
+                    {isWeb ? (
+                      <ProtectedRoutes>
+                        <AppRoutes />
+                      </ProtectedRoutes>
+                    ) : (
+                      <AppRoutes />
+                    )}
+                  </BrowserRouter>
+                </TooltipProvider>
               </SettingsProvider>
             </PrivacyProvider>
           </DeviceSyncProvider>

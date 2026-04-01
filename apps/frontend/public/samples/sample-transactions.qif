@@ -1,0 +1,51 @@
+!Type:Bank
+D26/03/26
+T-125.43
+PPayment to Woolworths
+LMortgage
+^
+D25/03/26
+T-28.50
+PUber Trip
+LTransport
+^
+D24/03/26
+R5833.33
+TSalary Deposit
+LIncome
+^
+D23/03/26
+T-72.15
+PBP Service Station
+LFuel
+^
+D22/03/26
+T-500.00
+PSavings Transfer
+LSavings
+^
+D21/03/26
+T-89.22
+PColes Supermarket
+LGroceries
+^
+D20/03/26
+T-17.99
+PNetflix Subscription
+LSubscriptions
+^
+D19/03/26
+T-2450.00
+PANZ Homeloan Payment
+LMortgage
+^
+D18/03/26
+T-349.00
+PJB Hi-Fi
+LElectronics
+^
+D17/03/26
+T-156.80
+PDan Murphys
+LEntertainment
+^
