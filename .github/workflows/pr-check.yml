@@ -56,6 +56,12 @@ jobs:
       - name: Build frontend
         run: pnpm build
 
+      - name: Upload frontend artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontend-build
+          path: apps/frontend/dist/
+
   # ─── Rust ───────────────────────────────────────────────────────────────────
   rust-check:
     name: Rust
@@ -98,6 +104,12 @@ jobs:
 
       - name: Build server
         run: cargo build -p sensible-folio-server --release
+
+      - name: Upload server binary
+        uses: actions/upload-artifact@v4
+        with:
+          name: sensible-folio-server
+          path: target/release/sensible-folio-server
 
   # ─── Gate ───────────────────────────────────────────────────────────────────
   build-status:
