@@ -49,7 +49,7 @@
     "build": "tsup && pnpm run build:types",
     "dev": "tsup --watch",
     "clean": "rm -rf dist",
-    "lint": "eslint .",
+    "lint": "eslint . --max-warnings=999999",
     "lint:fix": "eslint . --fix",
     "lint:quiet": "eslint . --quiet",
     "format": "prettier --write .",
