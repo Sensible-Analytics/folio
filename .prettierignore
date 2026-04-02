@@ -1,6 +1,8 @@
 # Build outputs
 dist/
+build/
 coverage/
+.turbo/
 
 # Dependencies
 node_modules/
@@ -8,16 +10,11 @@ node_modules/
 # Generated files
 apps/tauri/gen/
 **/*.d.ts
+**/*.js
+**/*.js.map
 
 # Assets and images
 apps/frontend/public/
-
-# Rust code
-apps/tauri/
-apps/server/
-crates/
-
-# Binary files
 *.png
 *.jpg
 *.jpeg
@@ -28,6 +25,11 @@ crates/
 *.woff2
 *.ttf
 *.eot
+
+# Rust code
+apps/tauri/
+apps/server/
+crates/
 
 # Lock files
 pnpm-lock.yaml
@@ -42,3 +44,8 @@ yarn.lock
 
 # Sisyphus internal files
 .sisyphus/
+
+# Additional generated/dynamic files
+*.tsbuildinfo
+.next/
+.svelte-kit/
