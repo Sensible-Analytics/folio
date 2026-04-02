@@ -31,7 +31,7 @@
     "lint:quiet": "pnpm --filter frontend lint:quiet && pnpm -r lint:quiet",
     "lint:root": "pnpm --filter frontend lint",
     "format": "prettier --write .",
-    "format:check": "prettier --config .prettierrc.cjs --ignore-unknown --check .",
+    "format:check": "prettier --config .prettierrc.cjs --ignore-unknown --log-level error --check .",
     "tsc": "tsc -b",
     "type-check": "pnpm run build:types && pnpm --filter frontend type-check && pnpm -r type-check",
     "type-check:root": "pnpm --filter frontend type-check",
