@@ -145,13 +145,14 @@ export const DonutChart: React.FC<DonutChartProps> = ({
           inactiveShape={renderInactiveShape}
           onMouseEnter={onPieEnter}
           onMouseLeave={onPieLeave}
-          onClick={(data, index, _event) => {
-            if (onSectionClick && data && "name" in data && "value" in data) {
+          onClick={(sectorData, index, _event) => {
+            if (onSectionClick && sectorData && "name" in sectorData && "value" in sectorData) {
+              const originalData = data.find((d) => d.name === sectorData.name);
               onSectionClick(
                 {
-                  name: String(data.name),
-                  value: Number(data.value),
-                  currency: String((data as Record<string, unknown>).currency || "USD"),
+                  name: String(sectorData.name),
+                  value: Number(sectorData.value),
+                  currency: originalData?.currency || "USD",
                 },
                 index,
               );
