@@ -7,6 +7,8 @@ node_modules/
 
 # Generated files
 *.d.ts
+*.js
+*.js.map
 
 # Package files
 package-lock.json
@@ -14,3 +16,6 @@ pnpm-lock.yaml
 
 # Sisyphus internal files
 .sisyphus/
+
+# Additional generated/dynamic files
+*.tsbuildinfo
