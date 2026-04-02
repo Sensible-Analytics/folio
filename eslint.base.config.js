@@ -22,9 +22,6 @@ export function createBaseConfig(options = {}) {
   } = options;
 
   return [
-    {
-      maxWarnings: Infinity,
-    },
     js.configs.recommended,
 
     // TypeScript type-checked configs (only apply to TS files)
