@@ -82,7 +82,7 @@ export function AssetsTable({
             >
               <TickerAvatar symbol={asset.displayCode ?? ""} className="h-8 w-8 shrink-0" />
               <div className="min-w-0 flex-1">
-                <div className="group-hover:text-primary font-semibold leading-tight transition-colors">
+                <div className="group-hover:text-primary leading-tight font-semibold transition-colors">
                   {displaySymbol}
                 </div>
                 <div className="text-muted-foreground line-clamp-2 text-xs leading-tight">

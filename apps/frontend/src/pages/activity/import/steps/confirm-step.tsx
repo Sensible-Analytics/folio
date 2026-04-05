@@ -316,7 +316,7 @@ export function ConfirmStep() {
         {/* Activity type breakdown */}
         {Object.keys(summary.byType).length > 0 && (
           <div className="space-y-3">
-            <h4 className="text-muted-foreground text-xs font-medium uppercase tracking-wider">
+            <h4 className="text-muted-foreground text-xs font-medium tracking-wider uppercase">
               By Activity Type
             </h4>
             <div className="flex flex-wrap gap-2">
@@ -345,7 +345,7 @@ export function ConfirmStep() {
         {/* Skipped breakdown */}
         {Object.keys(summary.bySkipReason).length > 0 && (
           <div className="space-y-3">
-            <h4 className="text-muted-foreground text-xs font-medium uppercase tracking-wider">
+            <h4 className="text-muted-foreground text-xs font-medium tracking-wider uppercase">
               Skipped Breakdown
             </h4>
             <div className="flex flex-wrap gap-2">

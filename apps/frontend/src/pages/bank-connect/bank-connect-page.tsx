@@ -407,7 +407,7 @@ export default function BankConnectPage() {
           <div className="flex flex-col gap-4 pr-2">
             {/* Banks */}
             <div>
-              <p className="text-muted-foreground mb-2 text-xs font-semibold uppercase tracking-wide">
+              <p className="text-muted-foreground mb-2 text-xs font-semibold tracking-wide uppercase">
                 Banks
               </p>
               <div className="flex flex-col gap-2">
@@ -425,7 +425,7 @@ export default function BankConnectPage() {
 
             {/* Brokers */}
             <div>
-              <p className="text-muted-foreground mb-2 text-xs font-semibold uppercase tracking-wide">
+              <p className="text-muted-foreground mb-2 text-xs font-semibold tracking-wide uppercase">
                 Brokers
               </p>
               <div className="flex flex-col gap-2">

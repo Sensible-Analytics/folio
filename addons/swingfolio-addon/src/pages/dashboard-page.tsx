@@ -199,7 +199,7 @@ export default function DashboardPage({ ctx }: DashboardPageProps) {
             <Card
               className={`${metrics.totalPL >= 0 ? "border-success/10 bg-success/10" : "border-destructive/10 bg-destructive/10"}`}
             >
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3 pt-4">
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pt-4 pb-3">
                 <CardTitle className="text-sm font-medium">P/L</CardTitle>
                 <GainAmount
                   className="text-xl font-bold sm:text-2xl"
@@ -332,7 +332,7 @@ export default function DashboardPage({ ctx }: DashboardPageProps) {
                       {getChartPeriodDisplay(selectedPeriod).description}
                     </p>
                   </div>
-                  <div className="bg-secondary text-muted-foreground self-start whitespace-nowrap rounded-full px-2 py-1 text-xs sm:self-auto">
+                  <div className="bg-secondary text-muted-foreground self-start rounded-full px-2 py-1 text-xs whitespace-nowrap sm:self-auto">
                     {selectedPeriod} → {getChartPeriodDisplay(selectedPeriod).type}
                   </div>
                 </div>

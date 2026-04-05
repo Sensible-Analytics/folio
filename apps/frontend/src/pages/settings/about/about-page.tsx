@@ -135,7 +135,7 @@ export default function AboutSettingsPage() {
 
               <div className="grid gap-4">
                 <div className="space-y-1">
-                  <p className="text-muted-foreground text-xs uppercase tracking-wide">
+                  <p className="text-muted-foreground text-xs tracking-wide uppercase">
                     Database path
                   </p>
                   <div className="flex items-center gap-2">
@@ -154,7 +154,7 @@ export default function AboutSettingsPage() {
                   </div>
                 </div>
                 <div className="space-y-1">
-                  <p className="text-muted-foreground text-xs uppercase tracking-wide">
+                  <p className="text-muted-foreground text-xs tracking-wide uppercase">
                     Logs directory
                   </p>
                   <div className="flex items-center gap-2">
@@ -181,7 +181,7 @@ export default function AboutSettingsPage() {
           <div className="space-y-4">
             <p className="text-muted-foreground text-sm">
               Have questions or found a bug? Please email us at{" "}
-              <span className="select-all font-mono font-semibold">support@wealthfolio.app</span>
+              <span className="font-mono font-semibold select-all">support@wealthfolio.app</span>
             </p>
             <div className="flex flex-wrap items-center gap-2">
               <Button
