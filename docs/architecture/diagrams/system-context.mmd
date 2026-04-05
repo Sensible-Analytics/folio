@@ -1,0 +1,49 @@
+# Folio — System Context Diagram (C4 Level 1)
+
+> This diagram shows Folio as a single system and its relationships with external users and systems.
+
+```mermaid
+C4Context
+    title Folio — System Context Diagram (C4 Level 1)
+
+    Person(investor, "Australian Investor", "Individual investor tracking wealth and bank accounts")
+
+    System_Boundary(folio_boundary, "Folio") {
+        System(folio_app, "Folio Application", "Wealth portfolio management with bank statement import, performance analytics, and tax reporting")
+        SystemDb(folio_db, "SQLite Database", "Local encrypted storage for portfolio data, transactions, and settings")
+    }
+
+    System_Ext(bank_api, "Australian Bank APIs", "Banking institutions providing transaction data (CBA, Westpac, ANZ, NAB, ING, Macquarie)")
+    System_Ext(market_data, "Market Data Providers", "Real-time and historical market data for ASX securities (prices, dividends, corporate actions)")
+    System_Ext(ai_service, "AI Categorization Service", "OpenAI/Anthropic APIs for transaction categorization and financial insights")
+
+    Rel(investor, folio_app, "Manages portfolio and views reports", "HTTPS/Desktop")
+    Rel(folio_app, folio_db, "Reads/writes financial data", "SQLite")
+    Rel(folio_app, bank_api, "Imports bank statements", "HTTPS / CSV / OFX")
+    Rel(folio_app, market_data, "Fetches security prices and dividends", "HTTPS")
+    Rel(folio_app, ai_service, "Sends transactions for categorization", "HTTPS")
+
+    UpdateRelStyle(investor, folio_app, $offsetY="-40")
+    UpdateRelStyle(folio_app, folio_db, $offsetX="-60", $offsetY="20")
+    UpdateRelStyle(folio_app, bank_api, $offsetX="60", $offsetY="-20")
+    UpdateRelStyle(folio_app, market_data, $offsetX="60", $offsetY="20")
+    UpdateRelStyle(folio_app, ai_service, $offsetX="-60", $offsetY="-20")
+
+    UpdateElementStyle(folio_app, $bgColor="#4A90D9", $fontColor="#ffffff")
+    UpdateElementStyle(folio_db, $bgColor="#68CE68", $fontColor="#ffffff")
+    UpdateElementStyle(investor, $bgColor="#08427B", $fontColor="#ffffff")
+```
+
+---
+
+## Notes
+
+- **Scope**: This is a C4 Level 1 (System Context) diagram showing Folio and its external dependencies.
+- **Local-first**: All data is stored locally in SQLite. No cloud storage of user financial data.
+- **External systems**: Bank APIs, market data providers, and AI services are external dependencies.
+- **Encryption**: Data at rest is encrypted using ChaCha20-Poly1305.
+
+## Related Diagrams
+
+- Container Diagram (C4 Level 2) — *TODO*
+- Component Diagram (C4 Level 3) — *TODO*
