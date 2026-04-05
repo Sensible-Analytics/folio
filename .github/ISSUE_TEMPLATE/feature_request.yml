@@ -6,7 +6,7 @@ body:
     attributes:
       value: |
         Thanks for taking the time to suggest a feature! Please search existing issues and discussions first.
-        
+
         💡 **Tip**: For questions or help, use [Discussions](https://github.com/orgs/Sensible-Analytics/discussions) instead.
 
   - type: checkboxes
@@ -43,7 +43,8 @@ body:
     id: alternatives
     attributes:
       label: Describe alternatives you've considered
-      description: A clear and concise description of any alternative solutions or features you've considered
+      description:
+        A clear and concise description of any alternative solutions or features you've considered
       placeholder: |
         I considered [...] but [...]
 
@@ -73,7 +74,8 @@ body:
     id: terms
     attributes:
       label: Code of Conduct
-      description: By submitting this issue, you agree to follow our [Code of Conduct](../CODE_OF_CONDUCT.md)
+      description:
+        By submitting this issue, you agree to follow our [Code of Conduct](../CODE_OF_CONDUCT.md)
       options:
         - label: I agree to follow this project's Code of Conduct
           required: true

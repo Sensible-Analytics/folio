@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: [main, master]
   schedule:
-    - cron: '0 0 * * 1'  # Run every Monday
+    - cron: "0 0 * * 1" # Run every Monday
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -24,7 +24,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: ['javascript', 'python']
+        language: ["javascript", "python"]
     steps:
       - name: Checkout
         uses: actions/checkout@v6

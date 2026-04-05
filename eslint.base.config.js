@@ -22,7 +22,6 @@ export function createBaseConfig(options = {}) {
   } = options;
 
   return [
-    // Base JavaScript config
     js.configs.recommended,
 
     // TypeScript type-checked configs (only apply to TS files)

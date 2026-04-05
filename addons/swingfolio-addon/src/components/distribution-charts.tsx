@@ -100,7 +100,7 @@ export function DistributionCharts({ distribution, currency }: DistributionChart
                         return (
                           <>
                             <div
-                              className="border-border h-2.5 w-2.5 shrink-0 rounded-[2px] bg-(--color-bg)"
+                              className="border-border bg-(--color-bg) h-2.5 w-2.5 shrink-0 rounded-[2px]"
                               style={
                                 {
                                   "--color-bg": entry.color,
@@ -181,7 +181,7 @@ export function DistributionCharts({ distribution, currency }: DistributionChart
                         return (
                           <>
                             <div
-                              className="border-border h-2.5 w-2.5 shrink-0 rounded-[2px] bg-(--color-bg)"
+                              className="border-border bg-(--color-bg) h-2.5 w-2.5 shrink-0 rounded-[2px]"
                               style={
                                 {
                                   "--color-bg": entry.color,

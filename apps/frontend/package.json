@@ -14,7 +14,7 @@
     "test:watch": "vitest --watch",
     "test:ui": "vitest --ui",
     "test:coverage": "vitest --coverage",
-    "lint": "eslint .",
+    "lint": "eslint . --max-warnings=999999",
     "lint:fix": "eslint . --fix",
     "lint:quiet": "eslint . --quiet",
     "type-check": "tsc --noEmit"

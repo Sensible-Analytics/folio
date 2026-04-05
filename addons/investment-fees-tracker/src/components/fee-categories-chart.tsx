@@ -6,7 +6,7 @@ import {
   EmptyPlaceholder,
   Skeleton,
 } from "@sensible-folio/ui";
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { DonutChart } from "./donut-chart";
 
 interface FeeCategoryData {
@@ -29,8 +29,6 @@ export const FeeCategoriesChart = ({
   isLoading,
   onCategorySectionClick,
 }: FeeCategoriesChartProps) => {
-  const [activeIndex, setActiveIndex] = useState(0);
-
   const data = useMemo(() => {
     if (!feeCategories || feeCategories.length === 0) return [];
 
@@ -61,10 +59,6 @@ export const FeeCategoriesChart = ({
     );
   }
 
-  const onPieEnter = (_: React.MouseEvent, index: number) => {
-    setActiveIndex(index);
-  };
-
   const handleInternalSectionClick = (sectionData: {
     name: string;
     value: number;
@@ -72,10 +66,6 @@ export const FeeCategoriesChart = ({
   }) => {
     if (onCategorySectionClick) {
       onCategorySectionClick(sectionData.name);
-    }
-    const clickedIndex = data.findIndex((d) => d.name === sectionData.name);
-    if (clickedIndex !== -1) {
-      setActiveIndex(clickedIndex);
     }
   };
 
@@ -92,8 +82,7 @@ export const FeeCategoriesChart = ({
         {data.length > 0 ? (
           <DonutChart
             data={data}
-            activeIndex={activeIndex}
-            onPieEnter={onPieEnter}
+            onPieEnter={() => {}}
             onSectionClick={handleInternalSectionClick}
             startAngle={180}
             endAngle={0}

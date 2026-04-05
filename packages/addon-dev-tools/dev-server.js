@@ -40,7 +40,7 @@ class AddonDevServer {
       max: 100, // limit each IP to 100 requests per windowMs
       standardHeaders: true,
       legacyHeaders: false,
-      message: { error: 'Too many requests, please try again later.' }
+      message: { error: "Too many requests, please try again later." },
     });
     this.app.use(limiter);
 

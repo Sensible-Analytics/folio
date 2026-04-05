@@ -6,7 +6,7 @@ body:
     attributes:
       value: |
         Thanks for taking the time to report a bug! Please search existing issues first to avoid duplicates.
-        
+
         ⚠️ **Security Issues**: Do NOT use this template for security vulnerabilities. 
         Please email [security@sensibleanalytics.co](mailto:security@sensibleanalytics.co) instead.
 
@@ -89,7 +89,7 @@ body:
       label: Logs & Screenshots
       description: |
         If applicable, add screenshots, error messages, or log output to help explain your problem.
-        
+
         Tip: For long logs, use `<details><summary>Click to expand</summary>...logs...</details>`
 
   - type: dropdown
@@ -108,7 +108,8 @@ body:
     id: terms
     attributes:
       label: Code of Conduct
-      description: By submitting this issue, you agree to follow our [Code of Conduct](../CODE_OF_CONDUCT.md)
+      description:
+        By submitting this issue, you agree to follow our [Code of Conduct](../CODE_OF_CONDUCT.md)
       options:
         - label: I agree to follow this project's Code of Conduct
           required: true

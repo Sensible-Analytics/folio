@@ -7,12 +7,12 @@
  * This server watches for file changes and provides a hot reload endpoint.
  */
 
-import chokidar from 'chokidar';
-import cors from 'cors';
-import express from 'express';
-import rateLimit from 'express-rate-limit';
-import fs from 'fs';
-import path from 'path';
+import chokidar from "chokidar";
+import cors from "cors";
+import express from "express";
+import rateLimit from "express-rate-limit";
+import fs from "fs";
+import path from "path";
 // import { fileURLToPath } from 'url';
 
 // Current module filename (unused, removed to satisfy lint)
@@ -46,13 +46,13 @@ class AddonDevServer {
       max: 100, // limit each IP to 100 requests per windowMs
       standardHeaders: true,
       legacyHeaders: false,
-      message: { error: 'Too many requests, please try again later.' }
+      message: { error: "Too many requests, please try again later." },
     });
     this.app.use(limiter);
 
     this.app.use(
       cors({
-        origin: ['http://localhost:1420', 'http://localhost:3000'],
+        origin: ["http://localhost:1420", "http://localhost:3000"],
         credentials: true,
       }),
     );
@@ -61,16 +61,16 @@ class AddonDevServer {
 
   setupRoutes() {
     // Health check endpoint
-    this.app.get('/health', (req, res) => {
+    this.app.get("/health", (req, res) => {
       res.json({
-        status: 'ok',
+        status: "ok",
         timestamp: new Date().toISOString(),
         addonPath: this.config.addonPath,
       });
     });
 
     // Addon status endpoint
-    this.app.get('/status', (req, res) => {
+    this.app.get("/status", (req, res) => {
       res.json({
         lastModified: this.lastModified.toISOString(),
         buildInProgress: this.buildInProgress,
@@ -79,39 +79,39 @@ class AddonDevServer {
     });
 
     // Serve addon manifest
-    this.app.get('/manifest.json', (req, res) => {
+    this.app.get("/manifest.json", (req, res) => {
       try {
         const manifestPath = path.resolve(this.config.manifestPath);
         if (fs.existsSync(manifestPath)) {
-          const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf-8'));
+          const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf-8"));
           res.json(manifest);
         } else {
-          res.status(404).json({ error: 'Manifest not found' });
+          res.status(404).json({ error: "Manifest not found" });
         }
       } catch {
-        res.status(500).json({ error: 'Failed to read manifest' });
+        res.status(500).json({ error: "Failed to read manifest" });
       }
     });
 
     // Serve addon code
-    this.app.get('/addon.js', (req, res) => {
+    this.app.get("/addon.js", (req, res) => {
       try {
-        const addonFile = path.resolve(this.config.addonPath, 'dist/addon.js');
+        const addonFile = path.resolve(this.config.addonPath, "dist/addon.js");
         if (fs.existsSync(addonFile)) {
-          const code = fs.readFileSync(addonFile, 'utf-8');
-          res.type('application/javascript').send(code);
+          const code = fs.readFileSync(addonFile, "utf-8");
+          res.type("application/javascript").send(code);
         } else {
-          res.status(404).json({ error: 'Addon file not found. Run build first.' });
+          res.status(404).json({ error: "Addon file not found. Run build first." });
         }
       } catch {
-        res.status(500).json({ error: 'Failed to read addon file' });
+        res.status(500).json({ error: "Failed to read addon file" });
       }
     });
 
     // Hot reload endpoint
-    this.app.get('/reload', (req, res) => {
+    this.app.get("/reload", (req, res) => {
       res.json({
-        message: 'Reload triggered',
+        message: "Reload triggered",
         timestamp: new Date().toISOString(),
       });
 
@@ -122,7 +122,7 @@ class AddonDevServer {
     });
 
     // File listing for debugging
-    this.app.get('/files', (req, res) => {
+    this.app.get("/files", (req, res) => {
       res.json({
         files: this.getFileList(),
         watchPaths: this.config.watchPaths,
@@ -137,7 +137,7 @@ class AddonDevServer {
       ignoreInitial: true,
     });
 
-    watcher.on('change', (filePath) => {
+    watcher.on("change", (filePath) => {
       console.warn(`📝 File changed: ${filePath}`);
       this.lastModified = new Date();
 
@@ -147,17 +147,17 @@ class AddonDevServer {
       }
     });
 
-    watcher.on('add', (filePath) => {
+    watcher.on("add", (filePath) => {
       console.warn(`➕ File added: ${filePath}`);
       this.lastModified = new Date();
     });
 
-    watcher.on('unlink', (filePath) => {
+    watcher.on("unlink", (filePath) => {
       console.warn(`➖ File removed: ${filePath}`);
       this.lastModified = new Date();
     });
 
-    console.warn(`👀 Watching files: ${this.config.watchPaths.join(', ')}`);
+    console.warn(`👀 Watching files: ${this.config.watchPaths.join(", ")}`);
   }
 
   async triggerBuild() {
@@ -167,18 +167,18 @@ class AddonDevServer {
     console.warn(`🔨 Building addon with: ${this.config.buildCommand}`);
 
     try {
-      const { exec } = await import('child_process');
-      const { promisify } = await import('util');
+      const { exec } = await import("child_process");
+      const { promisify } = await import("util");
       const execAsync = promisify(exec);
 
       await execAsync(this.config.buildCommand, {
         cwd: this.config.addonPath,
       });
 
-      console.warn('✅ Build completed successfully');
+      console.warn("✅ Build completed successfully");
       this.lastModified = new Date();
     } catch (error) {
-      console.error('❌ Build failed:', error);
+      console.error("❌ Build failed:", error);
     } finally {
       this.buildInProgress = false;
     }
@@ -186,7 +186,7 @@ class AddonDevServer {
 
   getFileList() {
     try {
-      const distPath = path.resolve(this.config.addonPath, 'dist');
+      const distPath = path.resolve(this.config.addonPath, "dist");
       if (fs.existsSync(distPath)) {
         return fs.readdirSync(distPath).map((file) => `dist/${file}`);
       }
@@ -218,12 +218,9 @@ function main() {
   const config = {
     port,
     addonPath: path.resolve(addonPath),
-    manifestPath: path.resolve(addonPath, 'manifest.json'),
-    buildCommand: 'npm run build',
-    watchPaths: [
-      path.resolve(addonPath, 'src'),
-      path.resolve(addonPath, 'manifest.json'),
-    ],
+    manifestPath: path.resolve(addonPath, "manifest.json"),
+    buildCommand: "npm run build",
+    watchPaths: [path.resolve(addonPath, "src"), path.resolve(addonPath, "manifest.json")],
   };
 
   // Check if addon directory exists

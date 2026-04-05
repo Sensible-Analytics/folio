@@ -112,7 +112,6 @@ const renderInactiveShape = (props: any) => {
 
 interface DonutChartProps {
   data: { name: string; value: number; currency: string }[];
-  activeIndex: number;
   onPieEnter: (event: React.MouseEvent, index: number) => void;
   onPieLeave?: (event: React.MouseEvent, index: number) => void;
   onSectionClick?: (data: { name: string; value: number; currency: string }, index: number) => void;
@@ -123,7 +122,6 @@ interface DonutChartProps {
 
 export const DonutChart: React.FC<DonutChartProps> = ({
   data,
-  activeIndex,
   onPieEnter,
   onPieLeave,
   onSectionClick,
@@ -143,15 +141,25 @@ export const DonutChart: React.FC<DonutChartProps> = ({
           animationDuration={100}
           dataKey="value"
           nameKey="name"
-          // @ts-expect-error - recharts types don't include activeIndex but it works at runtime
-          activeIndex={activeIndex !== -1 ? activeIndex : undefined}
           activeShape={renderActiveShape}
           inactiveShape={renderInactiveShape}
-          onMouseEnter={onPieEnter}
-          onMouseLeave={onPieLeave}
-          onClick={(_event, index) => {
-            if (onSectionClick && data[index]) {
-              onSectionClick(data[index], index);
+          onMouseEnter={(_data: any, index: number, event: React.MouseEvent) =>
+            onPieEnter(event, index)
+          }
+          onMouseLeave={(_data: any, index: number, event: React.MouseEvent) =>
+            onPieLeave?.(event, index)
+          }
+          onClick={(pieData: any, index: number, _event: React.MouseEvent) => {
+            if (onSectionClick && pieData && "name" in pieData && "value" in pieData) {
+              const originalData = data.find((d) => d.name === pieData.name);
+              onSectionClick(
+                {
+                  name: String(pieData.name),
+                  value: Number(pieData.value),
+                  currency: originalData?.currency || "USD",
+                },
+                index,
+              );
             }
           }}
           startAngle={startAngle}
