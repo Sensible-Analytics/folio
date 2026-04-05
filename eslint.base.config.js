@@ -140,6 +140,12 @@ export function createBaseConfig(options = {}) {
           "@tanstack/query/exhaustive-deps": "warn",
           "@tanstack/query/no-unstable-deps": "warn",
         }),
+
+        "max-lines": ["warn", { "max": 200, "skipBlankLines": true, "skipComments": true }],
+        "max-lines-per-function": ["warn", { "max": 30, "skipBlankLines": true, "skipComments": true }],
+        "complexity": ["warn", { "max": 8 }],
+        "max-depth": ["warn", 4],
+        "max-params": ["warn", 3],
       },
       settings: {
         ...(includeReact && {
@@ -195,7 +201,19 @@ export function createBaseConfig(options = {}) {
       },
     },
 
-    // Prettier config (must be last)
     prettierConfig,
+
+    {
+      ignores: [
+        "**/*.test.ts",
+        "**/*.test.tsx",
+        "**/*.spec.ts",
+        "**/*.spec.tsx",
+        "*.config.js",
+        "*.config.ts",
+        "**/e2e/**",
+        "**/__tests__/**",
+      ],
+    },
   ];
 }
