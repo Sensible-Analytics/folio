@@ -31,7 +31,7 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@tanstack/react-query": "^5.90.20",
+    "@tanstack/react-query": "^5.96.2",
     "@sensible-folio/addon-sdk": "workspace:*",
     "@sensible-folio/ui": "workspace:*",
     "date-fns": "^4.1.0"
