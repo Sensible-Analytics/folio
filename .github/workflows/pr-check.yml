@@ -57,7 +57,7 @@ jobs:
         run: pnpm build
 
       - name: Upload frontend artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: frontend-build
           path: apps/frontend/dist/
@@ -106,7 +106,7 @@ jobs:
         run: cargo build -p sensible-folio-server --release
 
       - name: Upload server binary
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: sensible-folio-server
           path: target/release/sensible-folio-server
