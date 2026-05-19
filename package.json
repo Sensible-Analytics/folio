@@ -43,11 +43,11 @@
     "addon:dev": "cd packages/addon-dev-tools && node dev-server.js"
   },
   "devDependencies": {
-    "@eslint/compat": "^2.0.5",
+    "@eslint/compat": "^2.1.0",
     "@eslint/js": "^9.39.2",
-    "@playwright/test": "^1.59.1",
-    "@tanstack/eslint-plugin-query": "^5.100.9",
-    "@tauri-apps/cli": "^2.11.0",
+    "@playwright/test": "^1.60.0",
+    "@tanstack/eslint-plugin-query": "^5.100.11",
+    "@tauri-apps/cli": "^2.11.2",
     "eslint": "^9.39.2",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-react": "^7.37.5",
@@ -57,6 +57,6 @@
     "prettier": "^3.8.3",
     "prettier-plugin-tailwindcss": "^0.8.0",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.59.2"
+    "typescript-eslint": "^8.59.4"
   }
 }
