@@ -31,10 +31,10 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@tanstack/react-query": "^5.100.10",
+    "@tanstack/react-query": "^5.100.14",
     "@sensible-folio/addon-sdk": "workspace:*",
     "@sensible-folio/ui": "workspace:*",
-    "date-fns": "^4.1.0"
+    "date-fns": "^4.3.0"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.3.0",
