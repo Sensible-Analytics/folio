@@ -27,7 +27,7 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@tanstack/react-query": "^5.100.10",
+    "@tanstack/react-query": "^5.101.0",
     "@sensible-folio/addon-sdk": "workspace:*",
     "@sensible-folio/ui": "workspace:*"
   },
@@ -38,7 +38,7 @@
   "devDependencies": {
     "@tailwindcss/vite": "^4.3.0",
     "@types/node": "^20.19.33",
-    "@types/react": "^19.2.15",
+    "@types/react": "^19.2.16",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^4.3.4",
     "@sensible-folio/addon-dev-tools": "workspace:*",
