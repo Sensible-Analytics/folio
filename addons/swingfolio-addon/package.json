@@ -41,7 +41,7 @@
     "@types/node": "^20.19.33",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react": "^5.1.4",
+    "@vitejs/plugin-react": "^6.0.2",
     "@sensible-folio/addon-dev-tools": "workspace:*",
     "clsx": "^2.1.1",
     "rollup-plugin-external-globals": "^0.13.0",
