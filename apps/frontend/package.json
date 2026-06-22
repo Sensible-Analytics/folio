@@ -55,7 +55,7 @@
     "nanoid": "^5.1.15",
     "qrcode.react": "^4.2.0",
     "react": "^19.2.7",
-    "react-day-picker": "^9.13.2",
+    "react-day-picker": "^10.0.1",
     "react-dom": "^19.2.7",
     "react-hook-form": "^7.80.0",
     "react-router-dom": "^7.18.0",
