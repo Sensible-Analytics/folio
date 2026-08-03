@@ -93,7 +93,7 @@
     "date-fns": "^4.4.0",
     "embla-carousel-react": "^8.6.0",
     "input-otp": "^1.4.2",
-    "lucide-react": "^0.577.0",
+    "lucide-react": "^1.28.0",
     "motion": "^12.42.2",
     "nanoid": "^5.1.15",
     "react-aria-components": "^1.19.0",
