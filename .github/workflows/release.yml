@@ -78,7 +78,7 @@ jobs:
           echo "args=$ARGS" >> "$GITHUB_OUTPUT"
 
       - name: Build the app
-        uses: tauri-apps/tauri-action@v0
+        uses: tauri-apps/tauri-action@v1
 
         env:
           # Sensible Folio Connect (set variables to enable; omit to build without Connect)
