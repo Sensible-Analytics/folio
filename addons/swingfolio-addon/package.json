@@ -40,7 +40,7 @@
     "@tailwindcss/vite": "^4.3.3",
     "@types/node": "^20.19.33",
     "@types/react": "^19.2.18",
-    "@types/react-dom": "^19.2.4",
+    "@types/react-dom": "^19.2.5",
     "@vitejs/plugin-react": "^5.1.4",
     "@sensible-folio/addon-dev-tools": "workspace:*",
     "clsx": "^2.1.1",
