@@ -43,7 +43,7 @@
     "addon:dev": "cd packages/addon-dev-tools && node dev-server.js"
   },
   "devDependencies": {
-    "@eslint/compat": "^2.1.0",
+    "@eslint/compat": "^2.1.1",
     "@eslint/js": "^9.39.2",
     "@playwright/test": "^1.62.1",
     "@tanstack/eslint-plugin-query": "^5.102.8",
@@ -52,11 +52,11 @@
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^5.2.0",
-    "eslint-plugin-react-refresh": "^0.5.5",
+    "eslint-plugin-react-refresh": "^0.5.6",
     "globals": "^16.5.0",
     "prettier": "^3.9.6",
     "prettier-plugin-tailwindcss": "^0.8.1",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.68.0"
+    "typescript-eslint": "^8.69.0"
   }
 }
