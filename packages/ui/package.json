@@ -95,7 +95,7 @@
     "input-otp": "^1.5.0",
     "lucide-react": "^0.577.0",
     "motion": "^12.43.0",
-    "nanoid": "^5.1.15",
+    "nanoid": "^6.0.1",
     "react-aria-components": "^1.21.1",
     "react-day-picker": "^9.13.2",
     "react-dropzone": "^14.4.1",
