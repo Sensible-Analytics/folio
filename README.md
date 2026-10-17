@@ -101,6 +101,18 @@ Visit `http://localhost:3000` to access the application.
 
 ---
 
+## 📖 Documentation
+
+- **[User Manual](docs/user-manual.md)** — the full feature list and how to
+  configure and use Folio to manage your personal finances.
+- **[Getting Started](docs/getting-started.md)** — install, set up your first
+  account, and learn the core concepts.
+- **[Activity Types](docs/activities/activity-types.md)** — the 14 transaction
+  types and when to use each one.
+- **[Addons](docs/addons/index.md)** — extend Folio with community features.
+
+---
+
 ## 🛠️ Tech Stack
 
 | Component            | Technology        |
@@ -115,15 +127,19 @@ Visit `http://localhost:3000` to access the application.
 
 ## 📊 Supported Banks
 
-Folio supports automatic import from major Australian banks:
+**Bank Connect** (automatic import from the desktop app) supports:
 
-- Commonwealth Bank
-- Westpac
+- CommBank (CBA)
 - ANZ
-- NAB
 - ING
-- Macquarie
-- And more...
+- Bank of Melbourne
+- Beyond Bank
+- Interactive Brokers (broker, Beta)
+
+Coming soon: CommSec, Sharesies, SelfWealth, and Stake.
+
+Any other bank or broker can be tracked by importing a **CSV, OFX, or QIF**
+statement file. Most Australian institutions offer a statement export.
 
 ---
 
