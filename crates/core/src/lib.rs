@@ -4,6 +4,9 @@
 //! It is database-agnostic and defines traits that are implemented
 //! by the `storage-sqlite` crate.
 
+// async_trait generates `#[must_use]` on returned futures, which is redundant.
+#![allow(clippy::double_must_use)]
+
 pub mod accounts;
 pub mod activities;
 pub mod addons;

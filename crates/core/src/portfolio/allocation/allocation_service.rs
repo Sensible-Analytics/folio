@@ -206,7 +206,7 @@ impl AllocationService {
             }
             // Sort children by value descending
             for children in children_map.values_mut() {
-                children.sort_by(|a, b| b.value.cmp(&a.value));
+                children.sort_by_key(|c| std::cmp::Reverse(c.value));
             }
         }
 
@@ -244,7 +244,7 @@ impl AllocationService {
             .collect();
 
         // Sort by value descending
-        allocations.sort_by(|a, b| b.value.cmp(&a.value));
+        allocations.sort_by_key(|a| std::cmp::Reverse(a.value));
 
         TaxonomyAllocation {
             taxonomy_id: taxonomy_id.to_string(),
@@ -628,7 +628,7 @@ impl AllocationServiceTrait for AllocationService {
             .collect();
 
         // Sort by market value descending
-        summaries.sort_by(|a, b| b.market_value.cmp(&a.market_value));
+        summaries.sort_by_key(|s| std::cmp::Reverse(s.market_value));
 
         Ok(AllocationHoldings {
             taxonomy_id: taxonomy_id.to_string(),

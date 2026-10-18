@@ -178,7 +178,7 @@ impl NetWorthService {
             .collect();
 
         // Sort by value descending for better display
-        breakdown.sort_by(|a, b| b.value.cmp(&a.value));
+        breakdown.sort_by_key(|b| std::cmp::Reverse(b.value));
 
         // Calculate total
         let total = breakdown.iter().map(|item| item.value).sum();
@@ -201,7 +201,7 @@ impl NetWorthService {
             .collect();
 
         // Sort by value descending
-        breakdown.sort_by(|a, b| b.value.cmp(&a.value));
+        breakdown.sort_by_key(|b| std::cmp::Reverse(b.value));
 
         // Calculate total
         let total = breakdown.iter().map(|item| item.value).sum();
