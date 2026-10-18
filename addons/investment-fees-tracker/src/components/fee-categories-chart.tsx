@@ -73,7 +73,7 @@ export const FeeCategoriesChart = ({
     <Card className="overflow-hidden backdrop-blur-sm">
       <CardHeader>
         <div className="flex items-center justify-between">
-          <CardTitle className="text-muted-foreground text-sm font-medium uppercase tracking-wider">
+          <CardTitle className="text-muted-foreground text-sm font-medium tracking-wider uppercase">
             Fee Categories
           </CardTitle>
         </div>

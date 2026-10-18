@@ -40,8 +40,7 @@ export function AccountSelect<TFieldValues extends FieldValues = FieldValues>({
   const { control, getFieldState, getValues, setValue, watch } = useFormContext<TFieldValues>();
   const selectedAccountId = watch(name) as string | undefined;
   const watchedCurrency = watch((currencyName ?? name) as FieldPath<TFieldValues>) as
-    | string
-    | undefined;
+    string | undefined;
 
   // Backfill currency when account options arrive after mount (e.g., preselected account via URL).
   useEffect(() => {

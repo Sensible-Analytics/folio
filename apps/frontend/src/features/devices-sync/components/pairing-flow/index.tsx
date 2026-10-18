@@ -20,12 +20,7 @@ interface PairingFlowProps {
 
 // Claimer flow steps
 type ClaimerStep =
-  | "enter_code"
-  | "connecting"
-  | "waiting_keys"
-  | "verify_sas"
-  | "success"
-  | "error";
+  "enter_code" | "connecting" | "waiting_keys" | "verify_sas" | "success" | "error";
 
 export function PairingFlow({ onComplete, onCancel }: PairingFlowProps) {
   const { state } = useDeviceSync();

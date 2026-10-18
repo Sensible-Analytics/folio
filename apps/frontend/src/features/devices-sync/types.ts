@@ -4,14 +4,7 @@
 
 export type TrustState = "trusted" | "untrusted" | "revoked";
 export type DevicePlatform =
-  | "ios"
-  | "android"
-  | "mac"
-  | "macos"
-  | "windows"
-  | "linux"
-  | "web"
-  | "server";
+  "ios" | "android" | "mac" | "macos" | "windows" | "linux" | "web" | "server";
 export type PairingRole = "issuer" | "claimer";
 export type PairingStatus = "open" | "claimed" | "approved" | "completed" | "cancelled" | "expired";
 export type KeyState = "ACTIVE" | "PENDING";

@@ -257,12 +257,10 @@ function normalizeResult(result: unknown, fallbackCurrency: string): ImportCsvOu
     totalRows: (candidate.total_rows ?? candidate.totalRows) as number | undefined,
     truncated: candidate.truncated as boolean | undefined,
     usedSavedProfile: (candidate.used_saved_profile ?? candidate.usedSavedProfile) as
-      | boolean
-      | undefined,
+      boolean | undefined,
     submitted: candidate.submitted as boolean | undefined,
     createdActivityIds: (candidate.created_activity_ids ?? candidate.createdActivityIds) as
-      | string[]
-      | undefined,
+      string[] | undefined,
     submittedAt: (candidate.submitted_at ?? candidate.submittedAt) as string | undefined,
   };
 }

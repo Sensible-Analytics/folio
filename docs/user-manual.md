@@ -46,7 +46,7 @@ data.
   crypto, and cash in one place.
 - People who want to import transactions from Australian banks and brokers
   without handing credentials to a third-party aggregation service.
-- Anyone who values privacy: your data stays local unless *you* explicitly turn
+- Anyone who values privacy: your data stays local unless _you_ explicitly turn
   on encrypted device sync.
 
 ### What makes Folio different
@@ -59,7 +59,7 @@ data.
 - **Extensible.** An addon system lets you add new views and analysis without
   modifying the core app.
 - **Private sync.** Optional end-to-end encrypted sync replicates your database
-  between *your own* devices.
+  between _your own_ devices.
 
 ---
 
@@ -67,18 +67,18 @@ data.
 
 Understanding these terms makes the rest of the manual easy to follow.
 
-| Concept                | What it means in Folio                                                                                                                                      |
-| ---------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Account**            | A single real-world account — a brokerage, bank, or cash account. You can have as many as you have in real life.                                              |
-| **Activity**           | Any event that changes an account: a trade, a deposit, a dividend, a fee, and so on. There are 14 canonical activity types (see [§7](#7-activity-types-reference)). |
-| **Holding / Position** | The quantity of a security you own in an account, derived from your activities.                                                                             |
-| **Portfolio**          | The combined view of all your accounts and holdings.                                                                                                        |
-| **Asset & taxonomy**   | A security or instrument you hold, plus the classification system (asset class, sector, region) used for allocation and grouping.                            |
-| **Benchmark**          | An index (for example an ASX index) you compare your portfolio performance against.                                                                          |
-| **Contribution limit** | A cap on contributions (for example superannuation concessional/non-concessional caps) that you can track against.                                          |
-| **Addon**              | An optional, sandboxed extension that adds new views or features.                                                                                            |
-| **Bank Connect**       | The built-in browser panel that logs into your bank/broker site and imports transactions — desktop app only.                                                |
-| **Wealthfolio Connect**| The optional encrypted sync feature that replicates your data to your own devices.                                                                          |
+| Concept                 | What it means in Folio                                                                                                                                              |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Account**             | A single real-world account — a brokerage, bank, or cash account. You can have as many as you have in real life.                                                    |
+| **Activity**            | Any event that changes an account: a trade, a deposit, a dividend, a fee, and so on. There are 14 canonical activity types (see [§7](#7-activity-types-reference)). |
+| **Holding / Position**  | The quantity of a security you own in an account, derived from your activities.                                                                                     |
+| **Portfolio**           | The combined view of all your accounts and holdings.                                                                                                                |
+| **Asset & taxonomy**    | A security or instrument you hold, plus the classification system (asset class, sector, region) used for allocation and grouping.                                   |
+| **Benchmark**           | An index (for example an ASX index) you compare your portfolio performance against.                                                                                 |
+| **Contribution limit**  | A cap on contributions (for example superannuation concessional/non-concessional caps) that you can track against.                                                  |
+| **Addon**               | An optional, sandboxed extension that adds new views or features.                                                                                                   |
+| **Bank Connect**        | The built-in browser panel that logs into your bank/broker site and imports transactions — desktop app only.                                                        |
+| **Wealthfolio Connect** | The optional encrypted sync feature that replicates your data to your own devices.                                                                                  |
 
 ---
 
@@ -86,7 +86,8 @@ Understanding these terms makes the rest of the manual easy to follow.
 
 ### Portfolio and investments
 
-- **Multi-asset tracking** — shares, ETFs, managed funds, property, crypto, cash.
+- **Multi-asset tracking** — shares, ETFs, managed funds, property, crypto,
+  cash.
 - **Holdings view** — current positions per account with cost basis.
 - **Holdings insights** — deeper breakdown and analysis of what you hold.
 - **Asset profiles** — a per-asset page showing your activity and exposure in
@@ -193,8 +194,8 @@ displayed across the app.
 
 ### Accounts
 
-Create and manage accounts. Each account has a name, a currency, and a type.
-Use one account per real-world brokerage, bank, or cash account.
+Create and manage accounts. Each account has a name, a currency, and a type. Use
+one account per real-world brokerage, bank, or cash account.
 
 > **Example:** "CommSec Trading", "ANZ Everyday", "Super — AustralianSuper".
 
@@ -211,7 +212,7 @@ accurate.
 
 Classification schemes used to group your assets (for example asset class,
 sector, region). Taxonomies power the allocation charts and breakdowns. Adjust
-them if you want categories that match how *you* think about your portfolio.
+them if you want categories that match how _you_ think about your portfolio.
 
 ### Contribution limits
 
@@ -339,9 +340,9 @@ against a chosen index.
 
 **Where:** **Income**.
 
-See the dividends, interest, and distributions you have received, over any period
-you choose. Dividend reinvestment (DRIP) is handled so reinvested amounts are
-reflected correctly rather than appearing as cash you never received.
+See the dividends, interest, and distributions you have received, over any
+period you choose. Dividend reinvestment (DRIP) is handled so reinvested amounts
+are reflected correctly rather than appearing as cash you never received.
 
 ### 6.6 See your allocations and insights
 
@@ -414,8 +415,8 @@ see [./addons/addon-getting-started.md](./addons/addon-getting-started.md).
 
 ## 7. Activity types reference
 
-Every transaction is one of 14 canonical types. Choosing the right type matters —
-each affects your cash balance, holdings, cost basis, and performance
+Every transaction is one of 14 canonical types. Choosing the right type matters
+— each affects your cash balance, holdings, cost basis, and performance
 differently.
 
 | Type           | What it represents                                                                                                      |
@@ -435,7 +436,7 @@ differently.
 | `ADJUSTMENT`   | Non-trade correction — use for corporate actions, option expirations, return-of-capital basis changes.                  |
 | `UNKNOWN`      | Placeholder for unrecognized imports. Has no automatic effect until you reclassify it.                                  |
 
-**`TRANSFER_IN` vs `DEPOSIT`.** Use `DEPOSIT` when cash comes from *outside*
+**`TRANSFER_IN` vs `DEPOSIT`.** Use `DEPOSIT` when cash comes from _outside_
 your tracked portfolio. Use `TRANSFER_IN` when moving between two accounts you
 both track in Folio — that way the move nets to zero at the portfolio level and
 does not inflate your net contribution.
@@ -456,14 +457,14 @@ For the complete reference, including subtypes such as `DRIP` and
 
 The following institutions are supported by the built-in Bank Connect panel:
 
-| Institution          | Type   |
-| -------------------- | ------ |
-| CommBank (CBA)       | Bank   |
-| ANZ                  | Bank   |
-| ING                  | Bank   |
-| Bank of Melbourne    | Bank   |
-| Beyond Bank          | Bank   |
-| Interactive Brokers  | Broker |
+| Institution         | Type   |
+| ------------------- | ------ |
+| CommBank (CBA)      | Bank   |
+| ANZ                 | Bank   |
+| ING                 | Bank   |
+| Bank of Melbourne   | Bank   |
+| Beyond Bank         | Bank   |
+| Interactive Brokers | Broker |
 
 **Coming soon** (broker support in progress): CommSec, Sharesies, SelfWealth,
 Stake.
@@ -513,8 +514,8 @@ correct type. `UNKNOWN` activities have no effect on your holdings until you do.
 
 **Why is my portfolio value or performance wrong?**
 
-Check that (a) all activities are recorded, (b) market data is current
-(Settings → Market Data), and (c) transaction types are classified correctly.
+Check that (a) all activities are recorded, (b) market data is current (Settings
+→ Market Data), and (c) transaction types are classified correctly.
 
 **Bank Connect isn't available.**
 
@@ -534,7 +535,8 @@ No. AI features are optional. Everything else works without a provider.
 ## 11. Getting help
 
 - **Getting Started:** [./getting-started.md](./getting-started.md)
-- **Activity types:** [./activities/activity-types.md](./activities/activity-types.md)
+- **Activity types:**
+  [./activities/activity-types.md](./activities/activity-types.md)
 - **Addons:** [./addons/index.md](./addons/index.md)
 - **Security policy:** [./SECURITY.md](./SECURITY.md)
 - **Issues and questions:**
@@ -544,5 +546,5 @@ No. AI features are optional. Everything else works without a provider.
 
 ## Disclaimer
 
-Folio is a personal finance tracking tool and is **not financial advice**. Always
-consult a qualified financial advisor before making investment decisions.
+Folio is a personal finance tracking tool and is **not financial advice**.
+Always consult a qualified financial advisor before making investment decisions.

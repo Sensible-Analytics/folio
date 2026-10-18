@@ -383,15 +383,9 @@ console.log(meta.totalRowCount);
 
 // Batch create
 const newActivities = await ctx.api.activities.saveMany([
-  {
-    /* activity 1 */
-  },
-  {
-    /* activity 2 */
-  },
-  {
-    /* activity 3 */
-  },
+  {/* activity 1 */},
+  {/* activity 2 */},
+  {/* activity 3 */},
 ]);
 ```
 

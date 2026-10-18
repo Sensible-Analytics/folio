@@ -942,12 +942,7 @@ export interface BrokerSyncState {
  * Alternative asset kind for API requests (lowercase variants)
  */
 export type AlternativeAssetKindApi =
-  | "property"
-  | "vehicle"
-  | "collectible"
-  | "precious"
-  | "liability"
-  | "other";
+  "property" | "vehicle" | "collectible" | "precious" | "liability" | "other";
 
 /**
  * Request to create a new alternative asset (property, vehicle, collectible, etc.)
@@ -1195,12 +1190,7 @@ export interface PreciousMetalMetadata {
  */
 export interface LiabilityMetadata {
   liabilityType?:
-    | "mortgage"
-    | "auto_loan"
-    | "student_loan"
-    | "credit_card"
-    | "personal_loan"
-    | "heloc";
+    "mortgage" | "auto_loan" | "student_loan" | "credit_card" | "personal_loan" | "heloc";
   linkedAssetId?: string;
   originalAmount?: string;
   originationDate?: string;

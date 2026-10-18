@@ -31,8 +31,7 @@ export interface UseActivitySearchPaginatedOptions extends BaseOptions {
 }
 
 export type UseActivitySearchOptions =
-  | UseActivitySearchInfiniteOptions
-  | UseActivitySearchPaginatedOptions;
+  UseActivitySearchInfiniteOptions | UseActivitySearchPaginatedOptions;
 
 // Result type for infinite mode (load more)
 export interface UseActivitySearchInfiniteResult {
@@ -59,8 +58,7 @@ export interface UseActivitySearchPaginatedResult {
 }
 
 export type UseActivitySearchResult =
-  | UseActivitySearchInfiniteResult
-  | UseActivitySearchPaginatedResult;
+  UseActivitySearchInfiniteResult | UseActivitySearchPaginatedResult;
 
 const DEFAULT_SORT = { id: "date", desc: true };
 const DEFAULT_PAGE_SIZE = 50;
