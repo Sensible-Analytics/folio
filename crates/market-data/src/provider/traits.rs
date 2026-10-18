@@ -48,6 +48,7 @@ use super::capabilities::{ProviderCapabilities, RateLimit};
 ///     // ... implement quote methods
 /// }
 /// ```
+#[allow(clippy::double_must_use)]
 #[async_trait]
 pub trait MarketDataProvider: Send + Sync {
     /// Unique identifier for this provider.

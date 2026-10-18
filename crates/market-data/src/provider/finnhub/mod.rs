@@ -430,7 +430,7 @@ impl FinnhubProvider {
         }
 
         // Sort by timestamp ascending
-        quotes.sort_by(|a, b| a.timestamp.cmp(&b.timestamp));
+        quotes.sort_by_key(|a| a.timestamp);
 
         debug!(
             "Finnhub: fetched {} historical quotes for {} ({} to {})",

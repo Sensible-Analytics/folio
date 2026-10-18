@@ -14,7 +14,7 @@ import {
 
 import { cn } from "@/lib/utils";
 import {
-  useAssistantState,
+  useAuiState,
   useMessagePartReasoning,
   type ReasoningGroupComponent,
   type ReasoningMessagePartComponent,
@@ -32,7 +32,7 @@ const Shimmer = memo(({ children, duration = 2 }: { children: string; duration?:
       animate={{ backgroundPosition: "0% center" }}
       initial={{ backgroundPosition: "100% center" }}
       transition={{ duration, ease: "linear", repeat: Infinity }}
-      className="relative inline-block bg-[length:250%_100%,auto] bg-clip-text text-transparent [background-repeat:no-repeat,padding-box]"
+      className="relative inline-block bg-[length:250%_100%,auto] bg-clip-text [background-repeat:no-repeat,padding-box] text-transparent"
       style={
         {
           "--spread": `${spread}px`,
@@ -65,7 +65,7 @@ const ReasoningGroupImpl: ReasoningGroupComponent = ({ children, startIndex, end
   const [duration, setDuration] = useState<number | undefined>(undefined);
   const startTimeRef = useRef<number | null>(null);
 
-  const isStreaming = useAssistantState(({ message }) => {
+  const isStreaming = useAuiState(({ message }) => {
     if (message.status?.type !== "running") return false;
     const lastIndex = message.parts.length - 1;
     if (lastIndex < 0) return false;
