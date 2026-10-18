@@ -29,7 +29,7 @@ export function ConnectNavItem({ collapsed }: ConnectNavItemProps) {
           variant={isActive ? "secondary" : "ghost"}
           asChild
           className={cn(
-            "text-foreground [&_svg]:size-5! mb-1 h-12 rounded-md transition-all duration-300",
+            "text-foreground mb-1 h-12 rounded-md transition-all duration-300 [&_svg]:size-5!",
             collapsed ? "justify-center" : "justify-start",
           )}
         >

@@ -437,8 +437,7 @@ export interface ImportValidationResult {
 }
 
 export type ValidationResult =
-  | { status: 'success' }
-  | { status: 'error'; errors: string[] };
+  { status: 'success' } | { status: 'error'; errors: string[] };
 
 // Holding types
 export interface Instrument {
@@ -825,11 +824,7 @@ export interface TrackedItem {
 export type ImportRunType = 'SYNC' | 'IMPORT';
 export type ImportRunMode = 'INITIAL' | 'INCREMENTAL' | 'BACKFILL' | 'REPAIR';
 export type ImportRunStatus =
-  | 'RUNNING'
-  | 'APPLIED'
-  | 'NEEDS_REVIEW'
-  | 'FAILED'
-  | 'CANCELLED';
+  'RUNNING' | 'APPLIED' | 'NEEDS_REVIEW' | 'FAILED' | 'CANCELLED';
 export type ReviewMode = 'NEVER' | 'ALWAYS' | 'IF_WARNINGS';
 
 export interface ImportRunSummary {

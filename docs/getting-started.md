@@ -244,6 +244,8 @@ your devices — no third-party server can read your data.
 
 ## Next Steps
 
+- Read the [user manual](./user-manual.md) for the full feature list and
+  step-by-step guides to managing your finances.
 - Add your first account and record a few activities manually to get a feel for
   the flow.
 - Review the [activity types reference](./activities/activity-types.md) before

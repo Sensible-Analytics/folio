@@ -17,9 +17,7 @@ application's QueryClient:
 
 ```tsx
 // Each addon had its own QueryClient
-const queryClient = new QueryClient({
-  /* config */
-});
+const queryClient = new QueryClient({/* config */});
 ```
 
 **After:**
@@ -35,12 +33,7 @@ The main app exposes its QueryClient globally:
 
 ```tsx
 // In App.tsx
-const [queryClient] = useState(
-  () =>
-    new QueryClient({
-      /* config */
-    }),
-);
+const [queryClient] = useState(() => new QueryClient({/* config */}));
 (window as any).__sensible_folio_query_client__ = queryClient;
 ```
 

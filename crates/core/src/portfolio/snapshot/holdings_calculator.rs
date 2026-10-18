@@ -348,7 +348,7 @@ impl HoldingsCalculator {
             Err(e) => {
                 warn!(
                     "Holdings Calc (NetContrib Deposit {}): Failed conversion {} {}->{} on {}: {}. Base contribution not updated.",
-                    activity.id, activity_amount, activity_currency, &base_ccy, activity_date, e
+                    activity.id, activity_amount, activity_currency, base_ccy, activity_date, e
                 );
                 Decimal::ZERO
             }
@@ -396,7 +396,7 @@ impl HoldingsCalculator {
             Err(e) => {
                 warn!(
                     "Holdings Calc (NetContrib Withdrawal {}): Failed conversion {} {}->{} on {}: {}. Base contribution not updated.",
-                    activity.id, activity_amount, activity_currency, &base_ccy, activity_date, e
+                    activity.id, activity_amount, activity_currency, base_ccy, activity_date, e
                 );
                 Decimal::ZERO
             }
@@ -456,7 +456,7 @@ impl HoldingsCalculator {
                 Err(e) => {
                     warn!(
                         "Holdings Calc (NetContrib Credit Bonus {}): Failed conversion {} {}->{} on {}: {}. Base contribution not updated.",
-                        activity.id, activity_amount, activity_currency, &base_ccy, activity_date, e
+                        activity.id, activity_amount, activity_currency, base_ccy, activity_date, e
                     );
                     Decimal::ZERO
                 }
@@ -999,7 +999,7 @@ impl HoldingsCalculator {
                     Err(e) => {
                         warn!(
                             "Failed to convert cash {} {} to base currency {}: {}. Using unconverted.",
-                            amount, currency, &base_ccy, e
+                            amount, currency, base_ccy, e
                         );
                         total_base += amount;
                     }

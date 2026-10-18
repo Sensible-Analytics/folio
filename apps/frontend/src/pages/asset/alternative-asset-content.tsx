@@ -451,8 +451,7 @@ const AlternativeAssetDetailCard: React.FC<AlternativeAssetDetailCardProps> = ({
     const currentBalance = Math.abs(parseFloat(holding.marketValue));
     // Check both new field (original_amount) and legacy field (purchase_price) for backwards compatibility
     const origAmountStr = (metadata.original_amount ?? metadata.purchase_price) as
-      | string
-      | undefined;
+      string | undefined;
     const originalAmount = origAmountStr ? parseFloat(origAmountStr) : null;
 
     if (!originalAmount || originalAmount <= 0) {
@@ -695,8 +694,7 @@ function getDetailRows(
 
       // Original amount (check both new and legacy field names)
       const originalAmount = (metadata.original_amount ?? metadata.purchase_price) as
-        | string
-        | undefined;
+        string | undefined;
       if (originalAmount) {
         rows.push({
           label: "Original Amount",
@@ -720,8 +718,7 @@ function getDetailRows(
 
       // Origination date (check both new and legacy field names)
       const originationDate = (metadata.origination_date ?? metadata.purchase_date) as
-        | string
-        | undefined;
+        string | undefined;
       if (originationDate) {
         rows.push({
           label: "Origination Date",

@@ -32,7 +32,7 @@ jobs:
             ".ai-notes"
             ".agent"
           )
-          
+
           for pattern in "${BLOCKED_FILES[@]}"; do
             if find . -name "$pattern" -type f 2>/dev/null | grep -q .; then
               echo "❌ Found blocked file: $pattern"
@@ -53,7 +53,7 @@ jobs:
             "openhands"
             "opencode"
           )
-          
+
           for pattern in "${SENSITIVE_PATTERNS[@]}"; do
             if grep -r "$pattern" . --include="*.ts" --include="*.js" --include="*.py" --include="*.md" 2>/dev/null | grep -v "node_modules" | grep -v ".git" | grep -q .; then
               echo "⚠️ Found reference: $pattern"

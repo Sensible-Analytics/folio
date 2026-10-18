@@ -138,9 +138,7 @@ async function loadAddon(addonFile: AddonFile, _context: AddonContext): Promise<
       default?: unknown;
     };
     const defaultObj = asRecord.default as
-      | ((ctx: AddonContext) => unknown)
-      | { enable?: (ctx: AddonContext) => unknown }
-      | undefined;
+      ((ctx: AddonContext) => unknown) | { enable?: (ctx: AddonContext) => unknown } | undefined;
     const enableFunction: EnableFn =
       (typeof defaultObj === "function" ? defaultObj : null) ??
       (defaultObj &&

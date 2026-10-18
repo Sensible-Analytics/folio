@@ -251,8 +251,7 @@ function normalizeResult(result: unknown, fallbackCurrency: string): RecordActiv
 
   // Normalize resolved asset
   const assetRaw = (candidate.resolvedAsset ?? candidate.resolved_asset) as
-    | Record<string, unknown>
-    | undefined;
+    Record<string, unknown> | undefined;
   const resolvedAsset: ResolvedAsset | undefined = assetRaw
     ? {
         assetId: (assetRaw.assetId as string) ?? (assetRaw.asset_id as string) ?? "",

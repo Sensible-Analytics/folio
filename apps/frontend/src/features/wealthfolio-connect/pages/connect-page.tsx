@@ -656,7 +656,7 @@ function SyncHistoryItem({
           needsAttention || isFailed ? "bg-yellow-500" : "bg-green-500"
         }`}
       />
-      <span className="text-muted-foreground shrink-0 whitespace-nowrap text-xs sm:min-w-[80px] sm:text-sm">
+      <span className="text-muted-foreground shrink-0 text-xs whitespace-nowrap sm:min-w-[80px] sm:text-sm">
         {timeAgo} ago
       </span>
       {accountName && (
