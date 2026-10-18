@@ -27,7 +27,7 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@tanstack/react-query": "^5.99.0",
+    "@tanstack/react-query": "^5.103.2",
     "@sensible-folio/addon-sdk": "workspace:*",
     "@sensible-folio/ui": "workspace:*"
   },
@@ -36,16 +36,16 @@
     "react-dom": "^19.2.4"
   },
   "devDependencies": {
-    "@tailwindcss/vite": "^4.1.18",
+    "@tailwindcss/vite": "^4.3.3",
     "@types/node": "^20.19.33",
-    "@types/react": "^19.2.13",
-    "@types/react-dom": "^19.2.3",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
     "@vitejs/plugin-react": "^4.3.4",
     "@sensible-folio/addon-dev-tools": "workspace:*",
     "clsx": "^2.1.1",
     "rollup-plugin-external-globals": "^0.13.0",
-    "tailwind-merge": "^3.4.0",
-    "tailwindcss": "^4.1.18",
+    "tailwind-merge": "^3.7.0",
+    "tailwindcss": "^4.3.3",
     "typescript": "^5.9.3",
     "vite": "^7.3.1"
   },
